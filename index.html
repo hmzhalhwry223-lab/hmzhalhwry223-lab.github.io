@@ -2,280 +2,549 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PiTrust - Pi Testnet App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PiTrust | منصة الوثوقية والتجارة الذكية</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #140f26;
-      --card: #21193d;
-      --card-2: #2a204d;
-      --border: #3c2e6b;
-      --accent: #7c3aed;
-      --accent-hover: #6d28d9;
-      --text: #ffffff;
-      --muted: #d8b4fe;
-      --success: #86efac;
-      --warn: #fde047;
+      --bg-dark: #070913;
+      --bg-card: rgba(18, 24, 43, 0.78);
+      --bg-card-solid: #12182b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(245, 185, 66, 0.35);
+      --gold: #f5b942;
+      --gold-light: #fde08d;
+      --purple: #7c3aed;
+      --purple-glow: rgba(124, 58, 237, 0.35);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --green: #10b981;
+      --green-bg: rgba(16, 185, 129, 0.14);
     }
-    * { box-sizing: border-box; }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-    .container {
-      max-width: 720px;
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.18), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(245, 185, 66, 0.12), transparent 35%),
+        radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.08), transparent 45%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 90px;
+      line-height: 1.6;
+    }
+
+    /* الشريط العلوي */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 9, 19, 0.82);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 18px;
+    }
+
+    .nav-inner {
+      max-width: 780px;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
-    .header-card, .section-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 18px;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    h1, h2, h3, p { margin-top: 0; }
-    .sub { color: var(--muted); font-size: 14px; line-height: 1.6; }
-    button {
-      background: var(--accent);
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #070913;
+      box-shadow: 0 4px 15px rgba(245, 185, 66, 0.3);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      background: linear-gradient(to left, #fff, var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      color: var(--gold);
+      background: rgba(245, 185, 66, 0.12);
+      border: 1px solid var(--border-gold);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .auth-btn {
+      background: linear-gradient(135deg, #7c3aed, #5b21b6);
       color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px var(--purple-glow);
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
-    button:hover { background: var(--accent-hover); }
-    button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .auth-btn:active { transform: scale(0.97); }
+    .auth-btn.connected {
+      background: var(--green-bg);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+      box-shadow: none;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 18px 16px;
+    }
+
+    /* بطاقة الترحيب الفخمة */
+    .hero {
+      background: linear-gradient(145deg, rgba(24, 31, 56, 0.9), rgba(13, 17, 33, 0.95));
+      border: 1px solid var(--border-gold);
+      border-radius: 22px;
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(245, 185, 66, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .hero p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* شريط البحث */
+    .search-box {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 16px;
+      color: #fff;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--gold);
+    }
+
+    /* التبويبات */
     .tabs {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
+      overflow-x: auto;
+      padding-bottom: 6px;
       margin-bottom: 16px;
+      scrollbar-width: none;
     }
-    .tab-btn {
-      background: var(--card-2);
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      background: var(--bg-card);
       border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
     }
-    .tab-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
+
+    .tab.active {
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #070913;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(245, 185, 66, 0.25);
     }
+
+    /* شبكة البطاقات */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 14px;
     }
-    .item {
-      background: var(--card-2);
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
+      border-radius: 18px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
-    .badge {
-      display: inline-block;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(124, 58, 237, 0.22);
-      padding: 4px 8px;
-      border-radius: 8px;
-      margin-bottom: 6px;
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-gold);
     }
-    .price {
-      color: var(--success);
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .cat-pill {
+      font-size: 11px;
       font-weight: 700;
-      font-size: 15px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(124, 58, 237, 0.2);
+      color: #c4b5fd;
     }
-    #status, #txLog {
-      margin-top: 12px;
+
+    .verified-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--green-bg);
+      color: #6ee7b7;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .card-desc {
       font-size: 13px;
-      line-height: 1.6;
-      color: var(--muted);
-      word-break: break-word;
+      color: var(--text-muted);
+      margin-bottom: 14px;
     }
-    .legal-links {
-      margin-top: 14px;
+
+    .trust-meter {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .trust-score {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       padding-top: 12px;
       border-top: 1px solid var(--border);
-      font-size: 13px;
     }
-    .legal-links a {
-      color: var(--muted);
-      margin-left: 14px;
-      text-decoration: underline;
+
+    .price-tag {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+
+    .price-tag span {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .btn-details {
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-details:hover {
+      background: rgba(245, 185, 66, 0.16);
+      border-color: var(--border-gold);
+      color: var(--gold-light);
+    }
+
+    /* التذييل والروابط القانونية */
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      padding: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 8px;
+    }
+
+    .footer-links a {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* نافذة التفاصيل المنبثقة (Modal) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 5, 12, 0.82);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border-gold);
+      border-radius: 22px;
+      width: 100%;
+      max-width: 520px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      animation: slideUp 0.22s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(25px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .close-btn {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .info-list {
+      list-style: none;
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .info-list li {
+      background: rgba(255,255,255,0.03);
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .btn-primary-full {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #070913;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header-card">
-      <h1>PiTrust</h1>
-      <p class="sub">منصة وثوقية للمنتجات والمتاجر والخدمات على شبكة الاختبار (Pi Testnet).</p>
-      <button id="loginBtn" onclick="connectPi()">تسجيل الدخول عبر Pi</button>
-      <div id="status">جاهز للاتصال بـ Pi SDK...</div>
-    </div>
 
-    <div class="section-card">
-      <div class="tabs">
-        <button class="tab-btn active" id="tab-all" onclick="switchTab('all')">الكل</button>
-        <button class="tab-btn" id="tab-products" onclick="switchTab('products')">المنتجات</button>
-        <button class="tab-btn" id="tab-stores" onclick="switchTab('stores')">المتاجر</button>
-        <button class="tab-btn" id="tab-services" onclick="switchTab('services')">الخدمات</button>
-      </div>
-
-      <div id="itemsGrid" class="grid"></div>
-      <div id="txLog">سجل الدفع التجريبي: لم تتم أي عملية بعد.</div>
-
-      <div class="legal-links">
-        <a href="#privacy" onclick="showLegal('privacy')">سياسة الخصوصية (Privacy)</a>
-        <a href="#tos" onclick="showLegal('tos')">شروط الاستخدام (TOS)</a>
-      </div>
-      <div id="legalBox" class="sub" style="margin-top:10px;"></div>
-    </div>
-  </div>
-
-  <script>
-    const Pi = window.Pi;
-    Pi.init({ version: "2.0", sandbox: true });
-
-    let currentUser = null;
-    let currentTab = "all";
-
-    const listings = [
-      {
-        id: "prod-1",
-        type: "products",
-        typeLabel: "منتج موثوق",
-        title: "حقيبة سفر ذكية",
-        meta: "متجر الثقة الرقمي • تقييم 4.9★",
-        amount: 0.01,
-        memo: "PiTrust Testnet Order: Smart Travel Bag"
-      },
-      {
-        id: "store-1",
-        type: "stores",
-        typeLabel: "متجر معتمد",
-        title: "متجر واحة التقنية",
-        meta: "إكسسوارات وأدوات رقمية • موثّق",
-        amount: 0.02,
-        memo: "PiTrust Testnet Store Verification: Tech Oasis"
-      },
-      {
-        id: "srv-1",
-        type: "services",
-        typeLabel: "خدمة",
-        title: "تدقيق ومراجعة متجر Pi",
-        meta: "فحص جاهزية الربط والواجهة للتجربة",
-        amount: 0.01,
-        memo: "PiTrust Testnet Service: Store Readiness Review"
-      }
-    ];
-
-    function onIncompletePaymentFound(payment) {
-      document.getElementById("txLog").textContent =
-        "تم رصد معاملة سابقة غير مكتملة (ID: " + payment.identifier + ").";
-    }
-
-    async function connectPi() {
-      const statusEl = document.getElementById("status");
-      statusEl.textContent = "جاري الاتصال بحساب Pi...";
-      try {
-        const scopes = ["username", "payments"];
-        const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
-        currentUser = auth.user;
-        statusEl.textContent = "تم تسجيل الدخول بنجاح: @" + auth.user.username;
-        renderItems();
-      } catch (err) {
-        statusEl.textContent = "تعذر الاتصال: " + (err && err.message ? err.message : err);
-      }
-    }
-
-    function switchTab(tab) {
-      currentTab = tab;
-      ["all", "products", "stores", "services"].forEach(t => {
-        document.getElementById("tab-" + t).classList.toggle("active", t === tab);
-      });
-      renderItems();
-    }
-
-    function renderItems() {
-      const grid = document.getElementById("itemsGrid");
-      const filtered = currentTab === "all"
-        ? listings
-        : listings.filter(x => x.type === currentTab);
-
-      grid.innerHTML = filtered.map(item => `
-        <div class="item">
-          <div>
-            <span class="badge">${item.typeLabel}</span>
-            <h3>${item.title}</h3>
-            <p class="sub">${item.meta}</p>
-          </div>
-          <div>
-            <div class="price">${item.amount} Test-Pi</div>
-            <button onclick="payTestnet('${item.id}')">دفع تجريبي بـ Pi</button>
-          </div>
+  <!-- الشريط العلوي -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">π</div>
+        <div>
+          <div class="brand-title">PiTrust</div>
+          <span class="brand-badge">Testnet Verified</span>
         </div>
-      `).join("");
-    }
+      </div>
+      <button id="authBtn" class="auth-btn" onclick="connectPi()">
+        <span>ربط حساب Pi</span>
+      </button>
+    </div>
+  </header>
 
-    async function payTestnet(itemId) {
-      const txLog = document.getElementById("txLog");
-      const item = listings.find(x => x.id === itemId);
-      if (!item) return;
+  <main class="container">
+    <!-- بطاقة الترحيب -->
+    <section class="hero">
+      <div class="hero-tag">✦ دليل الثقة المعتمد في مجتمع Pi</div>
+      <h1>اكتشف المتاجر والخدمات الموثوقة بأمان</h1>
+      <p>منصة للتحقق من موثوقية البائعين والمنتجات الرقمية والخدمات داخل منظومة Pi Network.</p>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num">+120</div>
+          <div class="stat-label">متجر موثّق</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">99.4%</div>
+          <div class="stat-label">نسبة الأمان</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4.9 ★</div>
+          <div class="stat-label">تقييم الرواد</div>
+        </div>
+      </div>
+    </section>
 
-      if (!currentUser) {
-        txLog.textContent = "سجّل الدخول عبر Pi أولاً داخل Pi Browser لتجربة الدفع.";
-        return;
-      }
+    <!-- البحث -->
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="ابحث عن متجر، منتج، أو خدمة..."
+        oninput="renderCards()"
+      />
+    </div>
 
-      txLog.textContent = "جاري فتح نافذة الدفع التجريبي لـ: " + item.title + "...";
-
-      try {
-        await Pi.createPayment(
-          {
-            amount: item.amount,
-            memo: item.memo,
-            metadata: { itemId: item.id, username: currentUser.username, app: "PiTrust" }
-          },
-          {
-            onReadyForServerApproval: function(paymentId) {
-              txLog.textContent = "تم إنشاء الطلب (ID: " + paymentId + ") بانتظار موافقة الخادم/الاختبار.";
-            },
-            onReadyForServerCompletion: function(paymentId, txid) {
-              txLog.textContent = "اكتمل الدفع التجريبي! Payment ID: " + paymentId + " | TXID: " + txid;
-            },
-            onCancel: function(paymentId) {
-              txLog.textContent = "تم إلغاء عملية الدفع (ID: " + paymentId + ").";
-            },
-            onError: function(error, payment) {
-              txLog.textContent = "حدث خطأ أثناء الدفع: " + (error && error.message ? error.message : error);
-            }
-          }
-        );
-      } catch (err) {
-        txLog.textContent = "تعذر بدء الدفع: " + (err && err.message ? err.message : err);
-      }
-    }
-
-    function showLegal(type) {
-      const box = document.getElementById("legalBox");
-      if (type === "privacy") {
-        box.innerHTML = "<strong>سياسة الخصوصية (PiTrust):</strong> نستخدم اسم المستخدم العام في شبكة Pi فقط لإظهار جلستك داخل التطبيق التجريبي ولا نطلب كلمات مرور أو عبارات سرية لمحفظتك.";
-      } else {
-        box.innerHTML = "<strong>شروط الاستخدام (PiTrust):</strong> يعمل التطبيق حالياً على شبكة الاختبار (Pi Testnet) لأغراض العرض والتجربة، والعمليات التجريبية لا تمثل تحويلات مالية نهائية على الشبكة الرئيسية.";
-      }
-    }
-
-    renderItems();
-  </script>
-</body>
-</html>
+    <!-- التبويبات -->
+    <div class="tabs">
+      <button class="tab active" id="tab-all" onclick="set
