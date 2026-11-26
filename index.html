@@ -51,13 +51,13 @@
       z-index: 50;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(7, 9, 19, 0.85);
+      background: rgba(7, 9, 19, 0.88);
       border-bottom: 1px solid var(--border);
       padding: 13px 18px;
     }
 
     .nav-inner {
-      max-width: 860px;
+      max-width: 920px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -124,7 +124,7 @@
     }
 
     .container {
-      max-width: 860px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 18px 16px;
     }
@@ -220,7 +220,7 @@
       gap: 8px;
       overflow-x: auto;
       padding-bottom: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       scrollbar-width: none;
     }
     .tabs::-webkit-scrollbar { display: none; }
@@ -243,6 +243,15 @@
       color: #070913;
       border-color: transparent;
       box-shadow: 0 4px 12px rgba(245, 185, 66, 0.25);
+    }
+
+    .results-bar {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .grid {
@@ -270,14 +279,15 @@
 
     .card-img-wrap {
       position: relative;
-      height: 145px;
+      height: 175px;
       background: #0d1222;
       overflow: hidden;
     }
 
-    .card-img-wrap svg {
+    .card-img-wrap img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
       display: block;
     }
 
@@ -297,9 +307,9 @@
       font-weight: 700;
       padding: 4px 9px;
       border-radius: 8px;
-      background: rgba(7, 9, 19, 0.78);
+      background: rgba(7, 9, 19, 0.84);
       color: var(--gold-light);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
     }
 
     .verified-pill {
@@ -307,7 +317,7 @@
       font-weight: 700;
       padding: 4px 9px;
       border-radius: 8px;
-      background: rgba(16, 185, 129, 0.88);
+      background: rgba(16, 185, 129, 0.92);
       color: #042f2e;
     }
 
@@ -517,11 +527,11 @@
     <section class="hero">
       <div class="hero-tag">✦ دليل الثقة والتجارة في مجتمع Pi</div>
       <h1>اكتشف المتاجر والمنتجات والخدمات الموثوقة</h1>
-      <p>منصة للتحقق من موثوقية البائعين والمنتجات الرقمية والخدمات داخل منظومة Pi Testnet.</p>
+      <p>أكثر من 50 منتجاً ومتجراً وخدمة مفحوصة ومعتمدة للتصفح والتجربة على شبكة Pi Testnet.</p>
       <div class="stats-row">
         <div class="stat-box">
-          <div class="stat-num">+120</div>
-          <div class="stat-label">متجر موثّق</div>
+          <div class="stat-num">50+</div>
+          <div class="stat-label">منتج موثّق</div>
         </div>
         <div class="stat-box">
           <div class="stat-num">99.4%</div>
@@ -535,22 +545,27 @@
     </section>
 
     <div id="txStatus" class="tx-banner">
-      حالة الدفع: جاهز. اضغط "ربط حساب Pi" ثم اختر "دفع بـ Pi" على أي عنصر.
+      حالة الدفع: جاهز. اضغط "ربط حساب Pi" ثم اختر "دفع بـ Pi" على أي منتج.
     </div>
 
     <input
       type="text"
       id="searchInput"
       class="search-input"
-      placeholder="ابحث عن متجر، منتج، أو خدمة..."
+      placeholder="ابحث بين 50 منتجاً ومتجراً وخدمة..."
       oninput="renderCards()"
     />
 
     <div class="tabs">
-      <button class="tab active" id="tab-all" onclick="setTab('all')">الكل</button>
-      <button class="tab" id="tab-products" onclick="setTab('products')">المنتجات</button>
-      <button class="tab" id="tab-stores" onclick="setTab('stores')">المتاجر المعتمدة</button>
-      <button class="tab" id="tab-services" onclick="setTab('services')">الخدمات</button>
+      <button class="tab active" id="tab-all" onclick="setTab('all')">الكل (55)</button>
+      <button class="tab" id="tab-products" onclick="setTab('products')">المنتجات (50)</button>
+      <button class="tab" id="tab-stores" onclick="setTab('stores')">المتاجر المعتمدة (3)</button>
+      <button class="tab" id="tab-services" onclick="setTab('services')">الخدمات (2)</button>
+    </div>
+
+    <div class="results-bar">
+      <span id="resultsCount">جاري التحميل...</span>
+      <span>جميع الصور والبطاقات معتمدة</span>
     </div>
 
     <section id="cardsGrid" class="grid"></section>
@@ -584,78 +599,64 @@
     let currentUser = null;
     let activeTab = "all";
 
-    function makeArt(bg1, bg2, accent, iconPath) {
-      return `
-        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="g_${bg1.replace('#','')}" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${bg1}"/>
-              <stop offset="100%" stop-color="${bg2}"/>
-            </linearGradient>
-          </defs>
-          <rect width="400" height="200" fill="url(#g_${bg1.replace('#','')})"/>
-          <circle cx="330" cy="40" r="70" fill="${accent}" opacity="0.14"/>
-          <circle cx="70" cy="175" r="85" fill="${accent}" opacity="0.1"/>
-          <g transform="translate(160, 58)" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-            ${iconPath}
-          </g>
-        </svg>
-      `;
-    }
+    const products50 = [
+      { title: "ساعة ذكية رياضية Ultra Pro", desc: "مقاومة للماء مع قياس نبضات القلب وبطارية 14 يوماً.", amount: 0.02, owner: "@TechWatch_Jo", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=80" },
+      { title: "سماعات رأس لاسلكية Studio ANC", desc: "عزل ضوضاء نشط وصوت محيطي عالي النقاء.", amount: 0.015, owner: "@SoundCraftPi", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة ظهر ذكية مقاومة للمطر", desc: "منفذ شحن USB مدمج وجيب مبطن للحاسوب المحمول.", amount: 0.03, owner: "@VoyagePi", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80" },
+      { title: "كاميرا فورية كلاسيكية", desc: "تصوير عالي الوضوح مع طباعة فورية وعدسة دقيقة.", amount: 0.025, owner: "@LensMasterPi", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=700&q=80" },
+      { title: "حذاء رياضي للجري الخفيف", desc: "نعل مريح ممتص للصدمات وتصميم عصري للتمارين.", amount: 0.02, owner: "@StepFitPi", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" },
+      { title: "عطر عود ملكي فاخر 100 مل", desc: "مزيج شرقي دافئ من العود والعنبر بثبات طويل.", amount: 0.03, owner: "@RoyalScent", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" },
+      { title: "لوحة مفاتيح ميكانيكية RGB", desc: "مفاتيح سريعة الاستجابة وإضاءة خلفية قابلة للتخصيص.", amount: 0.02, owner: "@KeyGearPi", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=700&q=80" },
+      { title: "فأرة ألعاب لاسلكية احترافية", desc: "مستشعر بصري فائق الدقة وتصميم مريح لليد.", amount: 0.015, owner: "@ProClickPi", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=700&q=80" },
+      { title: "حاسوب محمول نحيف للأعمال", desc: "شاشة عالية الدقة وأداء سريع للمهام اليومية.", amount: 0.05, owner: "@EliteLaptopPi", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80" },
+      { title: "هاتف ذكي بشاشة OLED كاملة", desc: "كاميرا ثلاثية احترافية وشحن فائق السرعة.", amount: 0.045, owner: "@MobileHubPi", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" },
 
-    const itemsData = [
-      {
-        id: "pr-1",
-        category: "products",
-        catName: "منتج موثوق",
-        title: "ساعة ذكية رياضية Pro",
-        desc: "مقاومة للماء مع تتبع صحي وشحن سريع.",
-        trust: "99%",
-        rating: "4.9 ★",
-        amount: 0.02,
-        owner: "@TechWatch_Jo",
-        status: "فحص جودة مكتمل",
-        art: makeArt("#17203f", "#0b1021", "#f5b942", `<circle cx="40" cy="42" r="26"/><path d="M28 16 L32 4 L48 4 L52 16 M28 68 L32 80 L48 80 L52 68"/><path d="M40 28 V42 L50 48"/>`)
-      },
-      {
-        id: "pr-2",
-        category: "products",
-        catName: "منتج موثوق",
-        title: "سماعات صوت لاسلكية Studio",
-        desc: "عزل ضوضاء وصوت نقي مع علبة شحن ذكية.",
-        trust: "98%",
-        rating: "4.8 ★",
-        amount: 0.015,
-        owner: "@SoundCraftPi",
-        status: "منتج مفحوص",
-        art: makeArt("#231942", "#110d24", "#c084fc", `<path d="M16 52 V40 A24 24 0 0 1 64 40 V52"/><rect x="8" y="46" width="12" height="22" rx="5"/><rect x="60" y="46" width="12" height="22" rx="5"/>`)
-      },
-      {
-        id: "pr-3",
-        category: "products",
-        catName: "منتج موثوق",
-        title: "حقيبة سفر ذكية مقاومة للمطر",
-        desc: "تصميم عملي مع جيب مخصص للأجهزة المحمولة.",
-        trust: "97%",
-        rating: "4.9 ★",
-        amount: 0.03,
-        owner: "@VoyagePi",
-        status: "مخزون موثّق",
-        art: makeArt("#132a36", "#09151c", "#34d399", `<rect x="18" y="24" width="44" height="50" rx="10"/><path d="M28 24 V16 A12 12 0 0 1 52 16 V24"/><line x1="18" y1="44" x2="62" y2="44"/>`)
-      },
-      {
-        id: "pr-4",
-        category: "products",
-        catName: "منتج موثوق",
-        title: "كاميرا مراقبة منزلية ذكية",
-        desc: "رؤية ليلية واضحة وتنبيهات فورية على الهاتف.",
-        trust: "98%",
-        rating: "4.7 ★",
-        amount: 0.025,
-        owner: "@SafeHomePi",
-        status: "معتمد للتجربة",
-        art: makeArt("#2b1c14", "#140d09", "#fbbf24", `<rect x="14" y="24" width="52" height="36" rx="8"/><circle cx="40" cy="42" r="10"/><path d="M40 60 V74 M26 74 H54"/>`)
-      },
+      { title: "نظارة شمسية مستقطبة Polarized", desc: "حماية كاملة من الأشعة فوق البنفسجية بإطار معدني.", amount: 0.01, owner: "@SunStylePi", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=700&q=80" },
+      { title: "آلة تحضير قهوة الإسبريسو", desc: "ضغط احترافي لاستخلاص قهوة غنية الرغوة في المنزل.", amount: 0.04, owner: "@RoastPi", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=700&q=80" },
+      { title: "مكبر صوت بلوتوث محمول 360", desc: "صوت جهوري قوي ومقاوم لرذاذ الماء للرحلات.", amount: 0.02, owner: "@BoomBoxPi", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80" },
+      { title: "ساعة يد كلاسيكية بسوار جلدي", desc: "تصميم أنيق مقاوم للخدش مناسب للمناسبات الرسمية.", amount: 0.025, owner: "@ClassicTimePi", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" },
+      { title: "سماعات أذن لاسلكية Pods Pro", desc: "علبة شحن مغناطيسية ومايكروفون عازل للضجيج.", amount: 0.018, owner: "@AudioNestPi", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=700&q=80" },
+      { title: "شاحن متنقل PowerBank 20000mAh", desc: "شحن سريع PD لثلاثة أجهزة في وقت واحد.", amount: 0.015, owner: "@ChargeUpPi", img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=700&q=80" },
+      { title: "كاميرا احترافية Mirrorless 4K", desc: "مستشعر عالي الحساسية لتصوير الفيديو والصور.", amount: 0.05, owner: "@CinemaGearPi", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80" },
+      { title: "طائرة تصوير درون GPS ذكية", desc: "تثبيت بصري وعودة تلقائية لنقطة الإقلاع.", amount: 0.045, owner: "@SkyViewPi", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=700&q=80" },
+      { title: "مصباح مكتب ذكي LED قابل للطي", desc: "تحكم بدرجة الإضاءة لحماية العين أثناء الدراسة.", amount: 0.012, owner: "@BrightDeskPi", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80" },
+      { title: "كرسي ألعاب ومكاتب مريح", desc: "دعم كامل للظهر والرقبة مع مساند قابلة للتعديل.", amount: 0.04, owner: "@ComfortSeatPi", img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=700&q=80" },
+
+      { title: "جهاز لوحي للرسم والملاحظات", desc: "شاشة عالية الاستجابة مع قلم رقمي دقيق.", amount: 0.035, owner: "@TabZonePi", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=700&q=80" },
+      { title: "ذراع تحكم ألعاب لاسلكية", desc: "اهتزاز تفاعلي وبطارية تدوم 20 ساعة لعب.", amount: 0.018, owner: "@GamePadPi", img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة يد جلدية فاخرة", desc: "جلد طبيعي متين بتفاصيل معدنية ذهبية أنيقة.", amount: 0.028, owner: "@LuxeBagPi", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80" },
+      { title: "محفظة رجالية ذكية مانعة للسرقة", desc: "حماية RFID للبطاقات وتصميم نحيف للغاية.", amount: 0.01, owner: "@SmartWalletPi", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=700&q=80" },
+      { title: "جاكيت شتوي مقاوم للرياح", desc: "خفيف الوزن ودافئ بتبطين حراري مريح.", amount: 0.025, owner: "@UrbanWearPi", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80" },
+      { title: "قهوة عربية مختصة محمصة 500غ", desc: "حبوب أرابيكا فاخرة مع هيل طبيعي طازج.", amount: 0.012, owner: "@QahwaHousePi", img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=700&q=80" },
+      { title: "زيت زيتون بكر ممتاز عضوي", desc: "عصرة أولى على البارد من مزارع جبلية معتمدة.", amount: 0.015, owner: "@OliveGoldPi", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80" },
+      { title: "عسل سدر جبلي طبيعي 1 كغم", desc: "مفحوص مخبرياً وخالٍ من أي إضافات صناعية.", amount: 0.022, owner: "@PureHoneyPi", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجموعة عناية بالبشرة الطبيعية", desc: "سيروم مرطب وكريم ليلي بخلاصة الأعشاب.", amount: 0.02, owner: "@GlowCarePi", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=700&q=80" },
+      { title: "مبخرة إلكترونية ذكية محمولة", desc: "تسخين آمن وسريع للعود دون الحاجة للفحم.", amount: 0.016, owner: "@AromaTechPi", img: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=700&q=80" },
+
+      { title: "شاشة حاسوب منحنية 27 بوصة", desc: "معدل تحديث 165Hz وألوان دقيقة للألعاب والتصميم.", amount: 0.048, owner: "@VisionScreenPi", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=700&q=80" },
+      { title: "مايكروفون بودكاست احترافي USB", desc: "تسجيل صوت نقي بدون تشويش للبث والاجتماعات.", amount: 0.022, owner: "@VoiceLabPi", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" },
+      { title: "قرص تخزين خارجي SSD 1TB", desc: "نقل بيانات فائق السرعة ومقاوم للصدمات.", amount: 0.026, owner: "@DataVaultPi", img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=700&q=80" },
+      { title: "حامل هاتف مغناطيسي للسيارة", desc: "ثبات قوي على الطرق الوعرة مع دوران 360 درجة.", amount: 0.01, owner: "@AutoGearPi", img: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=700&q=80" },
+      { title: "كاميرا داش كام للسيارات Full HD", desc: "تسجيل مستمر أثناء القيادة ورؤية ليلية واضحة.", amount: 0.024, owner: "@RoadSafePi", img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80" },
+      { title: "مكنسة روبوت ذكية للمنزل", desc: "تخطيط ذكي للغرف وتنظيف تلقائي للأرضيات.", amount: 0.045, owner: "@SmartCleanPi", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=700&q=80" },
+      { title: "جهاز تنقية الهواء الذكي HEPA", desc: "يزيل الغبار والروائح مع مستشعر جودة الهواء.", amount: 0.032, owner: "@FreshAirPi", img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=700&q=80" },
+      { title: "مطحنة قهوة يدوية من الفولاذ", desc: "درجات طحن متعددة قابلة للضبط بدقة عالية.", amount: 0.014, owner: "@BaristaToolPi", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80" },
+      { title: "ترمس حافظ للحرارة ستانلس ستيل", desc: "يحفظ المشروبات ساخنة 12 ساعة وباردة 24 ساعة.", amount: 0.011, owner: "@ThermoGoPi", img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة تنظيم كابلات السفر", desc: "تقسيمات ذكية للشواحن والبطاريات والذاكرات.", amount: 0.01, owner: "@TidyPackPi", img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=700&q=80" },
+
+      { title: "سجادة يوغا وتمارين رياضية سميكة", desc: "سطح مانع للانزلاق وسهلة الحمل والتخزين.", amount: 0.013, owner: "@FitHomePi", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجموعة أوزان رياضية منزلية", desc: "قابلة للتعديل لتمارين القوة واللياقة البدنية.", amount: 0.028, owner: "@IronGymPi", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" },
+      { title: "دراجة هوائية جبلية خفيفة", desc: "إطار ألمنيوم متين مع 21 سرعة ومكابح قرصية.", amount: 0.05, owner: "@RideProPi", img: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=700&q=80" },
+      { title: "خيمة تخييم سريعة التركيب", desc: "تتسع لـ 3 أشخاص ومقاومة للرياح والأمطار.", amount: 0.032, owner: "@CampOutPi", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80" },
+      { title: "نبتة زينة داخلية مع أصيص سيراميك", desc: "تضفي لمسة طبيعية أنيقة للمكاتب والمنازل.", amount: 0.01, owner: "@GreenRoomPi", img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=80" },
+      { title: "دفتر ملاحظات جلدي فاخر A5", desc: "ورق سميك ناعم مناسب للكتابة والتخطيط اليومي.", amount: 0.01, owner: "@NoteCraftPi", img: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=700&q=80" },
+      { title: "قلم حبر معدني أنيق للهدايا", desc: "تصميم متوازن مع علبة تقديم فاخرة.", amount: 0.012, owner: "@PenMasterPi", img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=700&q=80" },
+      { title: "طقم شاي زجاجي مقاوم للحرارة", desc: "إبريق مع مصفاة ستانلس و4 أكواب مزدوجة الجدار.", amount: 0.019, owner: "@TeaArtPi", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80" },
+      { title: "خلاط عصائر محمول قابل للشحن", desc: "شفرات فولاذية قوية لتحضير العصائر الطازجة في ثوانٍ.", amount: 0.016, owner: "@FreshBlendPi", img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80" },
+      { title: "قفل باب ذكي بالبصمة والرمز", desc: "أمان متطور للمنازل والمكاتب مع سجل دخول.", amount: 0.038, owner: "@SmartLockPi", img: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=700&q=80" }
+    ];
+
+    const extraItems = [
       {
         id: "st-1",
         category: "stores",
@@ -667,7 +668,7 @@
         amount: 0.01,
         owner: "@EliteStorePi",
         status: "هوية ومحفظة موثّقة",
-        art: makeArt("#1b2244", "#0c1024", "#f5b942", `<path d="M12 32 L20 14 H60 L68 32 Z"/><path d="M16 32 V72 H64 V32"/><rect x="33" y="48" width="14" height="24"/>`)
+        img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: "st-2",
@@ -680,7 +681,7 @@
         amount: 0.02,
         owner: "@RoyalScent",
         status: "متجر موثّق",
-        art: makeArt("#2e162c", "#160a15", "#f472b6", `<rect x="24" y="32" width="32" height="42" rx="8"/><rect x="32" y="18" width="16" height="14" rx="3"/><line x1="40" y1="10" x2="40" y2="18"/>`)
+        img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: "st-3",
@@ -693,7 +694,7 @@
         amount: 0.01,
         owner: "@RoastPi",
         status: "متجر نشط",
-        art: makeArt("#2b1e16", "#140e0a", "#f59e0b", `<path d="M18 32 H54 V58 A14 14 0 0 1 40 72 H32 A14 14 0 0 1 18 58 Z"/><path d="M54 38 H62 A8 8 0 0 1 62 54 H54"/>`)
+        img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: "sv-1",
@@ -706,7 +707,7 @@
         amount: 0.02,
         owner: "@PiAuditLab",
         status: "مزود خدمة ذهبي",
-        art: makeArt("#112b29", "#081615", "#2dd4bf", `<circle cx="40" cy="42" r="24"/><path d="M29 42 L37 50 L52 34"/>`)
+        img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80"
       },
       {
         id: "sv-2",
@@ -719,8 +720,25 @@
         amount: 0.025,
         owner: "@BrandStudioPi",
         status: "خدمة موثّقة",
-        art: makeArt("#1e1b4b", "#0e0c26", "#818cf8", `<polygon points="40,14 66,64 14,64"/><circle cx="40" cy="47" r="7"/>`)
+        img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80"
       }
+    ];
+
+    const itemsData = [
+      ...products50.map((p, idx) => ({
+        id: "pr-" + (idx + 1),
+        category: "products",
+        catName: "منتج موثوق",
+        title: p.title,
+        desc: p.desc,
+        trust: (97 + (idx % 3)) + "%",
+        rating: (idx % 2 === 0 ? "4.9 ★" : "4.8 ★"),
+        amount: p.amount,
+        owner: p.owner,
+        status: "منتج مفحوص ومعتمد",
+        img: p.img
+      })),
+      ...extraItems
     ];
 
     function setTxMessage(msg) {
@@ -801,6 +819,7 @@
 
     function renderCards() {
       const grid = document.getElementById("cardsGrid");
+      const countEl = document.getElementById("resultsCount");
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
       const filtered = itemsData.filter(item => {
@@ -812,6 +831,8 @@
         return matchTab && matchQuery;
       });
 
+      countEl.textContent = `عدد العناصر المعروضة: ${filtered.length}`;
+
       if (filtered.length === 0) {
         grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">لا توجد نتائج مطابقة.</div>`;
         return;
@@ -820,7 +841,7 @@
       grid.innerHTML = filtered.map(item => `
         <article class="card">
           <div class="card-img-wrap">
-            ${item.art}
+            <img src="${item.img}" alt="${item.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
             <div class="img-badges">
               <span class="cat-pill">${item.catName}</span>
               <span class="verified-pill">✓ موثّق</span>
@@ -855,6 +876,7 @@
       if (!item) return;
       document.getElementById("modalTitle").textContent = item.title;
       document.getElementById("modalBody").innerHTML = `
+        <img src="${item.img}" alt="${item.title}" style="width:100%; height:160px; object-fit:cover; border-radius:12px; margin-bottom:12px;" />
         <p>${item.desc}</p>
         <ul class="info-list">
           <li><span>التصنيف</span><strong>${item.catName}</strong></li>
