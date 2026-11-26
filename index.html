@@ -6,63 +6,276 @@
   <title>PiTrust - Pi Testnet App</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
+    :root {
+      --bg: #140f26;
+      --card: #21193d;
+      --card-2: #2a204d;
+      --border: #3c2e6b;
+      --accent: #7c3aed;
+      --accent-hover: #6d28d9;
+      --text: #ffffff;
+      --muted: #d8b4fe;
+      --success: #86efac;
+      --warn: #fde047;
+    }
+    * { box-sizing: border-box; }
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #140f26;
-      color: #ffffff;
+      background: var(--bg);
+      color: var(--text);
       margin: 0;
-      padding: 24px;
-      text-align: center;
+      padding: 20px;
     }
-    .card {
-      max-width: 480px;
-      margin: 40px auto;
-      background: #21193d;
-      border: 1px solid #3c2e6b;
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .header-card, .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
+      margin-bottom: 18px;
     }
+    h1, h2, h3, p { margin-top: 0; }
+    .sub { color: var(--muted); font-size: 14px; line-height: 1.6; }
     button {
-      background: #7c3aed;
+      background: var(--accent);
       color: #fff;
       border: none;
       border-radius: 10px;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-    #status {
-      margin-top: 16px;
+      padding: 10px 16px;
       font-size: 14px;
-      color: #d8b4fe;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: var(--accent-hover); }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .tab-btn {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .item {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(124, 58, 237, 0.22);
+      padding: 4px 8px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
+    .price {
+      color: var(--success);
+      font-weight: 700;
+      font-size: 15px;
+    }
+    #status, #txLog {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
       word-break: break-word;
+    }
+    .legal-links {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .legal-links a {
+      color: var(--muted);
+      margin-left: 14px;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>PiTrust</h1>
-    <p>منصة وثوقية لمنتجات ومتاجر وخدمات Pi على شبكة الاختبار (Testnet).</p>
-    <button id="loginBtn" onclick="connectPi()">تسجيل الدخول عبر Pi</button>
-    <div id="status">جاهز للاتصال بـ Pi SDK...</div>
+  <div class="container">
+    <div class="header-card">
+      <h1>PiTrust</h1>
+      <p class="sub">منصة وثوقية للمنتجات والمتاجر والخدمات على شبكة الاختبار (Pi Testnet).</p>
+      <button id="loginBtn" onclick="connectPi()">تسجيل الدخول عبر Pi</button>
+      <div id="status">جاهز للاتصال بـ Pi SDK...</div>
+    </div>
+
+    <div class="section-card">
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-all" onclick="switchTab('all')">الكل</button>
+        <button class="tab-btn" id="tab-products" onclick="switchTab('products')">المنتجات</button>
+        <button class="tab-btn" id="tab-stores" onclick="switchTab('stores')">المتاجر</button>
+        <button class="tab-btn" id="tab-services" onclick="switchTab('services')">الخدمات</button>
+      </div>
+
+      <div id="itemsGrid" class="grid"></div>
+      <div id="txLog">سجل الدفع التجريبي: لم تتم أي عملية بعد.</div>
+
+      <div class="legal-links">
+        <a href="#privacy" onclick="showLegal('privacy')">سياسة الخصوصية (Privacy)</a>
+        <a href="#tos" onclick="showLegal('tos')">شروط الاستخدام (TOS)</a>
+      </div>
+      <div id="legalBox" class="sub" style="margin-top:10px;"></div>
+    </div>
   </div>
 
   <script>
     const Pi = window.Pi;
     Pi.init({ version: "2.0", sandbox: true });
 
+    let currentUser = null;
+    let currentTab = "all";
+
+    const listings = [
+      {
+        id: "prod-1",
+        type: "products",
+        typeLabel: "منتج موثوق",
+        title: "حقيبة سفر ذكية",
+        meta: "متجر الثقة الرقمي • تقييم 4.9★",
+        amount: 0.01,
+        memo: "PiTrust Testnet Order: Smart Travel Bag"
+      },
+      {
+        id: "store-1",
+        type: "stores",
+        typeLabel: "متجر معتمد",
+        title: "متجر واحة التقنية",
+        meta: "إكسسوارات وأدوات رقمية • موثّق",
+        amount: 0.02,
+        memo: "PiTrust Testnet Store Verification: Tech Oasis"
+      },
+      {
+        id: "srv-1",
+        type: "services",
+        typeLabel: "خدمة",
+        title: "تدقيق ومراجعة متجر Pi",
+        meta: "فحص جاهزية الربط والواجهة للتجربة",
+        amount: 0.01,
+        memo: "PiTrust Testnet Service: Store Readiness Review"
+      }
+    ];
+
+    function onIncompletePaymentFound(payment) {
+      document.getElementById("txLog").textContent =
+        "تم رصد معاملة سابقة غير مكتملة (ID: " + payment.identifier + ").";
+    }
+
     async function connectPi() {
       const statusEl = document.getElementById("status");
       statusEl.textContent = "جاري الاتصال بحساب Pi...";
       try {
-        const scopes = ["username"];
-        const auth = await Pi.authenticate(scopes, () => {});
+        const scopes = ["username", "payments"];
+        const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
+        currentUser = auth.user;
         statusEl.textContent = "تم تسجيل الدخول بنجاح: @" + auth.user.username;
+        renderItems();
       } catch (err) {
         statusEl.textContent = "تعذر الاتصال: " + (err && err.message ? err.message : err);
       }
     }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      ["all", "products", "stores", "services"].forEach(t => {
+        document.getElementById("tab-" + t).classList.toggle("active", t === tab);
+      });
+      renderItems();
+    }
+
+    function renderItems() {
+      const grid = document.getElementById("itemsGrid");
+      const filtered = currentTab === "all"
+        ? listings
+        : listings.filter(x => x.type === currentTab);
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="item">
+          <div>
+            <span class="badge">${item.typeLabel}</span>
+            <h3>${item.title}</h3>
+            <p class="sub">${item.meta}</p>
+          </div>
+          <div>
+            <div class="price">${item.amount} Test-Pi</div>
+            <button onclick="payTestnet('${item.id}')">دفع تجريبي بـ Pi</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    async function payTestnet(itemId) {
+      const txLog = document.getElementById("txLog");
+      const item = listings.find(x => x.id === itemId);
+      if (!item) return;
+
+      if (!currentUser) {
+        txLog.textContent = "سجّل الدخول عبر Pi أولاً داخل Pi Browser لتجربة الدفع.";
+        return;
+      }
+
+      txLog.textContent = "جاري فتح نافذة الدفع التجريبي لـ: " + item.title + "...";
+
+      try {
+        await Pi.createPayment(
+          {
+            amount: item.amount,
+            memo: item.memo,
+            metadata: { itemId: item.id, username: currentUser.username, app: "PiTrust" }
+          },
+          {
+            onReadyForServerApproval: function(paymentId) {
+              txLog.textContent = "تم إنشاء الطلب (ID: " + paymentId + ") بانتظار موافقة الخادم/الاختبار.";
+            },
+            onReadyForServerCompletion: function(paymentId, txid) {
+              txLog.textContent = "اكتمل الدفع التجريبي! Payment ID: " + paymentId + " | TXID: " + txid;
+            },
+            onCancel: function(paymentId) {
+              txLog.textContent = "تم إلغاء عملية الدفع (ID: " + paymentId + ").";
+            },
+            onError: function(error, payment) {
+              txLog.textContent = "حدث خطأ أثناء الدفع: " + (error && error.message ? error.message : error);
+            }
+          }
+        );
+      } catch (err) {
+        txLog.textContent = "تعذر بدء الدفع: " + (err && err.message ? err.message : err);
+      }
+    }
+
+    function showLegal(type) {
+      const box = document.getElementById("legalBox");
+      if (type === "privacy") {
+        box.innerHTML = "<strong>سياسة الخصوصية (PiTrust):</strong> نستخدم اسم المستخدم العام في شبكة Pi فقط لإظهار جلستك داخل التطبيق التجريبي ولا نطلب كلمات مرور أو عبارات سرية لمحفظتك.";
+      } else {
+        box.innerHTML = "<strong>شروط الاستخدام (PiTrust):</strong> يعمل التطبيق حالياً على شبكة الاختبار (Pi Testnet) لأغراض العرض والتجربة، والعمليات التجريبية لا تمثل تحويلات مالية نهائية على الشبكة الرئيسية.";
+      }
+    }
+
+    renderItems();
   </script>
 </body>
 </html>
