@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>PiTrust | منصة الوثوقية والتجارة الذكية</title>
+  <title>PiTrust | سوقك الموثوق في عالم Pi</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #070913;
-      --bg-card: rgba(18, 24, 43, 0.85);
-      --bg-card-solid: #12182b;
-      --border: rgba(255, 255, 255, 0.09);
-      --border-gold: rgba(245, 185, 66, 0.35);
+      --purple-dark: #3b0764;
+      --purple-mid: #581c87;
+      --purple-btn: #6b21a8;
       --gold: #f5b942;
-      --gold-light: #fde08d;
-      --purple: #7c3aed;
-      --purple-glow: rgba(124, 58, 237, 0.35);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --green: #10b981;
-      --green-bg: rgba(16, 185, 129, 0.14);
+      --gold-bright: #fbbf24;
+      --bg-page: #f4f3f8;
+      --card-bg: #ffffff;
+      --text-dark: #1e1b4b;
+      --text-muted: #64748b;
+      --border-soft: #e2e8f0;
+      --green: #059669;
+      --green-bg: #d1fae5;
     }
 
     * {
@@ -34,559 +33,772 @@
 
     body {
       font-family: 'Tajawal', sans-serif;
-      background-color: var(--bg-dark);
-      background-image:
-        radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.18), transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(245, 185, 66, 0.12), transparent 35%),
-        radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.08), transparent 45%);
-      color: var(--text-main);
+      background-color: var(--bg-page);
+      color: var(--text-dark);
       min-height: 100vh;
-      padding-bottom: 90px;
-      line-height: 1.6;
+      padding-bottom: 86px;
+      line-height: 1.55;
     }
 
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(7, 9, 19, 0.88);
-      border-bottom: 1px solid var(--border);
-      padding: 13px 18px;
+    /* الترويسة البنفسجية العلوية */
+    .top-header {
+      background: linear-gradient(160deg, #4c1d95 0%, #3b0764 65%, #2e1065 100%);
+      color: #fff;
+      padding: 16px 16px 24px;
+      border-bottom-left-radius: 26px;
+      border-bottom-right-radius: 26px;
+      box-shadow: 0 10px 25px rgba(59, 7, 100, 0.22);
     }
 
-    .nav-inner {
+    .header-inner {
       max-width: 920px;
       margin: 0 auto;
+    }
+
+    .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
-    .brand {
+    .account-chip {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #fff;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .account-chip.connected {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: rgba(110, 231, 183, 0.5);
+      color: #a7f3d0;
+    }
+
+    .brand-box {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--gold), #d97706);
+    .brand-name {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-size: 11.5px;
+      color: #e9d5ff;
+    }
+
+    .logo-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: var(--gold-bright);
+      color: #2e1065;
+      font-weight: 800;
+      font-size: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.35);
+    }
+
+    .hero-title {
+      font-size: 22px;
       font-weight: 800;
-      font-size: 20px;
-      color: #070913;
-      box-shadow: 0 4px 15px rgba(245, 185, 66, 0.3);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .brand-title {
-      font-size: 20px;
-      font-weight: 800;
-      background: linear-gradient(to left, #fff, var(--gold-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .dot-accent {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #c084fc;
+      display: inline-block;
     }
 
-    .brand-badge {
-      font-size: 11px;
-      color: var(--gold);
-      background: rgba(245, 185, 66, 0.12);
-      border: 1px solid var(--border-gold);
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-weight: 700;
+    .hero-desc {
+      font-size: 13.5px;
+      color: #e9d5ff;
+      margin-bottom: 16px;
     }
 
-    .auth-btn {
-      background: linear-gradient(135deg, #7c3aed, #5b21b6);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 9px 15px;
+    /* شريط البحث */
+    .search-bar {
+      background: #fff;
+      border-radius: 16px;
+      padding: 6px 6px 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+    }
+
+    .btn-search {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      border: none;
+      padding: 10px 18px;
       border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      background: transparent;
+    }
+
+    .main-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .tx-strip {
+      background: #fff;
+      border: 1px solid #ddd6fe;
+      border-right: 4px solid #7c3aed;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: #3b0764;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-mini-gold {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 9px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* بانر الترويج البنفسجي */
+    .promo-banner {
+      background: linear-gradient(120deg, #5b21b6, #4c1d95);
+      color: #fff;
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(76, 29, 149, 0.2);
+    }
+
+    .promo-banner h2 {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .promo-banner p {
+      font-size: 13px;
+      color: #ede9fe;
+      margin-bottom: 12px;
+    }
+
+    .btn-promo {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 11px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* الأقسام */
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .link-all {
+      background: none;
+      border: none;
+      color: #6b21a8;
       font-family: 'Tajawal', sans-serif;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 4px 14px var(--purple-glow);
     }
 
-    .auth-btn.connected {
-      background: var(--green-bg);
-      border-color: rgba(16, 185, 129, 0.35);
-      color: #6ee7b7;
-      box-shadow: none;
-    }
-
-    .container {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 18px 16px;
-    }
-
-    .hero {
-      background: linear-gradient(145deg, rgba(24, 31, 56, 0.92), rgba(13, 17, 33, 0.96));
-      border: 1px solid var(--border-gold);
-      border-radius: 22px;
-      padding: 22px 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-
-    .hero h1 {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-
-    .hero p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .stats-row {
+    .cat-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
+      margin-bottom: 18px;
     }
 
-    .stat-box {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 9px 8px;
+    .cat-card {
+      background: #fff;
+      border: 1.5px solid transparent;
+      border-radius: 16px;
+      padding: 12px 6px;
       text-align: center;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+      transition: all 0.18s ease;
     }
 
-    .stat-num {
-      font-size: 16px;
+    .cat-card.active {
+      border-color: #6b21a8;
+      background: #faf5ff;
+    }
+
+    .cat-icon {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .cat-label {
+      font-size: 12.5px;
       font-weight: 800;
-      color: var(--gold-light);
+      color: var(--text-dark);
     }
 
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .tx-banner {
-      background: rgba(124, 58, 237, 0.14);
-      border: 1px solid rgba(167, 139, 250, 0.35);
-      border-radius: 14px;
-      padding: 12px 15px;
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: #e9d5ff;
-      word-break: break-word;
-    }
-
-    .search-input {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 13px 16px;
-      color: #fff;
-      font-family: 'Tajawal', sans-serif;
-      font-size: 14px;
-      outline: none;
-      margin-bottom: 14px;
-    }
-
-    .search-input:focus {
-      border-color: var(--gold);
-    }
-
-    .tabs {
+    /* تبويبات التصفية */
+    .filter-tabs {
       display: flex;
       gap: 8px;
       overflow-x: auto;
       padding-bottom: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       scrollbar-width: none;
     }
-    .tabs::-webkit-scrollbar { display: none; }
+    .filter-tabs::-webkit-scrollbar { display: none; }
 
-    .tab {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    .f-tab {
+      background: #fff;
+      border: 1px solid var(--border-soft);
       color: var(--text-muted);
-      padding: 9px 16px;
-      border-radius: 12px;
+      padding: 8px 14px;
+      border-radius: 11px;
       font-family: 'Tajawal', sans-serif;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
     }
 
-    .tab.active {
-      background: linear-gradient(135deg, var(--gold), #d97706);
-      color: #070913;
-      border-color: transparent;
-      box-shadow: 0 4px 12px rgba(245, 185, 66, 0.25);
+    .f-tab.active {
+      background: #4c1d95;
+      color: #fff;
+      border-color: #4c1d95;
     }
 
-    .results-bar {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .grid {
+    /* شبكة المنتجات */
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
     }
 
-    .card {
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
+    .product-box {
+      background: #fff;
+      border: 1px solid var(--border-soft);
       border-radius: 18px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .card:hover {
+    .product-box:hover {
       transform: translateY(-2px);
-      border-color: var(--border-gold);
+      box-shadow: 0 8px 22px rgba(76, 29, 149, 0.12);
     }
 
-    .card-img-wrap {
+    .prod-img-area {
+      height: 155px;
       position: relative;
-      height: 175px;
-      background: #0d1222;
+      background: #f1f5f9;
+      cursor: pointer;
       overflow: hidden;
     }
 
-    .card-img-wrap img {
+    .prod-img-area img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .img-badges {
+    .prod-badge {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      left: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .cat-pill {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 9px;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #4c1d95;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 8px;
       border-radius: 8px;
-      background: rgba(7, 9, 19, 0.84);
-      color: var(--gold-light);
-      border: 1px solid rgba(255,255,255,0.14);
     }
 
-    .verified-pill {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: rgba(16, 185, 129, 0.92);
-      color: #042f2e;
-    }
-
-    .card-content {
-      padding: 15px;
+    .prod-body {
+      padding: 13px;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .card h3 {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 5px;
-      color: #fff;
-    }
-
-    .card-desc {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .trust-meter {
-      background: rgba(255,255,255,0.04);
-      border-radius: 10px;
-      padding: 7px 10px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-    }
-
-    .trust-score {
-      color: var(--gold);
-      font-weight: 800;
-    }
-
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
-    }
-
-    .price-tag {
+    .prod-name {
       font-size: 15px;
       font-weight: 800;
-      color: var(--gold-light);
+      color: var(--text-dark);
+      margin-bottom: 4px;
+      cursor: pointer;
     }
 
-    .card-actions {
+    .prod-meta {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .prod-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: #5b21b6;
+      margin-bottom: 10px;
+    }
+
+    .prod-btns {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .btn-pay {
-      background: linear-gradient(135deg, var(--gold), #d97706);
-      color: #070913;
-      border: none;
-      padding: 9px 10px;
+    .btn-open-slot {
+      background: #f3e8ff;
+      color: #4c1d95;
+      border: 1px solid #d8b4fe;
+      padding: 8px 6px;
       border-radius: 10px;
       font-family: 'Tajawal', sans-serif;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 800;
       cursor: pointer;
     }
 
-    .btn-details {
-      background: rgba(255, 255, 255, 0.07);
-      color: #fff;
-      border: 1px solid var(--border);
-      padding: 9px 10px;
+    .btn-cart-add {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      border: none;
+      padding: 8px 6px;
       border-radius: 10px;
       font-family: 'Tajawal', sans-serif;
-      font-size: 12.5px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* الخانة الخاصة بالمنتج (عرض صفحة المنتج الكاملة) */
+    .product-slot-view {
+      display: none;
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      padding: 18px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .product-slot-view.active {
+      display: block;
+    }
+
+    .slot-top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .btn-back {
+      background: #f1f5f9;
+      color: var(--text-dark);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 11px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .slot-hero-img {
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 14px;
+    }
+
+    .slot-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .slot-price-box {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin: 12px 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slot-specs {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .slot-spec-row {
+      background: #f8fafc;
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .slot-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-slot-pay {
+      background: #4c1d95;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 13px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-slot-cart {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      border: none;
+      padding: 12px;
+      border-radius: 13px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* الشريط السفلي للتنقل */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: #ffffff;
+      border-top: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 8px 4px 10px;
+      z-index: 60;
+      box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .nav-item {
+      background: none;
+      border: none;
+      font-family: 'Tajawal', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      color: var(--text-muted);
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    .footer {
-      margin-top: 30px;
-      text-align: center;
-      padding: 18px;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--text-muted);
+    .nav-item.active {
+      color: #4c1d95;
+      font-weight: 800;
     }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin-bottom: 8px;
+    .nav-ico {
+      font-size: 18px;
     }
 
-    .footer-links a {
-      color: var(--gold-light);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
+    /* نافذة منبثقة للإضافة والسياسات */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(3, 5, 12, 0.82);
-      backdrop-filter: blur(8px);
+      background: rgba(15, 23, 42, 0.65);
       display: none;
       align-items: flex-end;
       justify-content: center;
       z-index: 100;
-      padding: 16px;
+      padding: 14px;
     }
 
     .modal-backdrop.open {
       display: flex;
     }
 
-    .modal {
-      background: var(--bg-card-solid);
-      border: 1px solid var(--border-gold);
+    .modal-card {
+      background: #fff;
       border-radius: 22px;
       width: 100%;
       max-width: 520px;
-      padding: 22px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 20px;
     }
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
+    .form-group {
+      margin-bottom: 11px;
     }
 
-    .close-btn {
-      background: rgba(255,255,255,0.08);
-      border: none;
-      color: #fff;
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #4c1d95;
+      margin-bottom: 4px;
     }
 
-    .modal-body {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .info-list {
-      list-style: none;
-      margin-top: 12px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .info-list li {
-      background: rgba(255,255,255,0.03);
-      padding: 9px 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      color: #e2e8f0;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .btn-primary-full {
+    .form-control {
       width: 100%;
-      background: linear-gradient(135deg, var(--gold), #d97706);
-      color: #070913;
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 9px 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    .btn-submit-modal {
+      width: 100%;
+      background: #4c1d95;
+      color: #fff;
       border: none;
-      padding: 12px;
+      padding: 11px;
       border-radius: 12px;
       font-family: 'Tajawal', sans-serif;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
       cursor: pointer;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-note a {
+      color: #5b21b6;
+      font-weight: 700;
+      text-decoration: none;
+      margin: 0 8px;
     }
   </style>
 </head>
 <body>
 
-  <header class="navbar">
-    <div class="nav-inner">
-      <div class="brand">
-        <div class="brand-logo">π</div>
-        <div>
-          <div class="brand-title">PiTrust</div>
-          <span class="brand-badge">Testnet Verified</span>
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="top-bar">
+        <button id="authBtn" class="account-chip" onclick="connectPi()">ربط حساب Pi</button>
+        <div class="brand-box">
+          <div>
+            <div class="brand-name">PiTrust</div>
+            <div class="brand-sub">سوقك الموثوق في عالم Pi</div>
+          </div>
+          <div class="logo-square">π</div>
         </div>
       </div>
-      <button id="authBtn" class="auth-btn" onclick="connectPi()">
-        <span>ربط حساب Pi</span>
-      </button>
+
+      <h1 class="hero-title">أهلاً بك في PiTrust <span class="dot-accent"></span></h1>
+      <p class="hero-desc">اكتشف المنتجات والمتاجر والخدمات في مكان واحد مع خانة مخصصة لكل منتج.</p>
+
+      <div class="search-bar">
+        <button class="btn-search" onclick="renderProducts()">بحث</button>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="ابحث عن منتج أو متجر..."
+          oninput="renderProducts()"
+        />
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-tag">✦ دليل الثقة والتجارة في مجتمع Pi</div>
-      <h1>اكتشف المتاجر والمنتجات والخدمات الموثوقة</h1>
-      <p>أكثر من 50 منتجاً ومتجراً وخدمة مفحوصة ومعتمدة للتصفح والتجربة على شبكة Pi Testnet.</p>
-      <div class="stats-row">
-        <div class="stat-box">
-          <div class="stat-num">50+</div>
-          <div class="stat-label">منتج موثّق</div>
+  <main class="main-wrap">
+    <div class="tx-strip">
+      <span id="statusText">حالة المنصة: جاهز • اضغط على أي منتج لفتح خانته الخاصة.</span>
+      <button class="btn-mini-gold" onclick="openAddProductModal()">+ أضف منتجك</button>
+    </div>
+
+    <!-- الخانة الخاصة بالمنتج عند اختياره -->
+    <section id="productSlotView" class="product-slot-view"></section>
+
+    <!-- الصفحة الرئيسية للسوق -->
+    <div id="catalogHomeView">
+      <section class="promo-banner">
+        <h2>تسوّق بثقة داخل منظومة Pi</h2>
+        <p>اكتشف عروضاً ومنتجات من متاجر متنوعة أو انشر منتجك الآن كتاجر.</p>
+        <button class="btn-promo" onclick="openAddProductModal()">انضم كتاجر وأضف منتجاً ←</button>
+      </section>
+
+      <div class="section-head">
+        <h2 class="section-title">تسوّق حسب القسم</h2>
+        <button class="link-all" onclick="selectCategory('all')">عرض الكل</button>
+      </div>
+
+      <div class="cat-grid">
+        <div class="cat-card active" id="cat-all" onclick="selectCategory('all')">
+          <div class="cat-icon">🛍️</div>
+          <div class="cat-label">الكل</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">99.4%</div>
-          <div class="stat-label">نسبة الأمان</div>
+        <div class="cat-card" id="cat-electronics" onclick="selectCategory('electronics')">
+          <div class="cat-icon">📱</div>
+          <div class="cat-label">إلكترونيات</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">4.9 ★</div>
-          <div class="stat-label">تقييم الرواد</div>
+        <div class="cat-card" id="cat-sports" onclick="selectCategory('sports')">
+          <div class="cat-icon">🏋️</div>
+          <div class="cat-label">رياضة</div>
+        </div>
+        <div class="cat-card" id="cat-fashion" onclick="selectCategory('fashion')">
+          <div class="cat-icon">👕</div>
+          <div class="cat-label">أزياء وعطور</div>
+        </div>
+        <div class="cat-card" id="cat-home" onclick="selectCategory('home')">
+          <div class="cat-icon">🏠</div>
+          <div class="cat-label">منزل وقهوة</div>
+        </div>
+        <div class="cat-card" id="cat-auto" onclick="selectCategory('auto')">
+          <div class="cat-icon">🚗</div>
+          <div class="cat-label">سيارات</div>
+        </div>
+        <div class="cat-card" id="cat-stores" onclick="selectCategory('stores')">
+          <div class="cat-icon">🏪</div>
+          <div class="cat-label">المتاجر</div>
+        </div>
+        <div class="cat-card" id="cat-services" onclick="selectCategory('services')">
+          <div class="cat-icon">✨</div>
+          <div class="cat-label">خدمات</div>
         </div>
       </div>
-    </section>
 
-    <div id="txStatus" class="tx-banner">
-      حالة الدفع: جاهز. اضغط "ربط حساب Pi" ثم اختر "دفع بـ Pi" على أي منتج.
-    </div>
-
-    <input
-      type="text"
-      id="searchInput"
-      class="search-input"
-      placeholder="ابحث بين 50 منتجاً ومتجراً وخدمة..."
-      oninput="renderCards()"
-    />
-
-    <div class="tabs">
-      <button class="tab active" id="tab-all" onclick="setTab('all')">الكل (55)</button>
-      <button class="tab" id="tab-products" onclick="setTab('products')">المنتجات (50)</button>
-      <button class="tab" id="tab-stores" onclick="setTab('stores')">المتاجر المعتمدة (3)</button>
-      <button class="tab" id="tab-services" onclick="setTab('services')">الخدمات (2)</button>
-    </div>
-
-    <div class="results-bar">
-      <span id="resultsCount">جاري التحميل...</span>
-      <span>جميع الصور والبطاقات معتمدة</span>
-    </div>
-
-    <section id="cardsGrid" class="grid"></section>
-
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="#privacy" onclick="openLegal('privacy'); return false;">سياسة الخصوصية</a>
-        <a href="#tos" onclick="openLegal('tos'); return false;">شروط الاستخدام</a>
+      <div class="filter-tabs">
+        <button class="f-tab active" id="ftab-all" onclick="setFilterTab('all')">جميع العناصر</button>
+        <button class="f-tab" id="ftab-products" onclick="setFilterTab('products')">المنتجات (50)</button>
+        <button class="f-tab" id="ftab-stores" onclick="setFilterTab('stores')">المتاجر المعتمدة</button>
+        <button class="f-tab" id="ftab-services" onclick="setFilterTab('services')">الخدمات</button>
+        <button class="f-tab" id="ftab-mine" onclick="setFilterTab('mine')">منتجاتي</button>
       </div>
-      <div>PiTrust Ecosystem • Pi Testnet Edition</div>
+
+      <div class="section-head">
+        <h2 class="section-title" id="gridHeading">المنتجات والمتاجر</h2>
+        <span id="countLabel" style="font-size:12.5px; color:var(--text-muted);"></span>
+      </div>
+
+      <section id="productsGrid" class="products-grid"></section>
+    </div>
+
+    <footer class="footer-note">
+      <div>
+        <a href="#privacy" onclick="openLegalModal('privacy'); return false;">سياسة الخصوصية</a>
+        <a href="#tos" onclick="openLegalModal('tos'); return false;">شروط الاستخدام</a>
+      </div>
+      <div style="margin-top:6px;">PiTrust Marketplace • Pi Testnet</div>
     </footer>
   </main>
 
-  <div id="modalBackdrop" class="modal-backdrop" onclick="closeModal(event)">
-    <div class="modal" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <h3 id="modalTitle" style="font-size:18px; color:#fff;"></h3>
-        <button class="close-btn" onclick="forceCloseModal()">×</button>
+  <!-- الشريط السفلي -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" id="nav-home" onclick="goHomeTab()">
+      <span class="nav-ico">🏠</span>
+      <span>الرئيسية</span>
+    </button>
+    <button class="nav-item" id="nav-stores" onclick="selectCategory('stores')">
+      <span class="nav-ico">🏪</span>
+      <span>المتاجر</span>
+    </button>
+    <button class="nav-item" id="nav-cart" onclick="openCartModal()">
+      <span class="nav-ico">🛒</span>
+      <span id="cartNavLabel">السلة (0)</span>
+    </button>
+    <button class="nav-item" id="nav-account" onclick="openAccountModal()">
+      <span class="nav-ico">👤</span>
+      <span>حسابي</span>
+    </button>
+  </nav>
+
+  <!-- نافذة منبثقة -->
+  <div id="modalBackdrop" class="modal-backdrop" onclick="closeModalBackdrop(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 id="modalTitle" style="font-size:17px; color:#3b0764;"></h3>
+        <button onclick="closeModal()" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:9px; font-size:18px; cursor:pointer;">×</button>
       </div>
-      <div id="modalBody" class="modal-body"></div>
-      <button class="btn-primary-full" onclick="forceCloseModal()">إغلاق</button>
+      <div id="modalContent" style="font-size:13.5px; color:#334155;"></div>
     </div>
   </div>
 
@@ -596,182 +808,149 @@
       Pi.init({ version: "2.0", sandbox: true });
     }
 
+    const USER_ITEMS_KEY = "pitrust_custom_products_v2";
     let currentUser = null;
-    let activeTab = "all";
+    let activeCategory = "all";
+    let activeFilterTab = "all";
+    let cartItems = [];
 
-    const products50 = [
-      { title: "ساعة ذكية رياضية Ultra Pro", desc: "مقاومة للماء مع قياس نبضات القلب وبطارية 14 يوماً.", amount: 0.02, owner: "@TechWatch_Jo", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=80" },
-      { title: "سماعات رأس لاسلكية Studio ANC", desc: "عزل ضوضاء نشط وصوت محيطي عالي النقاء.", amount: 0.015, owner: "@SoundCraftPi", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80" },
-      { title: "حقيبة ظهر ذكية مقاومة للمطر", desc: "منفذ شحن USB مدمج وجيب مبطن للحاسوب المحمول.", amount: 0.03, owner: "@VoyagePi", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80" },
-      { title: "كاميرا فورية كلاسيكية", desc: "تصوير عالي الوضوح مع طباعة فورية وعدسة دقيقة.", amount: 0.025, owner: "@LensMasterPi", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=700&q=80" },
-      { title: "حذاء رياضي للجري الخفيف", desc: "نعل مريح ممتص للصدمات وتصميم عصري للتمارين.", amount: 0.02, owner: "@StepFitPi", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" },
-      { title: "عطر عود ملكي فاخر 100 مل", desc: "مزيج شرقي دافئ من العود والعنبر بثبات طويل.", amount: 0.03, owner: "@RoyalScent", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" },
-      { title: "لوحة مفاتيح ميكانيكية RGB", desc: "مفاتيح سريعة الاستجابة وإضاءة خلفية قابلة للتخصيص.", amount: 0.02, owner: "@KeyGearPi", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=700&q=80" },
-      { title: "فأرة ألعاب لاسلكية احترافية", desc: "مستشعر بصري فائق الدقة وتصميم مريح لليد.", amount: 0.015, owner: "@ProClickPi", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=700&q=80" },
-      { title: "حاسوب محمول نحيف للأعمال", desc: "شاشة عالية الدقة وأداء سريع للمهام اليومية.", amount: 0.05, owner: "@EliteLaptopPi", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80" },
-      { title: "هاتف ذكي بشاشة OLED كاملة", desc: "كاميرا ثلاثية احترافية وشحن فائق السرعة.", amount: 0.045, owner: "@MobileHubPi", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" },
-
-      { title: "نظارة شمسية مستقطبة Polarized", desc: "حماية كاملة من الأشعة فوق البنفسجية بإطار معدني.", amount: 0.01, owner: "@SunStylePi", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=700&q=80" },
-      { title: "آلة تحضير قهوة الإسبريسو", desc: "ضغط احترافي لاستخلاص قهوة غنية الرغوة في المنزل.", amount: 0.04, owner: "@RoastPi", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=700&q=80" },
-      { title: "مكبر صوت بلوتوث محمول 360", desc: "صوت جهوري قوي ومقاوم لرذاذ الماء للرحلات.", amount: 0.02, owner: "@BoomBoxPi", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80" },
-      { title: "ساعة يد كلاسيكية بسوار جلدي", desc: "تصميم أنيق مقاوم للخدش مناسب للمناسبات الرسمية.", amount: 0.025, owner: "@ClassicTimePi", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" },
-      { title: "سماعات أذن لاسلكية Pods Pro", desc: "علبة شحن مغناطيسية ومايكروفون عازل للضجيج.", amount: 0.018, owner: "@AudioNestPi", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=700&q=80" },
-      { title: "شاحن متنقل PowerBank 20000mAh", desc: "شحن سريع PD لثلاثة أجهزة في وقت واحد.", amount: 0.015, owner: "@ChargeUpPi", img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=700&q=80" },
-      { title: "كاميرا احترافية Mirrorless 4K", desc: "مستشعر عالي الحساسية لتصوير الفيديو والصور.", amount: 0.05, owner: "@CinemaGearPi", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80" },
-      { title: "طائرة تصوير درون GPS ذكية", desc: "تثبيت بصري وعودة تلقائية لنقطة الإقلاع.", amount: 0.045, owner: "@SkyViewPi", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=700&q=80" },
-      { title: "مصباح مكتب ذكي LED قابل للطي", desc: "تحكم بدرجة الإضاءة لحماية العين أثناء الدراسة.", amount: 0.012, owner: "@BrightDeskPi", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80" },
-      { title: "كرسي ألعاب ومكاتب مريح", desc: "دعم كامل للظهر والرقبة مع مساند قابلة للتعديل.", amount: 0.04, owner: "@ComfortSeatPi", img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=700&q=80" },
-
-      { title: "جهاز لوحي للرسم والملاحظات", desc: "شاشة عالية الاستجابة مع قلم رقمي دقيق.", amount: 0.035, owner: "@TabZonePi", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=700&q=80" },
-      { title: "ذراع تحكم ألعاب لاسلكية", desc: "اهتزاز تفاعلي وبطارية تدوم 20 ساعة لعب.", amount: 0.018, owner: "@GamePadPi", img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80" },
-      { title: "حقيبة يد جلدية فاخرة", desc: "جلد طبيعي متين بتفاصيل معدنية ذهبية أنيقة.", amount: 0.028, owner: "@LuxeBagPi", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80" },
-      { title: "محفظة رجالية ذكية مانعة للسرقة", desc: "حماية RFID للبطاقات وتصميم نحيف للغاية.", amount: 0.01, owner: "@SmartWalletPi", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=700&q=80" },
-      { title: "جاكيت شتوي مقاوم للرياح", desc: "خفيف الوزن ودافئ بتبطين حراري مريح.", amount: 0.025, owner: "@UrbanWearPi", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80" },
-      { title: "قهوة عربية مختصة محمصة 500غ", desc: "حبوب أرابيكا فاخرة مع هيل طبيعي طازج.", amount: 0.012, owner: "@QahwaHousePi", img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=700&q=80" },
-      { title: "زيت زيتون بكر ممتاز عضوي", desc: "عصرة أولى على البارد من مزارع جبلية معتمدة.", amount: 0.015, owner: "@OliveGoldPi", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80" },
-      { title: "عسل سدر جبلي طبيعي 1 كغم", desc: "مفحوص مخبرياً وخالٍ من أي إضافات صناعية.", amount: 0.022, owner: "@PureHoneyPi", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=700&q=80" },
-      { title: "مجموعة عناية بالبشرة الطبيعية", desc: "سيروم مرطب وكريم ليلي بخلاصة الأعشاب.", amount: 0.02, owner: "@GlowCarePi", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=700&q=80" },
-      { title: "مبخرة إلكترونية ذكية محمولة", desc: "تسخين آمن وسريع للعود دون الحاجة للفحم.", amount: 0.016, owner: "@AromaTechPi", img: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=700&q=80" },
-
-      { title: "شاشة حاسوب منحنية 27 بوصة", desc: "معدل تحديث 165Hz وألوان دقيقة للألعاب والتصميم.", amount: 0.048, owner: "@VisionScreenPi", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=700&q=80" },
-      { title: "مايكروفون بودكاست احترافي USB", desc: "تسجيل صوت نقي بدون تشويش للبث والاجتماعات.", amount: 0.022, owner: "@VoiceLabPi", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" },
-      { title: "قرص تخزين خارجي SSD 1TB", desc: "نقل بيانات فائق السرعة ومقاوم للصدمات.", amount: 0.026, owner: "@DataVaultPi", img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=700&q=80" },
-      { title: "حامل هاتف مغناطيسي للسيارة", desc: "ثبات قوي على الطرق الوعرة مع دوران 360 درجة.", amount: 0.01, owner: "@AutoGearPi", img: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=700&q=80" },
-      { title: "كاميرا داش كام للسيارات Full HD", desc: "تسجيل مستمر أثناء القيادة ورؤية ليلية واضحة.", amount: 0.024, owner: "@RoadSafePi", img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80" },
-      { title: "مكنسة روبوت ذكية للمنزل", desc: "تخطيط ذكي للغرف وتنظيف تلقائي للأرضيات.", amount: 0.045, owner: "@SmartCleanPi", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=700&q=80" },
-      { title: "جهاز تنقية الهواء الذكي HEPA", desc: "يزيل الغبار والروائح مع مستشعر جودة الهواء.", amount: 0.032, owner: "@FreshAirPi", img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=700&q=80" },
-      { title: "مطحنة قهوة يدوية من الفولاذ", desc: "درجات طحن متعددة قابلة للضبط بدقة عالية.", amount: 0.014, owner: "@BaristaToolPi", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80" },
-      { title: "ترمس حافظ للحرارة ستانلس ستيل", desc: "يحفظ المشروبات ساخنة 12 ساعة وباردة 24 ساعة.", amount: 0.011, owner: "@ThermoGoPi", img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80" },
-      { title: "حقيبة تنظيم كابلات السفر", desc: "تقسيمات ذكية للشواحن والبطاريات والذاكرات.", amount: 0.01, owner: "@TidyPackPi", img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=700&q=80" },
-
-      { title: "سجادة يوغا وتمارين رياضية سميكة", desc: "سطح مانع للانزلاق وسهلة الحمل والتخزين.", amount: 0.013, owner: "@FitHomePi", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=700&q=80" },
-      { title: "مجموعة أوزان رياضية منزلية", desc: "قابلة للتعديل لتمارين القوة واللياقة البدنية.", amount: 0.028, owner: "@IronGymPi", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" },
-      { title: "دراجة هوائية جبلية خفيفة", desc: "إطار ألمنيوم متين مع 21 سرعة ومكابح قرصية.", amount: 0.05, owner: "@RideProPi", img: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=700&q=80" },
-      { title: "خيمة تخييم سريعة التركيب", desc: "تتسع لـ 3 أشخاص ومقاومة للرياح والأمطار.", amount: 0.032, owner: "@CampOutPi", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80" },
-      { title: "نبتة زينة داخلية مع أصيص سيراميك", desc: "تضفي لمسة طبيعية أنيقة للمكاتب والمنازل.", amount: 0.01, owner: "@GreenRoomPi", img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=80" },
-      { title: "دفتر ملاحظات جلدي فاخر A5", desc: "ورق سميك ناعم مناسب للكتابة والتخطيط اليومي.", amount: 0.01, owner: "@NoteCraftPi", img: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=700&q=80" },
-      { title: "قلم حبر معدني أنيق للهدايا", desc: "تصميم متوازن مع علبة تقديم فاخرة.", amount: 0.012, owner: "@PenMasterPi", img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=700&q=80" },
-      { title: "طقم شاي زجاجي مقاوم للحرارة", desc: "إبريق مع مصفاة ستانلس و4 أكواب مزدوجة الجدار.", amount: 0.019, owner: "@TeaArtPi", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80" },
-      { title: "خلاط عصائر محمول قابل للشحن", desc: "شفرات فولاذية قوية لتحضير العصائر الطازجة في ثوانٍ.", amount: 0.016, owner: "@FreshBlendPi", img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80" },
-      { title: "قفل باب ذكي بالبصمة والرمز", desc: "أمان متطور للمنازل والمكاتب مع سجل دخول.", amount: 0.038, owner: "@SmartLockPi", img: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=700&q=80" }
+    const rawProducts50 = [
+      { title: "ساعة ذكية رياضية Ultra Pro", cat: "electronics", amount: 0.02, owner: "@TechWatch_Jo", desc: "مقاومة للماء مع متابعة النشاط اليومي والبطارية طويلة الأمد.", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=80" },
+      { title: "سماعات رأس لاسلكية Studio ANC", cat: "electronics", amount: 0.015, owner: "@SoundCraftPi", desc: "عزل ضوضاء وصوت واضح مريح للاستخدام الطويل.", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة ظهر ذكية مقاومة للمطر", cat: "fashion", amount: 0.03, owner: "@VoyagePi", desc: "تصميم عملي مع جيب مخصص للحاسوب المحمول والتنقل.", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80" },
+      { title: "كاميرا فورية كلاسيكية", cat: "electronics", amount: 0.025, owner: "@LensMasterPi", desc: "تصوير واضح وتفاصيل دقيقة لعشاق التصوير.", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=700&q=80" },
+      { title: "حذاء رياضي للجري الخفيف", cat: "sports", amount: 0.02, owner: "@StepFitPi", desc: "نعل مريح وخفيف مناسب للجري والتمارين اليومية.", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" },
+      { title: "عطر عود ملكي فاخر 100 مل", cat: "fashion", amount: 0.03, owner: "@RoyalScent", desc: "رائحة شرقية فاخرة بثبات مميز للمناسبات.", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" },
+      { title: "لوحة مفاتيح ميكانيكية RGB", cat: "electronics", amount: 0.02, owner: "@KeyGearPi", desc: "استجابة سريعة وإضاءة أنيقة للمكتب والألعاب.", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=700&q=80" },
+      { title: "فأرة ألعاب لاسلكية احترافية", cat: "electronics", amount: 0.015, owner: "@ProClickPi", desc: "دقة عالية وحركة سلسة للاستخدام المكتبي والرقمي.", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=700&q=80" },
+      { title: "حاسوب محمول نحيف للأعمال", cat: "electronics", amount: 0.05, owner: "@EliteLaptopPi", desc: "أداء سريع وشاشة واضحة للعمل والدراسة.", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80" },
+      { title: "هاتف ذكي بشاشة OLED كاملة", cat: "electronics", amount: 0.045, owner: "@MobileHubPi", desc: "شاشة زاهية وكاميرا قوية وأداء مستقر.", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" },
+      { title: "نظارة شمسية مستقطبة Polarized", cat: "fashion", amount: 0.01, owner: "@SunStylePi", desc: "حماية من الشمس بتصميم أنيق وإطار متين.", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=700&q=80" },
+      { title: "آلة تحضير قهوة الإسبريسو", cat: "home", amount: 0.04, owner: "@RoastPi", desc: "تحضير قهوة غنية وسريعة في المنزل أو المكتب.", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=700&q=80" },
+      { title: "مكبر صوت بلوتوث محمول 360", cat: "electronics", amount: 0.02, owner: "@BoomBoxPi", desc: "صوت نقي وسهل الحمل للرحلات والجلسات.", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80" },
+      { title: "ساعة يد كلاسيكية بسوار جلدي", cat: "fashion", amount: 0.025, owner: "@ClassicTimePi", desc: "إطلالة كلاسيكية راقية تناسب مختلف الأوقات.", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" },
+      { title: "سماعات أذن لاسلكية Pods Pro", cat: "electronics", amount: 0.018, owner: "@AudioNestPi", desc: "حجم صغير وعلبة شحن عملية للاستخدام اليومي.", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=700&q=80" },
+      { title: "شاحن متنقل PowerBank 20000mAh", cat: "electronics", amount: 0.015, owner: "@ChargeUpPi", desc: "سعة كبيرة لشحن الهواتف والأجهزة أثناء السفر.", img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=700&q=80" },
+      { title: "كاميرا احترافية Mirrorless 4K", cat: "electronics", amount: 0.05, owner: "@CinemaGearPi", desc: "تصوير عالي الدقة للمحتوى المرئي والصور.", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80" },
+      { title: "طائرة تصوير درون GPS ذكية", cat: "electronics", amount: 0.045, owner: "@SkyViewPi", desc: "تحكم سلس وثبات جيد للتصوير الجوي.", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=700&q=80" },
+      { title: "مصباح مكتب ذكي LED قابل للطي", cat: "home", amount: 0.012, owner: "@BrightDeskPi", desc: "إضاءة مريحة للعين مع تصميم عصري للمكتب.", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80" },
+      { title: "كرسي ألعاب ومكاتب مريح", cat: "home", amount: 0.04, owner: "@ComfortSeatPi", desc: "دعم مريح للظهر أثناء ساعات العمل أو اللعب.", img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=700&q=80" },
+      { title: "جهاز لوحي للرسم والملاحظات", cat: "electronics", amount: 0.035, owner: "@TabZonePi", desc: "مناسب للتصميم وتدوين الملاحظات والقراءة.", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=700&q=80" },
+      { title: "ذراع تحكم ألعاب لاسلكية", cat: "electronics", amount: 0.018, owner: "@GamePadPi", desc: "قبضة مريحة واستجابة سريعة للألعاب.", img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة يد جلدية فاخرة", cat: "fashion", amount: 0.028, owner: "@LuxeBagPi", desc: "خامة جلدية أنيقة وتفاصيل متقنة.", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80" },
+      { title: "محفظة رجالية ذكية مانعة للسرقة", cat: "fashion", amount: 0.01, owner: "@SmartWalletPi", desc: "تصميم نحيف لحفظ البطاقات والنقود بأمان.", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=700&q=80" },
+      { title: "جاكيت شتوي مقاوم للرياح", cat: "fashion", amount: 0.025, owner: "@UrbanWearPi", desc: "دفء مناسب وأناقة عملية في الأجواء الباردة.", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80" },
+      { title: "قهوة عربية مختصة محمصة 500غ", cat: "home", amount: 0.012, owner: "@QahwaHousePi", desc: "تحميص طازج ونكهة عربية أصيلة.", img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=700&q=80" },
+      { title: "زيت زيتون بكر ممتاز عضوي", cat: "home", amount: 0.015, owner: "@OliveGoldPi", desc: "منتج طبيعي بجودة عالية للاستخدام اليومي.", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80" },
+      { title: "عسل سدر جبلي طبيعي 1 كغم", cat: "home", amount: 0.022, owner: "@PureHoneyPi", desc: "عسل طبيعي مختار بعناية مع عبوة محكمة.", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجموعة عناية بالبشرة الطبيعية", cat: "fashion", amount: 0.02, owner: "@GlowCarePi", desc: "منتجات عناية يومية بتركيبة لطيفة.", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=700&q=80" },
+      { title: "مبخرة إلكترونية ذكية محمولة", cat: "home", amount: 0.016, owner: "@AromaTechPi", desc: "سهلة الاستخدام وآمنة للمنزل والسيارة.", img: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=700&q=80" },
+      { title: "شاشة حاسوب منحنية 27 بوصة", cat: "electronics", amount: 0.048, owner: "@VisionScreenPi", desc: "وضوح عالٍ ومجال رؤية واسع للعمل والترفيه.", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=700&q=80" },
+      { title: "مايكروفون بودكاست احترافي USB", cat: "electronics", amount: 0.022, owner: "@VoiceLabPi", desc: "التقاط صوت واضح للتسجيل والاجتماعات الصوتية.", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" },
+      { title: "قرص تخزين خارجي SSD 1TB", cat: "electronics", amount: 0.026, owner: "@DataVaultPi", desc: "حفظ الملفات الكبيرة بسرعة وموثوقية.", img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=700&q=80" },
+      { title: "حامل هاتف مغناطيسي للسيارة", cat: "auto", amount: 0.01, owner: "@AutoGearPi", desc: "تثبيت عملي للهاتف أثناء القيادة.", img: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=700&q=80" },
+      { title: "كاميرا داش كام للسيارات Full HD", cat: "auto", amount: 0.024, owner: "@RoadSafePi", desc: "توثيق الطريق بوضوح أثناء التنقل بالسيارة.", img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80" },
+      { title: "مكنسة روبوت ذكية للمنزل", cat: "home", amount: 0.045, owner: "@SmartCleanPi", desc: "تنظيف مريح للأرضيات بضغطة زر.", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=700&q=80" },
+      { title: "جهاز تنقية الهواء الذكي HEPA", cat: "home", amount: 0.032, owner: "@FreshAirPi", desc: "تحسين جودة الهواء داخل الغرف والمكاتب.", img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=700&q=80" },
+      { title: "مطحنة قهوة يدوية من الفولاذ", cat: "home", amount: 0.014, owner: "@BaristaToolPi", desc: "طحن دقيق ومتين لعشاق القهوة المختصة.", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80" },
+      { title: "ترمس حافظ للحرارة ستانلس ستيل", cat: "home", amount: 0.011, owner: "@ThermoGoPi", desc: "يحفظ حرارة المشروبات لفترة طويلة أثناء التنقل.", img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة تنظيم كابلات السفر", cat: "fashion", amount: 0.01, owner: "@TidyPackPi", desc: "ترتيب الكابلات والشواحن والأدوات الصغيرة.", img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=700&q=80" },
+      { title: "سجادة يوغا وتمارين رياضية سميكة", cat: "sports", amount: 0.013, owner: "@FitHomePi", desc: "مريحة للتمارين المنزلية والمرونة البدنية.", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجموعة أوزان رياضية منزلية", cat: "sports", amount: 0.028, owner: "@IronGymPi", desc: "مناسبة لتمارين القوة وبناء اللياقة في البيت.", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" },
+      { title: "دراجة هوائية جبلية خفيفة", cat: "sports", amount: 0.05, owner: "@RideProPi", desc: "تصميم متين للرياضة والتنقل في المسارات.", img: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=700&q=80" },
+      { title: "خيمة تخييم سريعة التركيب", cat: "sports", amount: 0.032, owner: "@CampOutPi", desc: "مناسبة للرحلات البرية والتخييم الخارجي.", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80" },
+      { title: "نبتة زينة داخلية مع أصيص سيراميك", cat: "home", amount: 0.01, owner: "@GreenRoomPi", desc: "إضافة طبيعية جميلة للمنازل والمكاتب.", img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=80" },
+      { title: "دفتر ملاحظات جلدي فاخر A5", cat: "home", amount: 0.01, owner: "@NoteCraftPi", desc: "مناسب للتدوين اليومي وتنظيم المهام.", img: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=700&q=80" },
+      { title: "قلم حبر معدني أنيق للهدايا", cat: "fashion", amount: 0.012, owner: "@PenMasterPi", desc: "تصميم أنيق مناسب للاقتناء أو الإهداء.", img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=700&q=80" },
+      { title: "طقم شاي زجاجي مقاوم للحرارة", cat: "home", amount: 0.019, owner: "@TeaArtPi", desc: "تصميم شفاف أنيق لتحضير وتقديم الشاي.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80" },
+      { title: "خلاط عصائر محمول قابل للشحن", cat: "home", amount: 0.016, owner: "@FreshBlendPi", desc: "عملي وسهل التنظيف لتحضير العصائر اليومية.", img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80" },
+      { title: "قفل باب ذكي بالبصمة والرمز", cat: "home", amount: 0.038, owner: "@SmartLockPi", desc: "تحكم سهل بالدخول للمنازل والمكاتب.", img: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=700&q=80" }
     ];
 
-    const extraItems = [
-      {
-        id: "st-1",
-        category: "stores",
-        catName: "متجر معتمد",
-        title: "متجر النخبة للإلكترونيات",
-        desc: "موزع معتمد للأجهزة الذكية والإكسسوارات الأصلية.",
-        trust: "99%",
-        rating: "4.9 ★",
-        amount: 0.01,
-        owner: "@EliteStorePi",
-        status: "هوية ومحفظة موثّقة",
-        img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: "st-2",
-        category: "stores",
-        catName: "متجر معتمد",
-        title: "دار العطور الشرقية",
-        desc: "تشكيلة عطور طبيعية مختارة بعناية وتغليف فاخر.",
-        trust: "98%",
-        rating: "4.9 ★",
-        amount: 0.02,
-        owner: "@RoyalScent",
-        status: "متجر موثّق",
-        img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: "st-3",
-        category: "stores",
-        catName: "متجر معتمد",
-        title: "واحة القهوة والمحامص",
-        desc: "محاصيل قهوة مختصة محمصة طازجة للطلبات.",
-        trust: "97%",
-        rating: "4.8 ★",
-        amount: 0.01,
-        owner: "@RoastPi",
-        status: "متجر نشط",
-        img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: "sv-1",
-        category: "services",
-        catName: "خدمة احترافية",
-        title: "تدقيق ومراجعة تطبيقات Pi",
-        desc: "فحص جاهزية الواجهة وتجربة المستخدم قبل النشر.",
-        trust: "100%",
-        rating: "5.0 ★",
-        amount: 0.02,
-        owner: "@PiAuditLab",
-        status: "مزود خدمة ذهبي",
-        img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80"
-      },
-      {
-        id: "sv-2",
-        category: "services",
-        catName: "خدمة احترافية",
-        title: "تصميم هوية بصرية للمتاجر",
-        desc: "إعداد شعارات وبطاقات عرض احترافية لمتجرك.",
-        trust: "99%",
-        rating: "4.9 ★",
-        amount: 0.025,
-        owner: "@BrandStudioPi",
-        status: "خدمة موثّقة",
-        img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80"
+    const extraCatalog = [
+      { id: "st-1", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "متجر النخبة للإلكترونيات", desc: "متجر متخصص في الأجهزة والملحقات الإلكترونية.", trust: "99%", rating: "4.9 ★", amount: 0.01, owner: "@EliteStorePi", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-2", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "دار العطور الشرقية", desc: "متجر عطور مختارة بعناية وتغليف مميز.", trust: "98%", rating: "4.9 ★", amount: 0.02, owner: "@RoyalScent", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-3", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "واحة القهوة والمحامص", desc: "متجر للقهوة المختصة والمحاصيل المحمصة.", trust: "97%", rating: "4.8 ★", amount: 0.01, owner: "@RoastPi", img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80" },
+      { id: "sv-1", type: "services", cat: "services", typeLabel: "خدمة", title: "تدقيق ومراجعة تطبيقات Pi", desc: "مراجعة تجربة الواجهة والجاهزية داخل Pi Browser.", trust: "100%", rating: "5.0 ★", amount: 0.02, owner: "@PiAuditLab", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80" },
+      { id: "sv-2", type: "services", cat: "services", typeLabel: "خدمة", title: "تصميم هوية بصرية للمتاجر", desc: "تصميم شعارات وبطاقات عرض للمتاجر والرواد.", trust: "99%", rating: "4.9 ★", amount: 0.025, owner: "@BrandStudioPi", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80" }
+    ];
+
+    function getUserProducts() {
+      try {
+        const raw = localStorage.getItem(USER_ITEMS_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
       }
-    ];
+    }
 
-    const itemsData = [
-      ...products50.map((p, idx) => ({
-        id: "pr-" + (idx + 1),
-        category: "products",
-        catName: "منتج موثوق",
+    function saveUserProducts(list) {
+      try {
+        localStorage.setItem(USER_ITEMS_KEY, JSON.stringify(list));
+      } catch (e) {}
+    }
+
+    function getAllCatalog() {
+      const builtIn = rawProducts50.map((p, i) => ({
+        id: "prod-" + (i + 1),
+        type: "products",
+        cat: p.cat,
+        typeLabel: "منتج موثوق",
         title: p.title,
         desc: p.desc,
-        trust: (97 + (idx % 3)) + "%",
-        rating: (idx % 2 === 0 ? "4.9 ★" : "4.8 ★"),
+        trust: (97 + (i % 3)) + "%",
+        rating: (i % 2 === 0 ? "4.9 ★" : "4.8 ★"),
         amount: p.amount,
         owner: p.owner,
-        status: "منتج مفحوص ومعتمد",
+        isMine: false,
         img: p.img
-      })),
-      ...extraItems
-    ];
+      }));
+      return [...getUserProducts(), ...builtIn, ...extraCatalog];
+    }
 
-    function setTxMessage(msg) {
-      document.getElementById("txStatus").textContent = "حالة الدفع: " + msg;
+    function updateStatus(msg) {
+      document.getElementById("statusText").textContent = "حالة المنصة: " + msg;
+    }
+
+    function updateCartLabel() {
+      document.getElementById("cartNavLabel").textContent = `السلة (${cartItems.length})`;
+    }
+
+    function addToCart(id) {
+      const item = getAllCatalog().find(x => x.id === id);
+      if (!item) return;
+      cartItems.push(item);
+      updateCartLabel();
+      updateStatus(`تمت إضافة "${item.title}" إلى السلة.`);
     }
 
     async function connectPi() {
       const btn = document.getElementById("authBtn");
       if (!Pi) {
-        openInfoModal("تنبيه المتصفح", "افتح الرابط داخل تطبيق Pi Browser لربط حسابك على شبكة Pi.");
+        openModal("تنبيه المتصفح", "<p>افتح الرابط داخل تطبيق Pi Browser لربط حسابك على شبكة Pi.</p>");
         return;
       }
-      btn.innerHTML = "<span>جاري الربط...</span>";
+      btn.textContent = "جاري الربط...";
       try {
         const auth = await Pi.authenticate(["username", "payments"], function(incompletePayment) {
-          setTxMessage("تم رصد معاملة سابقة غير مكتملة: " + incompletePayment.identifier);
+          updateStatus("معاملة سابقة غير مكتملة: " + incompletePayment.identifier);
         });
         currentUser = auth.user;
         btn.classList.add("connected");
-        btn.innerHTML = `<span>✓ @${currentUser.username}</span>`;
-        setTxMessage("تم ربط الحساب @" + currentUser.username + ". يمكنك الآن تجربة زر الدفع.");
+        btn.textContent = "✓ @" + currentUser.username;
+        updateStatus("تم ربط الحساب @" + currentUser.username);
       } catch (e) {
-        btn.innerHTML = "<span>ربط حساب Pi</span>";
-        setTxMessage("تعذر ربط الحساب: " + (e && e.message ? e.message : "تأكد من الفتح داخل Pi Browser"));
+        btn.textContent = "ربط حساب Pi";
+        updateStatus("تعذر ربط الحساب. تأكد من الفتح داخل Pi Browser.");
       }
     }
 
-    async function payWithPi(itemId) {
-      const item = itemsData.find(x => x.id === itemId);
+    async function payItem(id) {
+      const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
 
       if (!Pi) {
-        openInfoModal("مطلوب Pi Browser", "زر الدفع يعمل داخل تطبيق Pi Browser فقط.");
+        openModal("مطلوب Pi Browser", "<p>زر الدفع يعمل داخل تطبيق Pi Browser فقط.</p>");
         return;
       }
 
@@ -780,90 +959,180 @@
         if (!currentUser) return;
       }
 
-      setTxMessage("جاري فتح نافذة الدفع لـ (" + item.title + ") بقيمة " + item.amount + " Test-Pi...");
+      updateStatus(`جاري فتح نافذة الدفع لـ (${item.title}) بقيمة ${item.amount} Test-Pi...`);
 
       try {
         await Pi.createPayment(
           {
             amount: item.amount,
             memo: "PiTrust Testnet: " + item.title,
-            metadata: { itemId: item.id, username: currentUser.username }
+            metadata: { itemId: item.id, owner: item.owner, buyer: currentUser.username }
           },
           {
             onReadyForServerApproval: function(paymentId) {
-              setTxMessage("تم إنشاء الدفعة (ID: " + paymentId + ") وبانتظار موافقة الخادم لإتمام التحويل.");
+              updateStatus("تم إنشاء الدفعة (ID: " + paymentId + ") وبانتظار موافقة الخادم.");
             },
             onReadyForServerCompletion: function(paymentId, txid) {
-              setTxMessage("تم تأكيد الدفعة! Payment ID: " + paymentId + " | TXID: " + txid);
+              updateStatus("تم تأكيد الدفعة! Payment ID: " + paymentId + " | TXID: " + txid);
             },
             onCancel: function(paymentId) {
-              setTxMessage("تم إلغاء عملية الدفع (ID: " + paymentId + ").");
+              updateStatus("تم إلغاء عملية الدفع (" + paymentId + ").");
             },
             onError: function(error) {
-              setTxMessage("تعذر إتمام الدفع: " + (error && error.message ? error.message : error));
+              updateStatus("تعذر الدفع: " + (error && error.message ? error.message : error));
             }
           }
         );
       } catch (err) {
-        setTxMessage("خطأ أثناء بدء الدفع: " + (err && err.message ? err.message : err));
+        updateStatus("خطأ أثناء بدء الدفع: " + (err && err.message ? err.message : err));
       }
     }
 
-    function setTab(tab) {
-      activeTab = tab;
-      ["all", "products", "stores", "services"].forEach(t => {
-        document.getElementById("tab-" + t).classList.toggle("active", t === tab);
-      });
-      renderCards();
+    /* فتح الخانة الخاصة بالمنتج */
+    function openProductSlot(id) {
+      const item = getAllCatalog().find(x => x.id === id);
+      if (!item) return;
+
+      document.getElementById("catalogHomeView").style.display = "none";
+      const slot = document.getElementById("productSlotView");
+      slot.classList.add("active");
+      slot.innerHTML = `
+        <div class="slot-top-nav">
+          <button class="btn-back" onclick="closeProductSlot()">← العودة إلى السوق</button>
+          <span style="font-size:12px; font-weight:800; color:#5b21b6;">خانة المنتج الخاصة</span>
+        </div>
+
+        <img class="slot-hero-img" src="${item.img}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
+
+        <div class="slot-title">${item.title}</div>
+        <p style="font-size:14px; color:#475569;">${item.desc}</p>
+
+        <div class="slot-price-box">
+          <div>
+            <div style="font-size:11.5px; color:#64748b;">سعر الاختبار</div>
+            <div style="font-size:18px; font-weight:800; color:#4c1d95;">${item.amount} Test-Pi</div>
+          </div>
+          <span style="background:#d1fae5; color:#065f46; padding:5px 10px; border-radius:9px; font-size:12px; font-weight:800;">✓ موثّق</span>
+        </div>
+
+        <div class="slot-specs">
+          <div class="slot-spec-row"><span>الفئة</span><strong>${item.typeLabel}</strong></div>
+          <div class="slot-spec-row"><span>التاجر / المزود</span><strong>${item.owner}</strong></div>
+          <div class="slot-spec-row"><span>مؤشر الوثوقية</span><strong>${item.trust} (${item.rating})</strong></div>
+        </div>
+
+        <div class="slot-actions">
+          <button class="btn-slot-pay" onclick="payItem('${item.id}')">دفع بـ Pi</button>
+          <button class="btn-slot-cart" onclick="addToCart('${item.id}')">إضافة للسلة</button>
+        </div>
+        ${item.isMine ? `<button onclick="deleteMyProduct('${item.id}')" style="margin-top:10px; width:100%; background:#fee2e2; color:#991b1b; border:none; padding:9px; border-radius:11px; font-family:'Tajawal',sans-serif; font-weight:800; cursor:pointer;">حذف هذا المنتج</button>` : ""}
+      `;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function renderCards() {
-      const grid = document.getElementById("cardsGrid");
-      const countEl = document.getElementById("resultsCount");
+    function closeProductSlot() {
+      document.getElementById("productSlotView").classList.remove("active");
+      document.getElementById("productSlotView").innerHTML = "";
+      document.getElementById("catalogHomeView").style.display = "block";
+    }
+
+    function goHomeTab() {
+      closeProductSlot();
+      activeCategory = "all";
+      activeFilterTab = "all";
+      syncCatUI();
+      syncFilterUI();
+      setActiveNav("nav-home");
+      renderProducts();
+    }
+
+    function selectCategory(cat) {
+      closeProductSlot();
+      activeCategory = cat;
+      if (cat === "stores") {
+        activeFilterTab = "stores";
+        setActiveNav("nav-stores");
+      } else {
+        setActiveNav("nav-home");
+      }
+      syncCatUI();
+      syncFilterUI();
+      renderProducts();
+    }
+
+    function setFilterTab(tab) {
+      closeProductSlot();
+      activeFilterTab = tab;
+      if (tab !== "stores") activeCategory = "all";
+      syncCatUI();
+      syncFilterUI();
+      renderProducts();
+    }
+
+    function syncCatUI() {
+      ["all", "electronics", "sports", "fashion", "home", "auto", "stores", "services"].forEach(c => {
+        const el = document.getElementById("cat-" + c);
+        if (el) el.classList.toggle("active", c === activeCategory);
+      });
+    }
+
+    function syncFilterUI() {
+      ["all", "products", "stores", "services", "mine"].forEach(t => {
+        const el = document.getElementById("ftab-" + t);
+        if (el) el.classList.toggle("active", t === activeFilterTab);
+      });
+    }
+
+    function setActiveNav(id) {
+      ["nav-home", "nav-stores", "nav-cart", "nav-account"].forEach(n => {
+        const el = document.getElementById(n);
+        if (el) el.classList.toggle("active", n === id);
+      });
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("productsGrid");
+      const countEl = document.getElementById("countLabel");
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
-      const filtered = itemsData.filter(item => {
-        const matchTab = activeTab === "all" || item.category === activeTab;
+      const filtered = getAllCatalog().filter(item => {
+        const matchFilter =
+          activeFilterTab === "all" ||
+          (activeFilterTab === "mine" ? item.isMine : item.type === activeFilterTab);
+        const matchCat = activeCategory === "all" || item.cat === activeCategory;
         const matchQuery = !query ||
           item.title.toLowerCase().includes(query) ||
           item.desc.toLowerCase().includes(query) ||
-          item.catName.toLowerCase().includes(query);
-        return matchTab && matchQuery;
+          item.owner.toLowerCase().includes(query);
+        return matchFilter && matchCat && matchQuery;
       });
 
-      countEl.textContent = `عدد العناصر المعروضة: ${filtered.length}`;
+      countEl.textContent = `${filtered.length} عنصر`;
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">لا توجد نتائج مطابقة.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:28px; color:var(--text-muted);">لا توجد عناصر مطابقة لهذا القسم أو البحث.</div>`;
         return;
       }
 
       grid.innerHTML = filtered.map(item => `
-        <article class="card">
-          <div class="card-img-wrap">
+        <article class="product-box">
+          <div class="prod-img-area" onclick="openProductSlot('${item.id}')">
             <img src="${item.img}" alt="${item.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
-            <div class="img-badges">
-              <span class="cat-pill">${item.catName}</span>
-              <span class="verified-pill">✓ موثّق</span>
-            </div>
+            <span class="prod-badge">${item.typeLabel}</span>
           </div>
-          <div class="card-content">
+          <div class="prod-body">
             <div>
-              <h3>${item.title}</h3>
-              <p class="card-desc">${item.desc}</p>
-            </div>
-            <div>
-              <div class="trust-meter">
-                <span>الوثوقية: <strong class="trust-score">${item.trust}</strong></span>
+              <div class="prod-name" onclick="openProductSlot('${item.id}')">${item.title}</div>
+              <div class="prod-meta">
+                <span>${item.owner}</span>
                 <span>${item.rating}</span>
               </div>
-              <div class="price-row">
-                <div class="price-tag">${item.amount} Test-Pi</div>
-                <span style="font-size:11px; color:var(--text-muted);">${item.owner}</span>
-              </div>
-              <div class="card-actions">
-                <button class="btn-pay" onclick="payWithPi('${item.id}')">دفع بـ Pi</button>
-                <button class="btn-details" onclick="openDetails('${item.id}')">شهادة الثقة</button>
+            </div>
+            <div>
+              <div class="prod-price">${item.amount} Test-Pi</div>
+              <div class="prod-btns">
+                <button class="btn-open-slot" onclick="openProductSlot('${item.id}')">فتح الخانة</button>
+                <button class="btn-cart-add" onclick="addToCart('${item.id}')">+ السلة</button>
               </div>
             </div>
           </div>
@@ -871,56 +1140,163 @@
       `).join("");
     }
 
-    function openDetails(id) {
-      const item = itemsData.find(x => x.id === id);
-      if (!item) return;
-      document.getElementById("modalTitle").textContent = item.title;
-      document.getElementById("modalBody").innerHTML = `
-        <img src="${item.img}" alt="${item.title}" style="width:100%; height:160px; object-fit:cover; border-radius:12px; margin-bottom:12px;" />
-        <p>${item.desc}</p>
-        <ul class="info-list">
-          <li><span>التصنيف</span><strong>${item.catName}</strong></li>
-          <li><span>المزود</span><strong>${item.owner}</strong></li>
-          <li><span>القيمة التجريبية</span><strong style="color:var(--gold-light)">${item.amount} Test-Pi</strong></li>
-          <li><span>درجة الوثوقية</span><strong style="color:var(--gold)">${item.trust}</strong></li>
-          <li><span>حالة التدقيق</span><strong style="color:#6ee7b7">${item.status}</strong></li>
-        </ul>
-      `;
-      document.getElementById("modalBackdrop").classList.add("open");
+    function openAddProductModal() {
+      const defaultOwner = currentUser ? "@" + currentUser.username : "@PioneerMerchant";
+      openModal("إضافة منتج كتاجر", `
+        <div class="form-group">
+          <label class="form-label">اسم المنتج *</label>
+          <input type="text" id="pTitle" class="form-control" placeholder="مثال: ساعة ذكية أو عطر فاخر" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">القسم</label>
+          <select id="pCat" class="form-control">
+            <option value="electronics">إلكترونيات</option>
+            <option value="sports">رياضة</option>
+            <option value="fashion">أزياء وعطور</option>
+            <option value="home">منزل وقهوة</option>
+            <option value="auto">سيارات</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">السعر (Test-Pi)</label>
+          <input type="number" step="0.005" min="0.005" id="pAmount" class="form-control" value="0.02" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">حساب التاجر</label>
+          <input type="text" id="pOwner" class="form-control" value="${defaultOwner}" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">رابط صورة (اختياري)</label>
+          <input type="url" id="pImg" class="form-control" placeholder="https://..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">وصف المنتج *</label>
+          <textarea id="pDesc" rows="2" class="form-control" placeholder="اكتب وصفاً واضحاً للمنتج..."></textarea>
+        </div>
+        <div id="pErr" style="color:#b91c1c; font-size:12px; margin-bottom:8px;"></div>
+        <button class="btn-submit-modal" onclick="saveNewProduct()">نشر المنتج وإنشاء خانته</button>
+      `);
     }
 
-    function openLegal(type) {
+    function saveNewProduct() {
+      const title = document.getElementById("pTitle").value.trim();
+      const cat = document.getElementById("pCat").value;
+      const amount = parseFloat(document.getElementById("pAmount").value);
+      let owner = document.getElementById("pOwner").value.trim();
+      const imgInput = document.getElementById("pImg").value.trim();
+      const desc = document.getElementById("pDesc").value.trim();
+      const err = document.getElementById("pErr");
+
+      if (!title || !desc || isNaN(amount) || amount <= 0) {
+        err.textContent = "يرجى إدخال اسم المنتج والوصف وسعر صحيح.";
+        return;
+      }
+
+      if (!owner) owner = currentUser ? "@" + currentUser.username : "@PioneerMerchant";
+      else if (!owner.startsWith("@")) owner = "@" + owner;
+
+      const newItem = {
+        id: "my-" + Date.now(),
+        type: "products",
+        cat,
+        typeLabel: "منتج رائد",
+        title,
+        desc,
+        trust: "98%",
+        rating: "5.0 ★",
+        amount,
+        owner,
+        isMine: true,
+        img: (imgInput && imgInput.startsWith("https://"))
+          ? imgInput
+          : "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80"
+      };
+
+      const list = getUserProducts();
+      list.unshift(newItem);
+      saveUserProducts(list);
+
+      closeModal();
+      goHomeTab();
+      updateStatus(`تم نشر "${title}" وفتح خانته الخاصة جاهز.`);
+      openProductSlot(newItem.id);
+    }
+
+    function deleteMyProduct(id) {
+      const list = getUserProducts().filter(x => x.id !== id);
+      saveUserProducts(list);
+      closeProductSlot();
+      renderProducts();
+      updateStatus("تم حذف المنتج.");
+    }
+
+    function openCartModal() {
+      setActiveNav("nav-cart");
+      if (cartItems.length === 0) {
+        openModal("السلة", "<p>السلة فارغة حالياً. أضف أي منتج من السوق أو من خانة المنتج.</p>");
+        return;
+      }
+      const total = cartItems.reduce((sum, i) => sum + Number(i.amount || 0), 0).toFixed(3);
+      const listHtml = cartItems.map((it, idx) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f1f5f9;">
+          <div>
+            <strong>${it.title}</strong>
+            <div style="font-size:11.5px; color:#64748b;">${it.amount} Test-Pi</div>
+          </div>
+          <button onclick="removeCartIdx(${idx})" style="background:#fee2e2; color:#991b1b; border:none; padding:4px 9px; border-radius:8px; cursor:pointer;">حذف</button>
+        </div>
+      `).join("");
+
+      openModal("سلة المشتريات", `
+        ${listHtml}
+        <div style="margin-top:12px; font-weight:800; color:#4c1d95;">الإجمالي التجريبي: ${total} Test-Pi</div>
+        <button class="btn-submit-modal" style="margin-top:12px;" onclick="payItem('${cartItems[0].id}')">متابعة الدفع لأول منتج</button>
+      `);
+    }
+
+    function removeCartIdx(idx) {
+      cartItems.splice(idx, 1);
+      updateCartLabel();
+      openCartModal();
+    }
+
+    function openAccountModal() {
+      setActiveNav("nav-account");
+      const userInfo = currentUser ? `<strong>@${currentUser.username}</strong>` : "غير مرتبط بعد";
+      openModal("حسابي في PiTrust", `
+        <p style="margin-bottom:10px;">حالة الحساب: ${userInfo}</p>
+        <p style="margin-bottom:14px;">منتجاتي المضافة: <strong>${getUserProducts().length}</strong></p>
+        <button class="btn-submit-modal" onclick="closeModal(); connectPi();">ربط / تحديث حساب Pi</button>
+      `);
+    }
+
+    function openLegalModal(type) {
       if (type === "privacy") {
-        openInfoModal(
-          "سياسة الخصوصية (PiTrust)",
-          "يستخدم تطبيق PiTrust اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض جلستك داخل المنصة، ولا نطلب كلمات مرور أو عبارات سرية لمحفظتك."
-        );
+        openModal("سياسة الخصوصية", "<p>يستخدم تطبيق PiTrust اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض هويتك داخل المنصة، ولا يطلب أي عبارات سرية لمحفظتك.</p>");
       } else {
-        openInfoModal(
-          "شروط الاستخدام (PiTrust)",
-          "يعمل التطبيق حالياً على شبكة الاختبار (Pi Testnet) لأغراض العرض والتجربة، والعمليات التجريبية مخصصة للاختبار ضمن بيئة Testnet."
-        );
+        openModal("شروط الاستخدام", "<p>يعمل التطبيق على شبكة الاختبار (Pi Testnet) لاستعراض وإضافة المنتجات وتجربة المنصة.</p>");
       }
     }
 
-    function openInfoModal(title, text) {
+    function openModal(title, html) {
       document.getElementById("modalTitle").textContent = title;
-      document.getElementById("modalBody").innerHTML = `<p style="line-height:1.8;">${text}</p>`;
+      document.getElementById("modalContent").innerHTML = html;
       document.getElementById("modalBackdrop").classList.add("open");
     }
 
-    function closeModal(e) {
-      if (e.target.id === "modalBackdrop") forceCloseModal();
-    }
-
-    function forceCloseModal() {
+    function closeModal() {
       document.getElementById("modalBackdrop").classList.remove("open");
     }
 
+    function closeModalBackdrop(e) {
+      if (e.target.id === "modalBackdrop") closeModal();
+    }
+
     window.addEventListener("load", () => {
-      renderCards();
-      if (window.location.hash === "#privacy") openLegal("privacy");
-      if (window.location.hash === "#tos") openLegal("tos");
+      updateCartLabel();
+      renderProducts();
+      if (window.location.hash === "#privacy") openLegalModal("privacy");
+      if (window.location.hash === "#tos") openLegalModal("tos");
     });
   </script>
 </body>
