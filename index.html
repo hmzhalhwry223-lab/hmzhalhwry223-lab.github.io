@@ -11,9 +11,9 @@
   <style>
     :root {
       --bg-dark: #070913;
-      --bg-card: rgba(18, 24, 43, 0.78);
+      --bg-card: rgba(18, 24, 43, 0.85);
       --bg-card-solid: #12182b;
-      --border: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.09);
       --border-gold: rgba(245, 185, 66, 0.35);
       --gold: #f5b942;
       --gold-light: #fde08d;
@@ -45,20 +45,19 @@
       line-height: 1.6;
     }
 
-    /* الشريط العلوي */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 50;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(7, 9, 19, 0.82);
+      background: rgba(7, 9, 19, 0.85);
       border-bottom: 1px solid var(--border);
-      padding: 14px 18px;
+      padding: 13px 18px;
     }
 
     .nav-inner {
-      max-width: 780px;
+      max-width: 860px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -89,7 +88,6 @@
     .brand-title {
       font-size: 20px;
       font-weight: 800;
-      letter-spacing: 0.3px;
       background: linear-gradient(to left, #fff, var(--gold-light));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -109,20 +107,15 @@
       background: linear-gradient(135deg, #7c3aed, #5b21b6);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.15);
-      padding: 9px 16px;
+      padding: 9px 15px;
       border-radius: 12px;
       font-family: 'Tajawal', sans-serif;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       box-shadow: 0 4px 14px var(--purple-glow);
-      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
-    .auth-btn:active { transform: scale(0.97); }
     .auth-btn.connected {
       background: var(--green-bg);
       border-color: rgba(16, 185, 129, 0.35);
@@ -131,32 +124,18 @@
     }
 
     .container {
-      max-width: 780px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 18px 16px;
     }
 
-    /* بطاقة الترحيب الفخمة */
     .hero {
-      background: linear-gradient(145deg, rgba(24, 31, 56, 0.9), rgba(13, 17, 33, 0.95));
+      background: linear-gradient(145deg, rgba(24, 31, 56, 0.92), rgba(13, 17, 33, 0.96));
       border: 1px solid var(--border-gold);
       border-radius: 22px;
       padding: 22px 20px;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 18px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: -40px;
-      left: -40px;
-      width: 140px;
-      height: 140px;
-      background: radial-gradient(circle, rgba(245, 185, 66, 0.18), transparent 70%);
-      pointer-events: none;
     }
 
     .hero-tag {
@@ -166,7 +145,7 @@
       font-size: 12px;
       font-weight: 700;
       color: var(--gold);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .hero h1 {
@@ -179,21 +158,21 @@
     .hero p {
       font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      padding-top: 14px;
+      padding-top: 12px;
       border-top: 1px solid var(--border);
     }
 
     .stat-box {
       background: rgba(255, 255, 255, 0.03);
       border-radius: 12px;
-      padding: 10px 8px;
+      padding: 9px 8px;
       text-align: center;
     }
 
@@ -208,10 +187,15 @@
       color: var(--text-muted);
     }
 
-    /* شريط البحث */
-    .search-box {
-      position: relative;
+    .tx-banner {
+      background: rgba(124, 58, 237, 0.14);
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 14px;
+      padding: 12px 15px;
       margin-bottom: 16px;
+      font-size: 13px;
+      color: #e9d5ff;
+      word-break: break-word;
     }
 
     .search-input {
@@ -224,14 +208,13 @@
       font-family: 'Tajawal', sans-serif;
       font-size: 14px;
       outline: none;
-      transition: border-color 0.2s;
+      margin-bottom: 14px;
     }
 
     .search-input:focus {
       border-color: var(--gold);
     }
 
-    /* التبويبات */
     .tabs {
       display: flex;
       gap: 8px;
@@ -253,7 +236,6 @@
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s;
     }
 
     .tab.active {
@@ -263,11 +245,10 @@
       box-shadow: 0 4px 12px rgba(245, 185, 66, 0.25);
     }
 
-    /* شبكة البطاقات */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 16px;
     }
 
     .card {
@@ -275,7 +256,7 @@
       backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 18px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -287,20 +268,38 @@
       border-color: var(--border-gold);
     }
 
-    .card-top {
+    .card-img-wrap {
+      position: relative;
+      height: 145px;
+      background: #0d1222;
+      overflow: hidden;
+    }
+
+    .card-img-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .img-badges {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      left: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      pointer-events: none;
     }
 
     .cat-pill {
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
+      padding: 4px 9px;
       border-radius: 8px;
-      background: rgba(124, 58, 237, 0.2);
-      color: #c4b5fd;
+      background: rgba(7, 9, 19, 0.78);
+      color: var(--gold-light);
+      border: 1px solid rgba(255,255,255,0.12);
     }
 
     .verified-pill {
@@ -308,31 +307,36 @@
       font-weight: 700;
       padding: 4px 9px;
       border-radius: 8px;
-      background: var(--green-bg);
-      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.88);
+      color: #042f2e;
+    }
+
+    .card-content {
+      padding: 15px;
+      flex: 1;
       display: flex;
-      align-items: center;
-      gap: 4px;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card h3 {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       color: #fff;
     }
 
     .card-desc {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .trust-meter {
       background: rgba(255,255,255,0.04);
       border-radius: 10px;
-      padding: 8px 10px;
-      margin-bottom: 14px;
+      padding: 7px 10px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -344,46 +348,51 @@
       font-weight: 800;
     }
 
-    .card-footer {
+    .price-row {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      padding-top: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-top: 10px;
       border-top: 1px solid var(--border);
     }
 
     .price-tag {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--gold-light);
     }
 
-    .price-tag span {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 500;
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-pay {
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #070913;
+      border: none;
+      padding: 9px 10px;
+      border-radius: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     .btn-details {
       background: rgba(255, 255, 255, 0.07);
       color: #fff;
       border: 1px solid var(--border);
-      padding: 8px 14px;
+      padding: 9px 10px;
       border-radius: 10px;
       font-family: 'Tajawal', sans-serif;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    .btn-details:hover {
-      background: rgba(245, 185, 66, 0.16);
-      border-color: var(--border-gold);
-      color: var(--gold-light);
-    }
-
-    /* التذييل والروابط القانونية */
     .footer {
       margin-top: 30px;
       text-align: center;
@@ -406,7 +415,6 @@
       font-weight: 700;
     }
 
-    /* نافذة التفاصيل المنبثقة (Modal) */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -431,12 +439,6 @@
       max-width: 520px;
       padding: 22px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-      animation: slideUp 0.22s ease;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(25px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .modal-header {
@@ -460,7 +462,7 @@
     .modal-body {
       font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .info-list {
@@ -496,7 +498,6 @@
 </head>
 <body>
 
-  <!-- الشريط العلوي -->
   <header class="navbar">
     <div class="nav-inner">
       <div class="brand">
@@ -513,11 +514,10 @@
   </header>
 
   <main class="container">
-    <!-- بطاقة الترحيب -->
     <section class="hero">
-      <div class="hero-tag">✦ دليل الثقة المعتمد في مجتمع Pi</div>
-      <h1>اكتشف المتاجر والخدمات الموثوقة بأمان</h1>
-      <p>منصة للتحقق من موثوقية البائعين والمنتجات الرقمية والخدمات داخل منظومة Pi Network.</p>
+      <div class="hero-tag">✦ دليل الثقة والتجارة في مجتمع Pi</div>
+      <h1>اكتشف المتاجر والمنتجات والخدمات الموثوقة</h1>
+      <p>منصة للتحقق من موثوقية البائعين والمنتجات الرقمية والخدمات داخل منظومة Pi Testnet.</p>
       <div class="stats-row">
         <div class="stat-box">
           <div class="stat-num">+120</div>
@@ -534,17 +534,372 @@
       </div>
     </section>
 
-    <!-- البحث -->
-    <div class="search-box">
-      <input
-        type="text"
-        id="searchInput"
-        class="search-input"
-        placeholder="ابحث عن متجر، منتج، أو خدمة..."
-        oninput="renderCards()"
-      />
+    <div id="txStatus" class="tx-banner">
+      حالة الدفع: جاهز. اضغط "ربط حساب Pi" ثم اختر "دفع بـ Pi" على أي عنصر.
     </div>
 
-    <!-- التبويبات -->
+    <input
+      type="text"
+      id="searchInput"
+      class="search-input"
+      placeholder="ابحث عن متجر، منتج، أو خدمة..."
+      oninput="renderCards()"
+    />
+
     <div class="tabs">
-      <button class="tab active" id="tab-all" onclick="set
+      <button class="tab active" id="tab-all" onclick="setTab('all')">الكل</button>
+      <button class="tab" id="tab-products" onclick="setTab('products')">المنتجات</button>
+      <button class="tab" id="tab-stores" onclick="setTab('stores')">المتاجر المعتمدة</button>
+      <button class="tab" id="tab-services" onclick="setTab('services')">الخدمات</button>
+    </div>
+
+    <section id="cardsGrid" class="grid"></section>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#privacy" onclick="openLegal('privacy'); return false;">سياسة الخصوصية</a>
+        <a href="#tos" onclick="openLegal('tos'); return false;">شروط الاستخدام</a>
+      </div>
+      <div>PiTrust Ecosystem • Pi Testnet Edition</div>
+    </footer>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="modalTitle" style="font-size:18px; color:#fff;"></h3>
+        <button class="close-btn" onclick="forceCloseModal()">×</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <button class="btn-primary-full" onclick="forceCloseModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <script>
+    const Pi = window.Pi;
+    if (Pi) {
+      Pi.init({ version: "2.0", sandbox: true });
+    }
+
+    let currentUser = null;
+    let activeTab = "all";
+
+    function makeArt(bg1, bg2, accent, iconPath) {
+      return `
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g_${bg1.replace('#','')}" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="${bg1}"/>
+              <stop offset="100%" stop-color="${bg2}"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="200" fill="url(#g_${bg1.replace('#','')})"/>
+          <circle cx="330" cy="40" r="70" fill="${accent}" opacity="0.14"/>
+          <circle cx="70" cy="175" r="85" fill="${accent}" opacity="0.1"/>
+          <g transform="translate(160, 58)" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            ${iconPath}
+          </g>
+        </svg>
+      `;
+    }
+
+    const itemsData = [
+      {
+        id: "pr-1",
+        category: "products",
+        catName: "منتج موثوق",
+        title: "ساعة ذكية رياضية Pro",
+        desc: "مقاومة للماء مع تتبع صحي وشحن سريع.",
+        trust: "99%",
+        rating: "4.9 ★",
+        amount: 0.02,
+        owner: "@TechWatch_Jo",
+        status: "فحص جودة مكتمل",
+        art: makeArt("#17203f", "#0b1021", "#f5b942", `<circle cx="40" cy="42" r="26"/><path d="M28 16 L32 4 L48 4 L52 16 M28 68 L32 80 L48 80 L52 68"/><path d="M40 28 V42 L50 48"/>`)
+      },
+      {
+        id: "pr-2",
+        category: "products",
+        catName: "منتج موثوق",
+        title: "سماعات صوت لاسلكية Studio",
+        desc: "عزل ضوضاء وصوت نقي مع علبة شحن ذكية.",
+        trust: "98%",
+        rating: "4.8 ★",
+        amount: 0.015,
+        owner: "@SoundCraftPi",
+        status: "منتج مفحوص",
+        art: makeArt("#231942", "#110d24", "#c084fc", `<path d="M16 52 V40 A24 24 0 0 1 64 40 V52"/><rect x="8" y="46" width="12" height="22" rx="5"/><rect x="60" y="46" width="12" height="22" rx="5"/>`)
+      },
+      {
+        id: "pr-3",
+        category: "products",
+        catName: "منتج موثوق",
+        title: "حقيبة سفر ذكية مقاومة للمطر",
+        desc: "تصميم عملي مع جيب مخصص للأجهزة المحمولة.",
+        trust: "97%",
+        rating: "4.9 ★",
+        amount: 0.03,
+        owner: "@VoyagePi",
+        status: "مخزون موثّق",
+        art: makeArt("#132a36", "#09151c", "#34d399", `<rect x="18" y="24" width="44" height="50" rx="10"/><path d="M28 24 V16 A12 12 0 0 1 52 16 V24"/><line x1="18" y1="44" x2="62" y2="44"/>`)
+      },
+      {
+        id: "pr-4",
+        category: "products",
+        catName: "منتج موثوق",
+        title: "كاميرا مراقبة منزلية ذكية",
+        desc: "رؤية ليلية واضحة وتنبيهات فورية على الهاتف.",
+        trust: "98%",
+        rating: "4.7 ★",
+        amount: 0.025,
+        owner: "@SafeHomePi",
+        status: "معتمد للتجربة",
+        art: makeArt("#2b1c14", "#140d09", "#fbbf24", `<rect x="14" y="24" width="52" height="36" rx="8"/><circle cx="40" cy="42" r="10"/><path d="M40 60 V74 M26 74 H54"/>`)
+      },
+      {
+        id: "st-1",
+        category: "stores",
+        catName: "متجر معتمد",
+        title: "متجر النخبة للإلكترونيات",
+        desc: "موزع معتمد للأجهزة الذكية والإكسسوارات الأصلية.",
+        trust: "99%",
+        rating: "4.9 ★",
+        amount: 0.01,
+        owner: "@EliteStorePi",
+        status: "هوية ومحفظة موثّقة",
+        art: makeArt("#1b2244", "#0c1024", "#f5b942", `<path d="M12 32 L20 14 H60 L68 32 Z"/><path d="M16 32 V72 H64 V32"/><rect x="33" y="48" width="14" height="24"/>`)
+      },
+      {
+        id: "st-2",
+        category: "stores",
+        catName: "متجر معتمد",
+        title: "دار العطور الشرقية",
+        desc: "تشكيلة عطور طبيعية مختارة بعناية وتغليف فاخر.",
+        trust: "98%",
+        rating: "4.9 ★",
+        amount: 0.02,
+        owner: "@RoyalScent",
+        status: "متجر موثّق",
+        art: makeArt("#2e162c", "#160a15", "#f472b6", `<rect x="24" y="32" width="32" height="42" rx="8"/><rect x="32" y="18" width="16" height="14" rx="3"/><line x1="40" y1="10" x2="40" y2="18"/>`)
+      },
+      {
+        id: "st-3",
+        category: "stores",
+        catName: "متجر معتمد",
+        title: "واحة القهوة والمحامص",
+        desc: "محاصيل قهوة مختصة محمصة طازجة للطلبات.",
+        trust: "97%",
+        rating: "4.8 ★",
+        amount: 0.01,
+        owner: "@RoastPi",
+        status: "متجر نشط",
+        art: makeArt("#2b1e16", "#140e0a", "#f59e0b", `<path d="M18 32 H54 V58 A14 14 0 0 1 40 72 H32 A14 14 0 0 1 18 58 Z"/><path d="M54 38 H62 A8 8 0 0 1 62 54 H54"/>`)
+      },
+      {
+        id: "sv-1",
+        category: "services",
+        catName: "خدمة احترافية",
+        title: "تدقيق ومراجعة تطبيقات Pi",
+        desc: "فحص جاهزية الواجهة وتجربة المستخدم قبل النشر.",
+        trust: "100%",
+        rating: "5.0 ★",
+        amount: 0.02,
+        owner: "@PiAuditLab",
+        status: "مزود خدمة ذهبي",
+        art: makeArt("#112b29", "#081615", "#2dd4bf", `<circle cx="40" cy="42" r="24"/><path d="M29 42 L37 50 L52 34"/>`)
+      },
+      {
+        id: "sv-2",
+        category: "services",
+        catName: "خدمة احترافية",
+        title: "تصميم هوية بصرية للمتاجر",
+        desc: "إعداد شعارات وبطاقات عرض احترافية لمتجرك.",
+        trust: "99%",
+        rating: "4.9 ★",
+        amount: 0.025,
+        owner: "@BrandStudioPi",
+        status: "خدمة موثّقة",
+        art: makeArt("#1e1b4b", "#0e0c26", "#818cf8", `<polygon points="40,14 66,64 14,64"/><circle cx="40" cy="47" r="7"/>`)
+      }
+    ];
+
+    function setTxMessage(msg) {
+      document.getElementById("txStatus").textContent = "حالة الدفع: " + msg;
+    }
+
+    async function connectPi() {
+      const btn = document.getElementById("authBtn");
+      if (!Pi) {
+        openInfoModal("تنبيه المتصفح", "افتح الرابط داخل تطبيق Pi Browser لربط حسابك على شبكة Pi.");
+        return;
+      }
+      btn.innerHTML = "<span>جاري الربط...</span>";
+      try {
+        const auth = await Pi.authenticate(["username", "payments"], function(incompletePayment) {
+          setTxMessage("تم رصد معاملة سابقة غير مكتملة: " + incompletePayment.identifier);
+        });
+        currentUser = auth.user;
+        btn.classList.add("connected");
+        btn.innerHTML = `<span>✓ @${currentUser.username}</span>`;
+        setTxMessage("تم ربط الحساب @" + currentUser.username + ". يمكنك الآن تجربة زر الدفع.");
+      } catch (e) {
+        btn.innerHTML = "<span>ربط حساب Pi</span>";
+        setTxMessage("تعذر ربط الحساب: " + (e && e.message ? e.message : "تأكد من الفتح داخل Pi Browser"));
+      }
+    }
+
+    async function payWithPi(itemId) {
+      const item = itemsData.find(x => x.id === itemId);
+      if (!item) return;
+
+      if (!Pi) {
+        openInfoModal("مطلوب Pi Browser", "زر الدفع يعمل داخل تطبيق Pi Browser فقط.");
+        return;
+      }
+
+      if (!currentUser) {
+        await connectPi();
+        if (!currentUser) return;
+      }
+
+      setTxMessage("جاري فتح نافذة الدفع لـ (" + item.title + ") بقيمة " + item.amount + " Test-Pi...");
+
+      try {
+        await Pi.createPayment(
+          {
+            amount: item.amount,
+            memo: "PiTrust Testnet: " + item.title,
+            metadata: { itemId: item.id, username: currentUser.username }
+          },
+          {
+            onReadyForServerApproval: function(paymentId) {
+              setTxMessage("تم إنشاء الدفعة (ID: " + paymentId + ") وبانتظار موافقة الخادم لإتمام التحويل.");
+            },
+            onReadyForServerCompletion: function(paymentId, txid) {
+              setTxMessage("تم تأكيد الدفعة! Payment ID: " + paymentId + " | TXID: " + txid);
+            },
+            onCancel: function(paymentId) {
+              setTxMessage("تم إلغاء عملية الدفع (ID: " + paymentId + ").");
+            },
+            onError: function(error) {
+              setTxMessage("تعذر إتمام الدفع: " + (error && error.message ? error.message : error));
+            }
+          }
+        );
+      } catch (err) {
+        setTxMessage("خطأ أثناء بدء الدفع: " + (err && err.message ? err.message : err));
+      }
+    }
+
+    function setTab(tab) {
+      activeTab = tab;
+      ["all", "products", "stores", "services"].forEach(t => {
+        document.getElementById("tab-" + t).classList.toggle("active", t === tab);
+      });
+      renderCards();
+    }
+
+    function renderCards() {
+      const grid = document.getElementById("cardsGrid");
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+      const filtered = itemsData.filter(item => {
+        const matchTab = activeTab === "all" || item.category === activeTab;
+        const matchQuery = !query ||
+          item.title.toLowerCase().includes(query) ||
+          item.desc.toLowerCase().includes(query) ||
+          item.catName.toLowerCase().includes(query);
+        return matchTab && matchQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">لا توجد نتائج مطابقة.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <article class="card">
+          <div class="card-img-wrap">
+            ${item.art}
+            <div class="img-badges">
+              <span class="cat-pill">${item.catName}</span>
+              <span class="verified-pill">✓ موثّق</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <div>
+              <h3>${item.title}</h3>
+              <p class="card-desc">${item.desc}</p>
+            </div>
+            <div>
+              <div class="trust-meter">
+                <span>الوثوقية: <strong class="trust-score">${item.trust}</strong></span>
+                <span>${item.rating}</span>
+              </div>
+              <div class="price-row">
+                <div class="price-tag">${item.amount} Test-Pi</div>
+                <span style="font-size:11px; color:var(--text-muted);">${item.owner}</span>
+              </div>
+              <div class="card-actions">
+                <button class="btn-pay" onclick="payWithPi('${item.id}')">دفع بـ Pi</button>
+                <button class="btn-details" onclick="openDetails('${item.id}')">شهادة الثقة</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function openDetails(id) {
+      const item = itemsData.find(x => x.id === id);
+      if (!item) return;
+      document.getElementById("modalTitle").textContent = item.title;
+      document.getElementById("modalBody").innerHTML = `
+        <p>${item.desc}</p>
+        <ul class="info-list">
+          <li><span>التصنيف</span><strong>${item.catName}</strong></li>
+          <li><span>المزود</span><strong>${item.owner}</strong></li>
+          <li><span>القيمة التجريبية</span><strong style="color:var(--gold-light)">${item.amount} Test-Pi</strong></li>
+          <li><span>درجة الوثوقية</span><strong style="color:var(--gold)">${item.trust}</strong></li>
+          <li><span>حالة التدقيق</span><strong style="color:#6ee7b7">${item.status}</strong></li>
+        </ul>
+      `;
+      document.getElementById("modalBackdrop").classList.add("open");
+    }
+
+    function openLegal(type) {
+      if (type === "privacy") {
+        openInfoModal(
+          "سياسة الخصوصية (PiTrust)",
+          "يستخدم تطبيق PiTrust اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض جلستك داخل المنصة، ولا نطلب كلمات مرور أو عبارات سرية لمحفظتك."
+        );
+      } else {
+        openInfoModal(
+          "شروط الاستخدام (PiTrust)",
+          "يعمل التطبيق حالياً على شبكة الاختبار (Pi Testnet) لأغراض العرض والتجربة، والعمليات التجريبية مخصصة للاختبار ضمن بيئة Testnet."
+        );
+      }
+    }
+
+    function openInfoModal(title, text) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalBody").innerHTML = `<p style="line-height:1.8;">${text}</p>`;
+      document.getElementById("modalBackdrop").classList.add("open");
+    }
+
+    function closeModal(e) {
+      if (e.target.id === "modalBackdrop") forceCloseModal();
+    }
+
+    function forceCloseModal() {
+      document.getElementById("modalBackdrop").classList.remove("open");
+    }
+
+    window.addEventListener("load", () => {
+      renderCards();
+      if (window.location.hash === "#privacy") openLegal("privacy");
+      if (window.location.hash === "#tos") openLegal("tos");
+    });
+  </script>
+</body>
+</html>
