@@ -20,8 +20,6 @@
       --text-dark: #1e1b4b;
       --text-muted: #64748b;
       --border-soft: #e2e8f0;
-      --green: #059669;
-      --green-bg: #d1fae5;
     }
 
     * {
@@ -40,7 +38,6 @@
       line-height: 1.55;
     }
 
-    /* الترويسة البنفسجية العلوية */
     .top-header {
       background: linear-gradient(160deg, #4c1d95 0%, #3b0764 65%, #2e1065 100%);
       color: #fff;
@@ -51,7 +48,7 @@
     }
 
     .header-inner {
-      max-width: 920px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
@@ -135,7 +132,6 @@
       margin-bottom: 16px;
     }
 
-    /* شريط البحث */
     .search-bar {
       background: #fff;
       border-radius: 16px;
@@ -169,7 +165,7 @@
     }
 
     .main-wrap {
-      max-width: 920px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 16px;
     }
@@ -202,15 +198,12 @@
       cursor: pointer;
     }
 
-    /* بانر الترويج البنفسجي */
     .promo-banner {
       background: linear-gradient(120deg, #5b21b6, #4c1d95);
       color: #fff;
       border-radius: 20px;
       padding: 18px 20px;
       margin-bottom: 18px;
-      position: relative;
-      overflow: hidden;
       box-shadow: 0 8px 20px rgba(76, 29, 149, 0.2);
     }
 
@@ -238,7 +231,6 @@
       cursor: pointer;
     }
 
-    /* الأقسام */
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -262,18 +254,25 @@
       cursor: pointer;
     }
 
+    /* شبكة الأقسام */
     .cat-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 9px;
       margin-bottom: 18px;
+    }
+
+    @media (max-width: 520px) {
+      .cat-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     .cat-card {
       background: #fff;
       border: 1.5px solid transparent;
-      border-radius: 16px;
-      padding: 12px 6px;
+      border-radius: 15px;
+      padding: 11px 6px;
       text-align: center;
       cursor: pointer;
       box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
@@ -286,17 +285,16 @@
     }
 
     .cat-icon {
-      font-size: 22px;
-      margin-bottom: 4px;
+      font-size: 21px;
+      margin-bottom: 3px;
     }
 
     .cat-label {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--text-dark);
     }
 
-    /* تبويبات التصفية */
     .filter-tabs {
       display: flex;
       gap: 8px;
@@ -326,7 +324,6 @@
       border-color: #4c1d95;
     }
 
-    /* شبكة المنتجات */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -351,7 +348,7 @@
     }
 
     .prod-img-area {
-      height: 155px;
+      height: 160px;
       position: relative;
       background: #f1f5f9;
       cursor: pointer;
@@ -369,7 +366,7 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       color: #4c1d95;
       font-size: 10.5px;
       font-weight: 800;
@@ -438,7 +435,7 @@
       cursor: pointer;
     }
 
-    /* الخانة الخاصة بالمنتج (عرض صفحة المنتج الكاملة) */
+    /* خانة صفحة المنتج الخاصة */
     .product-slot-view {
       display: none;
       background: #fff;
@@ -475,7 +472,7 @@
 
     .slot-hero-img {
       width: 100%;
-      max-height: 260px;
+      max-height: 270px;
       object-fit: cover;
       border-radius: 16px;
       margin-bottom: 14px;
@@ -544,7 +541,6 @@
       cursor: pointer;
     }
 
-    /* الشريط السفلي للتنقل */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -582,7 +578,6 @@
       font-size: 18px;
     }
 
-    /* نافذة منبثقة للإضافة والسياسات */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -674,7 +669,7 @@
       </div>
 
       <h1 class="hero-title">أهلاً بك في PiTrust <span class="dot-accent"></span></h1>
-      <p class="hero-desc">اكتشف المنتجات والمتاجر والخدمات في مكان واحد مع خانة مخصصة لكل منتج.</p>
+      <p class="hero-desc">تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.</p>
 
       <div class="search-bar">
         <button class="btn-search" onclick="renderProducts()">بحث</button>
@@ -682,7 +677,7 @@
           type="text"
           id="searchInput"
           class="search-input"
-          placeholder="ابحث عن منتج أو متجر..."
+          placeholder="ابحث عن ملابس، قيمنغ، تجميل، رياضة، سيارات..."
           oninput="renderProducts()"
         />
       </div>
@@ -691,18 +686,18 @@
 
   <main class="main-wrap">
     <div class="tx-strip">
-      <span id="statusText">حالة المنصة: جاهز • اضغط على أي منتج لفتح خانته الخاصة.</span>
+      <span id="statusText">حالة المنصة: جاهز • اختر قسماً أو افتح خانة أي منتج.</span>
       <button class="btn-mini-gold" onclick="openAddProductModal()">+ أضف منتجك</button>
     </div>
 
-    <!-- الخانة الخاصة بالمنتج عند اختياره -->
+    <!-- الخانة الخاصة بالمنتج -->
     <section id="productSlotView" class="product-slot-view"></section>
 
     <!-- الصفحة الرئيسية للسوق -->
     <div id="catalogHomeView">
       <section class="promo-banner">
         <h2>تسوّق بثقة داخل منظومة Pi</h2>
-        <p>اكتشف عروضاً ومنتجات من متاجر متنوعة أو انشر منتجك الآن كتاجر.</p>
+        <p>أقسام متكاملة للرواد والتجار — انشر منتجك في القسم المناسب الآن.</p>
         <button class="btn-promo" onclick="openAddProductModal()">انضم كتاجر وأضف منتجاً ←</button>
       </section>
 
@@ -716,25 +711,33 @@
           <div class="cat-icon">🛍️</div>
           <div class="cat-label">الكل</div>
         </div>
+        <div class="cat-card" id="cat-fashion" onclick="selectCategory('fashion')">
+          <div class="cat-icon">👗</div>
+          <div class="cat-label">ملابس</div>
+        </div>
+        <div class="cat-card" id="cat-sports" onclick="selectCategory('sports')">
+          <div class="cat-icon">🏋️</div>
+          <div class="cat-label">أدوات رياضية</div>
+        </div>
+        <div class="cat-card" id="cat-beauty" onclick="selectCategory('beauty')">
+          <div class="cat-icon">💄</div>
+          <div class="cat-label">تجميل النساء</div>
+        </div>
+        <div class="cat-card" id="cat-auto" onclick="selectCategory('auto')">
+          <div class="cat-icon">🚗</div>
+          <div class="cat-label">إكسسوارات سيارات</div>
+        </div>
+        <div class="cat-card" id="cat-gaming" onclick="selectCategory('gaming')">
+          <div class="cat-icon">🎮</div>
+          <div class="cat-label">قيمنغ</div>
+        </div>
         <div class="cat-card" id="cat-electronics" onclick="selectCategory('electronics')">
           <div class="cat-icon">📱</div>
           <div class="cat-label">إلكترونيات</div>
         </div>
-        <div class="cat-card" id="cat-sports" onclick="selectCategory('sports')">
-          <div class="cat-icon">🏋️</div>
-          <div class="cat-label">رياضة</div>
-        </div>
-        <div class="cat-card" id="cat-fashion" onclick="selectCategory('fashion')">
-          <div class="cat-icon">👕</div>
-          <div class="cat-label">أزياء وعطور</div>
-        </div>
         <div class="cat-card" id="cat-home" onclick="selectCategory('home')">
           <div class="cat-icon">🏠</div>
           <div class="cat-label">منزل وقهوة</div>
-        </div>
-        <div class="cat-card" id="cat-auto" onclick="selectCategory('auto')">
-          <div class="cat-icon">🚗</div>
-          <div class="cat-label">سيارات</div>
         </div>
         <div class="cat-card" id="cat-stores" onclick="selectCategory('stores')">
           <div class="cat-icon">🏪</div>
@@ -748,7 +751,7 @@
 
       <div class="filter-tabs">
         <button class="f-tab active" id="ftab-all" onclick="setFilterTab('all')">جميع العناصر</button>
-        <button class="f-tab" id="ftab-products" onclick="setFilterTab('products')">المنتجات (50)</button>
+        <button class="f-tab" id="ftab-products" onclick="setFilterTab('products')">المنتجات</button>
         <button class="f-tab" id="ftab-stores" onclick="setFilterTab('stores')">المتاجر المعتمدة</button>
         <button class="f-tab" id="ftab-services" onclick="setFilterTab('services')">الخدمات</button>
         <button class="f-tab" id="ftab-mine" onclick="setFilterTab('mine')">منتجاتي</button>
@@ -771,7 +774,6 @@
     </footer>
   </main>
 
-  <!-- الشريط السفلي -->
   <nav class="bottom-nav">
     <button class="nav-item active" id="nav-home" onclick="goHomeTab()">
       <span class="nav-ico">🏠</span>
@@ -791,7 +793,6 @@
     </button>
   </nav>
 
-  <!-- نافذة منبثقة -->
   <div id="modalBackdrop" class="modal-backdrop" onclick="closeModalBackdrop(event)">
     <div class="modal-card" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -808,71 +809,91 @@
       Pi.init({ version: "2.0", sandbox: true });
     }
 
-    const USER_ITEMS_KEY = "pitrust_custom_products_v2";
+    const USER_ITEMS_KEY = "pitrust_custom_products_v3";
     let currentUser = null;
     let activeCategory = "all";
     let activeFilterTab = "all";
     let cartItems = [];
 
-    const rawProducts50 = [
-      { title: "ساعة ذكية رياضية Ultra Pro", cat: "electronics", amount: 0.02, owner: "@TechWatch_Jo", desc: "مقاومة للماء مع متابعة النشاط اليومي والبطارية طويلة الأمد.", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=80" },
-      { title: "سماعات رأس لاسلكية Studio ANC", cat: "electronics", amount: 0.015, owner: "@SoundCraftPi", desc: "عزل ضوضاء وصوت واضح مريح للاستخدام الطويل.", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80" },
-      { title: "حقيبة ظهر ذكية مقاومة للمطر", cat: "fashion", amount: 0.03, owner: "@VoyagePi", desc: "تصميم عملي مع جيب مخصص للحاسوب المحمول والتنقل.", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80" },
-      { title: "كاميرا فورية كلاسيكية", cat: "electronics", amount: 0.025, owner: "@LensMasterPi", desc: "تصوير واضح وتفاصيل دقيقة لعشاق التصوير.", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=700&q=80" },
-      { title: "حذاء رياضي للجري الخفيف", cat: "sports", amount: 0.02, owner: "@StepFitPi", desc: "نعل مريح وخفيف مناسب للجري والتمارين اليومية.", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" },
-      { title: "عطر عود ملكي فاخر 100 مل", cat: "fashion", amount: 0.03, owner: "@RoyalScent", desc: "رائحة شرقية فاخرة بثبات مميز للمناسبات.", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" },
-      { title: "لوحة مفاتيح ميكانيكية RGB", cat: "electronics", amount: 0.02, owner: "@KeyGearPi", desc: "استجابة سريعة وإضاءة أنيقة للمكتب والألعاب.", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=700&q=80" },
-      { title: "فأرة ألعاب لاسلكية احترافية", cat: "electronics", amount: 0.015, owner: "@ProClickPi", desc: "دقة عالية وحركة سلسة للاستخدام المكتبي والرقمي.", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=700&q=80" },
-      { title: "حاسوب محمول نحيف للأعمال", cat: "electronics", amount: 0.05, owner: "@EliteLaptopPi", desc: "أداء سريع وشاشة واضحة للعمل والدراسة.", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80" },
-      { title: "هاتف ذكي بشاشة OLED كاملة", cat: "electronics", amount: 0.045, owner: "@MobileHubPi", desc: "شاشة زاهية وكاميرا قوية وأداء مستقر.", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" },
-      { title: "نظارة شمسية مستقطبة Polarized", cat: "fashion", amount: 0.01, owner: "@SunStylePi", desc: "حماية من الشمس بتصميم أنيق وإطار متين.", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=700&q=80" },
-      { title: "آلة تحضير قهوة الإسبريسو", cat: "home", amount: 0.04, owner: "@RoastPi", desc: "تحضير قهوة غنية وسريعة في المنزل أو المكتب.", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=700&q=80" },
-      { title: "مكبر صوت بلوتوث محمول 360", cat: "electronics", amount: 0.02, owner: "@BoomBoxPi", desc: "صوت نقي وسهل الحمل للرحلات والجلسات.", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80" },
-      { title: "ساعة يد كلاسيكية بسوار جلدي", cat: "fashion", amount: 0.025, owner: "@ClassicTimePi", desc: "إطلالة كلاسيكية راقية تناسب مختلف الأوقات.", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" },
-      { title: "سماعات أذن لاسلكية Pods Pro", cat: "electronics", amount: 0.018, owner: "@AudioNestPi", desc: "حجم صغير وعلبة شحن عملية للاستخدام اليومي.", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=700&q=80" },
-      { title: "شاحن متنقل PowerBank 20000mAh", cat: "electronics", amount: 0.015, owner: "@ChargeUpPi", desc: "سعة كبيرة لشحن الهواتف والأجهزة أثناء السفر.", img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=700&q=80" },
-      { title: "كاميرا احترافية Mirrorless 4K", cat: "electronics", amount: 0.05, owner: "@CinemaGearPi", desc: "تصوير عالي الدقة للمحتوى المرئي والصور.", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80" },
-      { title: "طائرة تصوير درون GPS ذكية", cat: "electronics", amount: 0.045, owner: "@SkyViewPi", desc: "تحكم سلس وثبات جيد للتصوير الجوي.", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=700&q=80" },
-      { title: "مصباح مكتب ذكي LED قابل للطي", cat: "home", amount: 0.012, owner: "@BrightDeskPi", desc: "إضاءة مريحة للعين مع تصميم عصري للمكتب.", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80" },
-      { title: "كرسي ألعاب ومكاتب مريح", cat: "home", amount: 0.04, owner: "@ComfortSeatPi", desc: "دعم مريح للظهر أثناء ساعات العمل أو اللعب.", img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=700&q=80" },
-      { title: "جهاز لوحي للرسم والملاحظات", cat: "electronics", amount: 0.035, owner: "@TabZonePi", desc: "مناسب للتصميم وتدوين الملاحظات والقراءة.", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=700&q=80" },
-      { title: "ذراع تحكم ألعاب لاسلكية", cat: "electronics", amount: 0.018, owner: "@GamePadPi", desc: "قبضة مريحة واستجابة سريعة للألعاب.", img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80" },
-      { title: "حقيبة يد جلدية فاخرة", cat: "fashion", amount: 0.028, owner: "@LuxeBagPi", desc: "خامة جلدية أنيقة وتفاصيل متقنة.", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80" },
-      { title: "محفظة رجالية ذكية مانعة للسرقة", cat: "fashion", amount: 0.01, owner: "@SmartWalletPi", desc: "تصميم نحيف لحفظ البطاقات والنقود بأمان.", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=700&q=80" },
-      { title: "جاكيت شتوي مقاوم للرياح", cat: "fashion", amount: 0.025, owner: "@UrbanWearPi", desc: "دفء مناسب وأناقة عملية في الأجواء الباردة.", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80" },
-      { title: "قهوة عربية مختصة محمصة 500غ", cat: "home", amount: 0.012, owner: "@QahwaHousePi", desc: "تحميص طازج ونكهة عربية أصيلة.", img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=700&q=80" },
-      { title: "زيت زيتون بكر ممتاز عضوي", cat: "home", amount: 0.015, owner: "@OliveGoldPi", desc: "منتج طبيعي بجودة عالية للاستخدام اليومي.", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80" },
-      { title: "عسل سدر جبلي طبيعي 1 كغم", cat: "home", amount: 0.022, owner: "@PureHoneyPi", desc: "عسل طبيعي مختار بعناية مع عبوة محكمة.", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=700&q=80" },
-      { title: "مجموعة عناية بالبشرة الطبيعية", cat: "fashion", amount: 0.02, owner: "@GlowCarePi", desc: "منتجات عناية يومية بتركيبة لطيفة.", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=700&q=80" },
-      { title: "مبخرة إلكترونية ذكية محمولة", cat: "home", amount: 0.016, owner: "@AromaTechPi", desc: "سهلة الاستخدام وآمنة للمنزل والسيارة.", img: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=700&q=80" },
-      { title: "شاشة حاسوب منحنية 27 بوصة", cat: "electronics", amount: 0.048, owner: "@VisionScreenPi", desc: "وضوح عالٍ ومجال رؤية واسع للعمل والترفيه.", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=700&q=80" },
-      { title: "مايكروفون بودكاست احترافي USB", cat: "electronics", amount: 0.022, owner: "@VoiceLabPi", desc: "التقاط صوت واضح للتسجيل والاجتماعات الصوتية.", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" },
-      { title: "قرص تخزين خارجي SSD 1TB", cat: "electronics", amount: 0.026, owner: "@DataVaultPi", desc: "حفظ الملفات الكبيرة بسرعة وموثوقية.", img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=700&q=80" },
-      { title: "حامل هاتف مغناطيسي للسيارة", cat: "auto", amount: 0.01, owner: "@AutoGearPi", desc: "تثبيت عملي للهاتف أثناء القيادة.", img: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=700&q=80" },
-      { title: "كاميرا داش كام للسيارات Full HD", cat: "auto", amount: 0.024, owner: "@RoadSafePi", desc: "توثيق الطريق بوضوح أثناء التنقل بالسيارة.", img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80" },
-      { title: "مكنسة روبوت ذكية للمنزل", cat: "home", amount: 0.045, owner: "@SmartCleanPi", desc: "تنظيف مريح للأرضيات بضغطة زر.", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=700&q=80" },
-      { title: "جهاز تنقية الهواء الذكي HEPA", cat: "home", amount: 0.032, owner: "@FreshAirPi", desc: "تحسين جودة الهواء داخل الغرف والمكاتب.", img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=700&q=80" },
-      { title: "مطحنة قهوة يدوية من الفولاذ", cat: "home", amount: 0.014, owner: "@BaristaToolPi", desc: "طحن دقيق ومتين لعشاق القهوة المختصة.", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80" },
-      { title: "ترمس حافظ للحرارة ستانلس ستيل", cat: "home", amount: 0.011, owner: "@ThermoGoPi", desc: "يحفظ حرارة المشروبات لفترة طويلة أثناء التنقل.", img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80" },
-      { title: "حقيبة تنظيم كابلات السفر", cat: "fashion", amount: 0.01, owner: "@TidyPackPi", desc: "ترتيب الكابلات والشواحن والأدوات الصغيرة.", img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=700&q=80" },
-      { title: "سجادة يوغا وتمارين رياضية سميكة", cat: "sports", amount: 0.013, owner: "@FitHomePi", desc: "مريحة للتمارين المنزلية والمرونة البدنية.", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=700&q=80" },
-      { title: "مجموعة أوزان رياضية منزلية", cat: "sports", amount: 0.028, owner: "@IronGymPi", desc: "مناسبة لتمارين القوة وبناء اللياقة في البيت.", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" },
-      { title: "دراجة هوائية جبلية خفيفة", cat: "sports", amount: 0.05, owner: "@RideProPi", desc: "تصميم متين للرياضة والتنقل في المسارات.", img: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=700&q=80" },
-      { title: "خيمة تخييم سريعة التركيب", cat: "sports", amount: 0.032, owner: "@CampOutPi", desc: "مناسبة للرحلات البرية والتخييم الخارجي.", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80" },
-      { title: "نبتة زينة داخلية مع أصيص سيراميك", cat: "home", amount: 0.01, owner: "@GreenRoomPi", desc: "إضافة طبيعية جميلة للمنازل والمكاتب.", img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=80" },
-      { title: "دفتر ملاحظات جلدي فاخر A5", cat: "home", amount: 0.01, owner: "@NoteCraftPi", desc: "مناسب للتدوين اليومي وتنظيم المهام.", img: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=700&q=80" },
-      { title: "قلم حبر معدني أنيق للهدايا", cat: "fashion", amount: 0.012, owner: "@PenMasterPi", desc: "تصميم أنيق مناسب للاقتناء أو الإهداء.", img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=700&q=80" },
-      { title: "طقم شاي زجاجي مقاوم للحرارة", cat: "home", amount: 0.019, owner: "@TeaArtPi", desc: "تصميم شفاف أنيق لتحضير وتقديم الشاي.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80" },
-      { title: "خلاط عصائر محمول قابل للشحن", cat: "home", amount: 0.016, owner: "@FreshBlendPi", desc: "عملي وسهل التنظيف لتحضير العصائر اليومية.", img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80" },
-      { title: "قفل باب ذكي بالبصمة والرمز", cat: "home", amount: 0.038, owner: "@SmartLockPi", desc: "تحكم سهل بالدخول للمنازل والمكاتب.", img: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=700&q=80" }
+    const categoryNames = {
+      fashion: "ملابس",
+      sports: "أدوات رياضية",
+      beauty: "تجميل النساء",
+      auto: "إكسسوارات سيارات",
+      gaming: "قيمنغ",
+      electronics: "إلكترونيات",
+      home: "منزل وقهوة",
+      stores: "متجر معتمد",
+      services: "خدمة"
+    };
+
+    const catalogProducts = [
+      /* قسم الملابس (fashion) */
+      { title: "جاكيت شتوي مقاوم للرياح والمطر", cat: "fashion", amount: 0.025, owner: "@UrbanWearPi", desc: "تبطين دافئ وخفيف الوزن مع سحاب أمامي وجيوب جانبية.", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80" },
+      { title: "فستان سهرة أنيق بقصة كلاسيكية", cat: "fashion", amount: 0.035, owner: "@EleganceStylePi", desc: "قماش ناعم وانسيابي بتصميم راقٍ للمناسبات الخاصة.", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80" },
+      { title: "طقم ملابس رياضية قطني مريح", cat: "fashion", amount: 0.022, owner: "@ActiveFitPi", desc: "خامة قطنية تسمح بالتهوية مثالية للتمارين والمشي اليومي.", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80" },
+      { title: "قميص رجالي كاجوال قماش كتان", cat: "fashion", amount: 0.018, owner: "@GentModePi", desc: "تصميم عصري مريح مناسب للإطلالات الصباحية والمسائية.", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=700&q=80" },
+      { title: "معطف نسائي طويل بلون بيج", cat: "fashion", amount: 0.038, owner: "@ChicCoatPi", desc: "قصة أنيقة مع حزام خصر وخامة دافئة عالية الجودة.", img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=700&q=80" },
+      { title: "حذاء جلدي كلاسيكي بني فاخر", cat: "fashion", amount: 0.028, owner: "@LeatherStepPi", desc: "جلد طبيعي متين بنعل مريح للمناسبات والعمل الرسمي.", img: "https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=700&q=80" },
+      { title: "حقيبة يد نسائية جلدية عصرية", cat: "fashion", amount: 0.028, owner: "@LuxeBagPi", desc: "تصميم أنيق مع حزام كتف قابل للتعديل وتفاصيل ذهبية.", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80" },
+      { title: "نظارة شمسية مستقطبة Polarized", cat: "fashion", amount: 0.012, owner: "@SunStylePi", desc: "حماية كاملة من الأشعة فوق البنفسجية بإطار خفيف.", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=700&q=80" },
+      { title: "ساعة يد كلاسيكية بسوار جلدي", cat: "fashion", amount: 0.025, owner: "@ClassicTimePi", desc: "مقاومة للخدش وتضفي لمسة فخامة على معصمك.", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" },
+      { title: "هودي قطني ثقيل بتصميم عصري", cat: "fashion", amount: 0.019, owner: "@StreetVibePi", desc: "مبطن من الداخل ومريح جداً للارتداء اليومي.", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80" },
+
+      /* قسم الأدوات الرياضية (sports) */
+      { title: "مجموعة أوزان دامبل قابلة للتعديل", cat: "sports", amount: 0.032, owner: "@IronGymPi", desc: "أقراص أوزان متنوعة لتمارين القوة وبناء العضلات في المنزل.", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" },
+      { title: "حذاء رياضي للجري والماراثون", cat: "sports", amount: 0.022, owner: "@StepFitPi", desc: "نعل مرن يمتص الصدمات ويوفر ثباتاً ممتازاً أثناء الجري.", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" },
+      { title: "سجادة يوغا وتمارين أرضية سميكة", cat: "sports", amount: 0.014, owner: "@FitHomePi", desc: "مانعة للانزلاق ومزودة بحزام حمل لسهولة التنقل.", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=700&q=80" },
+      { title: "دراجة هوائية جبلية 21 سرعة", cat: "sports", amount: 0.05, owner: "@RideProPi", desc: "هيكل ألمنيوم خفيف ومكابح قرصية قوية للطرق الوعرة.", img: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=700&q=80" },
+      { title: "حبل قفز رياضي سريع مع عداد", cat: "sports", amount: 0.01, owner: "@CardioKingPi", desc: "مقابض مريحة ومحامل دوران سلسة لتمارين اللياقة وحرق السعرات.", img: "https://images.unsplash.com/photo-1598289431512-b97b0917affc?auto=format&fit=crop&w=700&q=80" },
+      { title: "حبال مقاومة مطاطية كاملة للجسم", cat: "sports", amount: 0.015, owner: "@FlexBandPi", desc: "5 مستويات مقاومة مع مقابض ورباط كاحل للتدريب المنزلي.", img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=700&q=80" },
+      { title: "قفازات رفع أثقال مع دعم للمعصم", cat: "sports", amount: 0.011, owner: "@GripMaxPi", desc: "تحمي راحة اليد وتمنحك قبضة ثابتة أثناء التمرين.", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=700&q=80" },
+      { title: "كرة قدم احترافية معتمدة للملاعب", cat: "sports", amount: 0.018, owner: "@GoalStarPi", desc: "خياطة حرارية متينة وتوازن مثالي للتمرير والتسديد.", img: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=700&q=80" },
+      { title: "مضرب تنس أرضي خفيف الوزن", cat: "sports", amount: 0.029, owner: "@AceTennisPi", desc: "إطار كربوني متين يوفر تحكماً عالياً وضربات قوية.", img: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=700&q=80" },
+      { title: "خيمة تخييم ورحلات سريعة التركيب", cat: "sports", amount: 0.032, owner: "@CampOutPi", desc: "مقاومة للرياح والأمطار وتتسع لـ 3 أشخاص بكل راحة.", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80" },
+
+      /* قسم تجميل النساء (beauty) */
+      { title: "مجموعة مكياج متكاملة 18 قطعة", cat: "beauty", amount: 0.03, owner: "@GlamQueenPi", desc: "تضم باليت ظلال عيون، أحمر شفاه مخملي، وبودرة إضاءة.", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80" },
+      { title: "سيروم فيتامين سي لإشراقة البشرة", cat: "beauty", amount: 0.018, owner: "@GlowCarePi", desc: "تركيبة مركزة مع حمض الهيالورونيك لترطيب ونضارة الوجه.", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=700&q=80" },
+      { title: "عطر نسائي زهري فاخر Eau de Parfum", cat: "beauty", amount: 0.032, owner: "@FloralMistPi", desc: "نفحات الياسمين والفانيليا الدافئة بثبات يدوم طوال اليوم.", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" },
+      { title: "طقم فرش مكياج احترافية ناعمة", cat: "beauty", amount: 0.015, owner: "@BrushArtPi", desc: "12 فرشاة بشعيرات ناعمة لدمج مثالي مع حقيبة حفظ أنيقة.", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجفف ومصفف شعر أيوني سريع", cat: "beauty", amount: 0.028, owner: "@SilkHairPi", desc: "يقلل الهيشان ويمنح الشعر لمعاناً صحياً مع تحكم بالحرارة.", img: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجموعة العناية الليلية بالبشرة", cat: "beauty", amount: 0.024, owner: "@PureSkinPi", desc: "غسول لطيف وكريم مرطب مغذٍ بخلاصة الصبار والزيوت الطبيعية.", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=700&q=80" },
+      { title: "باليت أحمر خدود وإضاءة هايلايتر", cat: "beauty", amount: 0.016, owner: "@RadiantBeautyPi", desc: "ألوان طبيعية دافئة تناسب جميع درجات البشرة.", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=700&q=80" },
+      { title: "مجموعة أحمر شفاه مات مخملي 6 ألوان", cat: "beauty", amount: 0.017, owner: "@VelvetLipPi", desc: "ثبات عالٍ دون جفاف بتركيبة غنية بفيتامين E.", img: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=80" },
+
+      /* قسم إكسسوارات السيارات (auto) */
+      { title: "كاميرا داش كام للسيارة Full HD", cat: "auto", amount: 0.026, owner: "@RoadSafePi", desc: "تسجيل أمامي وداخلي مع رؤية ليلية وحساس حركة تلقائي.", img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80" },
+      { title: "حامل هاتف مغناطيسي للسيارة 360", cat: "auto", amount: 0.01, owner: "@AutoGearPi", desc: "مغناطيس قوي يثبت الهاتف على الطرق الوعرة دون اهتزاز.", img: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=700&q=80" },
+      { title: "منفاخ إطارات سيارة رقمي محمول", cat: "auto", amount: 0.024, owner: "@CarCarePi", desc: "يعمل على ولاعة السيارة مع شاشة قياس ضغط وإيقاف تلقائي.", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=700&q=80" },
+      { title: "مكنسة سيارة لاسلكية قوية الشفط", cat: "auto", amount: 0.019, owner: "@CleanRidePi", desc: "ملحقات دقيقة لتنظيف المقاعد والزوايا الضيقة بسهولة.", img: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=700&q=80" },
+      { title: "شاحن سيارة سريع 65W بمنفذين", cat: "auto", amount: 0.012, owner: "@DrivePowerPi", desc: "يدعم الشحن السريع للهواتف والأجهزة اللوحية أثناء القيادة.", img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&q=80" },
+      { title: "معطر سيارة فاخر مع موزع معدني", cat: "auto", amount: 0.011, owner: "@AutoScentPi", desc: "يثبت على فتحات التكييف برائحة منعشة تدوم طويلاً.", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80" },
+      { title: "طقم أغطية مقاعد سيارة جلدية مريحة", cat: "auto", amount: 0.042, owner: "@SeatMasterPi", desc: "حماية كاملة للمقاعد من البقع والخدوش بمظهر فاخر.", img: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=700&q=80" },
+
+      /* قسم القيمنغ (gaming) */
+      { title: "كرسي قيمنغ احترافي مريح RGB", cat: "gaming", amount: 0.045, owner: "@ProGamerPi", desc: "وسادة رأس وظهر قابلة للتعديل مع إمالة 180 درجة.", img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=700&q=80" },
+      { title: "كيبورد قيمنغ ميكانيكي بإضاءة RGB", cat: "gaming", amount: 0.022, owner: "@KeyGearPi", desc: "مفاتيح سريعة الاستجابة ومقاومة للتآكل للعب التنافسي.", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=700&q=80" },
+      { title: "ماوس قيمنغ لاسلكي فائق الخفة", cat: "gaming", amount: 0.018, owner: "@ProClickPi", desc: "مستشعر 26000 DPI مع أزرار قابلة للبرمجة.", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=700&q=80" },
+      { title: "سماعة قيمنغ محيطية 7.1 مع مايك", cat: "gaming", amount: 0.024, owner: "@SoundArenaPi", desc: "تحديد دقيق لاتجاه الصوت في الألعاب مع وسائد أذن مريحة.", img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=700&q=80" },
+      { title: "شاشة قيمنغ منحنية 27 بوصة 165Hz", cat: "gaming", amount: 0.05, owner: "@VisionScreenPi", desc: "زمن استجابة 1ms لتجربة لعب سلسة بدون تقطيع.", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=700&q=80" },
+      { title: "ذراع تحكم قيمنغ لاسلكية DualSense", cat: "gaming", amount: 0.02, owner: "@GamePadPi", desc: "اهتزاز ديناميكي متوافق مع الحاسوب ومنصات الألعاب.", img: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=700&q=80" },
+      { title: "ماوس باد قيمنغ كبير مضيء XL", cat: "gaming", amount: 0.012, owner: "@DeskSetupPi", desc: "سطح ناعم عالي الدقة مع حواف مضيئة وقاعدة مانعة للانزلاق.", img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=700&q=80" },
+      { title: "مايكروفون ستريمنغ وبودكاست USB", cat: "gaming", amount: 0.023, owner: "@VoiceLabPi", desc: "صوت نقي للبث المباشر والدردشة الجماعية أثناء اللعب.", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" },
+
+      /* إلكترونيات ومنزل (electronics & home) */
+      { title: "ساعة ذكية رياضية Ultra Pro", cat: "electronics", amount: 0.02, owner: "@TechWatch_Jo", desc: "شاشة AMOLED ومقاومة للماء مع بطارية تدوم أسبوعين.", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=80" },
+      { title: "هاتف ذكي بشاشة OLED وكاميرا ثلاثية", cat: "electronics", amount: 0.045, owner: "@MobileHubPi", desc: "أداء سريع وذاكرة كبيرة مع شحن فائق السرعة.", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" },
+      { title: "آلة تحضير قهوة الإسبريسو المنزلية", cat: "home", amount: 0.04, owner: "@RoastPi", desc: "ضغط مثالي لاستخلاص قهوة غنية الرغوة كل صباح.", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=700&q=80" },
+      { title: "مكنسة روبوت ذكية لتنظيف الأرضيات", cat: "home", amount: 0.045, owner: "@SmartCleanPi", desc: "تنظيف تلقائي ذكي للمنزل مع عودة تلقائية للشاحن.", img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=700&q=80" }
     ];
 
     const extraCatalog = [
-      { id: "st-1", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "متجر النخبة للإلكترونيات", desc: "متجر متخصص في الأجهزة والملحقات الإلكترونية.", trust: "99%", rating: "4.9 ★", amount: 0.01, owner: "@EliteStorePi", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" },
-      { id: "st-2", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "دار العطور الشرقية", desc: "متجر عطور مختارة بعناية وتغليف مميز.", trust: "98%", rating: "4.9 ★", amount: 0.02, owner: "@RoyalScent", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" },
-      { id: "st-3", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "واحة القهوة والمحامص", desc: "متجر للقهوة المختصة والمحاصيل المحمصة.", trust: "97%", rating: "4.8 ★", amount: 0.01, owner: "@RoastPi", img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-1", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "متجر النخبة للإلكترونيات والقيمنغ", desc: "موزع معتمد لأجهزة القيمنغ والإلكترونيات الأصلية.", trust: "99%", rating: "4.9 ★", amount: 0.01, owner: "@EliteStorePi", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-2", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "بوتيك الجمال والأزياء", desc: "متجر متخصص في الأزياء النسائية ومنتجات التجميل.", trust: "98%", rating: "4.9 ★", amount: 0.02, owner: "@BeautyBoutiquePi", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-3", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "عالم الرياضة والسيارات", desc: "تجهيزات رياضية متكاملة وإكسسوارات سيارات حديثة.", trust: "97%", rating: "4.8 ★", amount: 0.015, owner: "@SportAutoPi", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80" },
       { id: "sv-1", type: "services", cat: "services", typeLabel: "خدمة", title: "تدقيق ومراجعة تطبيقات Pi", desc: "مراجعة تجربة الواجهة والجاهزية داخل Pi Browser.", trust: "100%", rating: "5.0 ★", amount: 0.02, owner: "@PiAuditLab", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80" },
-      { id: "sv-2", type: "services", cat: "services", typeLabel: "خدمة", title: "تصميم هوية بصرية للمتاجر", desc: "تصميم شعارات وبطاقات عرض للمتاجر والرواد.", trust: "99%", rating: "4.9 ★", amount: 0.025, owner: "@BrandStudioPi", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80" }
+      { id: "sv-2", type: "services", cat: "services", typeLabel: "خدمة", title: "تصميم هوية بصرية للمتاجر", desc: "تصميم شعارات وبطاقات عرض احترافية للتجار.", trust: "99%", rating: "4.9 ★", amount: 0.025, owner: "@BrandStudioPi", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80" }
     ];
 
     function getUserProducts() {
@@ -891,11 +912,11 @@
     }
 
     function getAllCatalog() {
-      const builtIn = rawProducts50.map((p, i) => ({
+      const builtIn = catalogProducts.map((p, i) => ({
         id: "prod-" + (i + 1),
         type: "products",
         cat: p.cat,
-        typeLabel: "منتج موثوق",
+        typeLabel: categoryNames[p.cat] || "منتج موثوق",
         title: p.title,
         desc: p.desc,
         trust: (97 + (i % 3)) + "%",
@@ -988,7 +1009,6 @@
       }
     }
 
-    /* فتح الخانة الخاصة بالمنتج */
     function openProductSlot(id) {
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
@@ -1016,7 +1036,7 @@
         </div>
 
         <div class="slot-specs">
-          <div class="slot-spec-row"><span>الفئة</span><strong>${item.typeLabel}</strong></div>
+          <div class="slot-spec-row"><span>القسم</span><strong>${item.typeLabel}</strong></div>
           <div class="slot-spec-row"><span>التاجر / المزود</span><strong>${item.owner}</strong></div>
           <div class="slot-spec-row"><span>مؤشر الوثوقية</span><strong>${item.trust} (${item.rating})</strong></div>
         </div>
@@ -1052,7 +1072,11 @@
       if (cat === "stores") {
         activeFilterTab = "stores";
         setActiveNav("nav-stores");
+      } else if (cat === "services") {
+        activeFilterTab = "services";
+        setActiveNav("nav-home");
       } else {
+        activeFilterTab = "all";
         setActiveNav("nav-home");
       }
       syncCatUI();
@@ -1070,7 +1094,7 @@
     }
 
     function syncCatUI() {
-      ["all", "electronics", "sports", "fashion", "home", "auto", "stores", "services"].forEach(c => {
+      ["all", "fashion", "sports", "beauty", "auto", "gaming", "electronics", "home", "stores", "services"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === activeCategory);
       });
@@ -1093,7 +1117,12 @@
     function renderProducts() {
       const grid = document.getElementById("productsGrid");
       const countEl = document.getElementById("countLabel");
+      const headingEl = document.getElementById("gridHeading");
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+      headingEl.textContent = activeCategory === "all"
+        ? "المنتجات والمتاجر"
+        : "قسم: " + (categoryNames[activeCategory] || activeCategory);
 
       const filtered = getAllCatalog().filter(item => {
         const matchFilter =
@@ -1103,6 +1132,7 @@
         const matchQuery = !query ||
           item.title.toLowerCase().includes(query) ||
           item.desc.toLowerCase().includes(query) ||
+          item.typeLabel.toLowerCase().includes(query) ||
           item.owner.toLowerCase().includes(query);
         return matchFilter && matchCat && matchQuery;
       });
@@ -1145,16 +1175,18 @@
       openModal("إضافة منتج كتاجر", `
         <div class="form-group">
           <label class="form-label">اسم المنتج *</label>
-          <input type="text" id="pTitle" class="form-control" placeholder="مثال: ساعة ذكية أو عطر فاخر" />
+          <input type="text" id="pTitle" class="form-control" placeholder="مثال: فستان أنيق أو كيبورد قيمنغ" />
         </div>
         <div class="form-group">
           <label class="form-label">القسم</label>
           <select id="pCat" class="form-control">
+            <option value="fashion">ملابس</option>
+            <option value="sports">أدوات رياضية</option>
+            <option value="beauty">تجميل النساء</option>
+            <option value="auto">إكسسوارات سيارات</option>
+            <option value="gaming">قيمنغ</option>
             <option value="electronics">إلكترونيات</option>
-            <option value="sports">رياضة</option>
-            <option value="fashion">أزياء وعطور</option>
             <option value="home">منزل وقهوة</option>
-            <option value="auto">سيارات</option>
           </select>
         </div>
         <div class="form-group">
@@ -1199,7 +1231,7 @@
         id: "my-" + Date.now(),
         type: "products",
         cat,
-        typeLabel: "منتج رائد",
+        typeLabel: categoryNames[cat] || "منتج رائد",
         title,
         desc,
         trust: "98%",
@@ -1218,7 +1250,7 @@
 
       closeModal();
       goHomeTab();
-      updateStatus(`تم نشر "${title}" وفتح خانته الخاصة جاهز.`);
+      updateStatus(`تم نشر "${title}" في قسم ${categoryNames[cat]} وإنشاء خانته الخاصة.`);
       openProductSlot(newItem.id);
     }
 
