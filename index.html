@@ -1370,6 +1370,15 @@
       p.insertAdjacentHTML("afterbegin", '<div class="prod-pi-placeholder">π</div>');
     }
   }, true);
+    if (Pi) {
+    var _auth = Pi.authenticate.bind(Pi);
+    Pi.authenticate = function () {
+      return _auth.apply(null, arguments).catch(function (e) {
+        updateStatus("AUTH ERR: " + (e && e.message ? e.message : JSON.stringify(e)));
+        throw e;
+      });
+    };
+ }
 })();
 </script>
   <script src="piprime-payments.js"></script>
