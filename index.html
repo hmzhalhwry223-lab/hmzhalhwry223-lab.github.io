@@ -1410,5 +1410,29 @@
 })();
 </script>
     <!-- <script src="piprime-payments.js"></script> -->
+ <script>
+if (window.Pi) {
+  var prevAuth = Pi.authenticate;
+  Pi.authenticate = function (scopes) {
+    return prevAuth.call(Pi, scopes, async function (p) {
+      try {
+        if (!p || !p.identifier) return;
+        var txid = p.transaction && p.transaction.txid;
+        var body = { paymentId: p.identifier };
+        if (txid) body.txid = txid;
+        var r = await fetch(PIPRIME_API_URL + "/api/pi/" + (txid ? "complete" : "cancel"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        updateStatus(txid ? "✓ اكتملت الدفعة المعلّقة" : "أُلغيت الدفعة المعلّقة");
+      } catch (e) {
+        updateStatus("Pending payment error: " + e.message);
+      }
+    });
+  };
+}
+ </script> 
 </body>
 </html>
