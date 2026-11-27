@@ -1440,5 +1440,83 @@ document.querySelectorAll(".footer-note a").forEach(function (a) {
   a.onclick = null;
 });
   </script>
+  <script>
+(function () {
+  var remote = [];
+
+  if (window.Pi) {
+    var authFn = Pi.authenticate;
+    Pi.authenticate = function () {
+      return authFn.apply(Pi, arguments).then(function (auth) {
+        window.piToken = auth.accessToken;
+        return auth;
+      });
+    };
+  }
+
+  var baseCatalog = window.getAllCatalog;
+  window.getAllCatalog = function () {
+    var me = getCurrentActorUsername().toLowerCase();
+    var mapped = remote.map(function (p) {
+      return {
+        id: p.id, type: p.type, cat: p.cat, typeLabel: getCatLabel(p.cat),
+        title: p.title, desc: p.description, amount: Number(p.amount),
+        owner: p.owner, img: p.img, trust: "—", rating: "جديد",
+        isMine: String(p.owner).toLowerCase() === me
+      };
+    });
+    return mapped.concat(baseCatalog().filter(function (i) {
+      return i.id.indexOf("my-") !== 0;
+    }));
+  };
+
+  async function loadProducts() {
+    try {
+      var r = await fetch(PIPRIME_API_URL + "/api/products");
+      var d = await r.json();
+      if (d.ok) { remote = d.products.reverse(); renderProducts(); }
+    } catch (e) {}
+  }
+
+  var baseSlot = window.openProductSlot;
+  window.openProductSlot = function (id) {
+    baseSlot(id);
+    if (id.indexOf("mp-") !== 0) return;
+    var del = document.querySelector('#productSlotView [onclick^="deleteMyProduct"]');
+    if (del) del.style.display = "none";
+  };
+
+  var saving = false;
+  window.saveNewProduct = async function () {
+    if (saving) return;
+    if (!currentUser || !window.piToken) { closeModal(); connectPi(); return; }
+    var val = function (id) { return document.getElementById(id).value.trim(); };
+    var err = document.getElementById("pErr");
+    saving = true;
+    err.textContent = "...";
+    try {
+      var r = await fetch(PIPRIME_API_URL + "/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + window.piToken },
+        body: JSON.stringify({
+          title: val("pTitle"), cat: val("pCat"), amount: Number(val("pAmount")),
+          description: val("pDesc"), img: val("pImg")
+        })
+      });
+      var d = await r.json();
+      if (!d.ok) throw new Error(d.error);
+      remote.unshift(d.product);
+      closeModal();
+      goHomeTab();
+      openProductSlot(d.product.id);
+    } catch (e) {
+      err.textContent = "خطأ: " + e.message;
+    }
+    saving = false;
+  };
+
+  loadProducts();
+})();
+    </script>
 </body>
 </html>
