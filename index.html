@@ -641,7 +641,6 @@
       border-color: var(--gold-bright);
     }
 
-    /* صفحة محادثاتي والمحادثة الخاصة */
     .chats-page-view {
       display: none;
       background: #fff;
@@ -1177,14 +1176,9 @@
       Pi.init({ version: "2.0", sandbox: true });
     }
 
-    /**
-     * إعدادات قاعدة بيانات الدردشة الفعلية (Supabase):
-     * ضع رابط المشروع والمفتاح العام (anon key) بعد إنشاء الجداول في Supabase.
-     * عند ضبطهما، تتصل الدردشة مباشرة بقاعدة البيانات وتستمع للرسائل الجديدة عبر Realtime/Polling.
-     */
     const CHAT_DB_CONFIG = {
-      supabaseUrl: "",       // مثال: "https://xxxxxxxxxxxx.supabase.co"
-      supabaseAnonKey: "",    // مثال: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      supabaseUrl: "",
+      supabaseAnonKey: "",
       pollIntervalMs: 3000
     };
 
@@ -1200,7 +1194,6 @@
     let openedSlotId = null;
     let statusTouched = false;
 
-    // حالة الدردشة
     let conversations = [];
     let messagesByConv = {};
     let activeConversationId = null;
@@ -1893,8 +1886,6 @@
       });
     }
 
-    /* ==================== نظام الدردشة وقاعدة البيانات ==================== */
-
     function isSupabaseReady() {
       return Boolean(CHAT_DB_CONFIG.supabaseUrl && CHAT_DB_CONFIG.supabaseAnonKey);
     }
@@ -2317,8 +2308,6 @@
       }
     }
 
-    /* ==================== واجهة المنتجات والصفحات ==================== */
-
     function openProductSlot(id) {
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
@@ -2697,41 +2686,41 @@
           syncConversationsFromDb();
         }
       }, CHAT_DB_CONFIG.pollIntervalMs);
-const PIPRIME_API_URL = "https://piprime-api.alhwryh311.workers.dev";
-window.PIPRIME_API_URL = PIPRIME_API_URL;
+    });
 
-window.piPrimeApi = {
-  async getProducts() {
-    const res = await fetch(`${PIPRIME_API_URL}/api/products`);
-    return res.json();
-  },
-  async createProduct(productData) {
-    const res = await fetch(`${PIPRIME_API_URL}/api/products`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productData),
-    });
-    return res.json();
-  },
-  async approvePayment(paymentId) {
-    const res = await fetch(`${PIPRIME_API_URL}/api/pi/approve`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ paymentId }),
-    });
-    return res.json();
-  },
-  async completePayment(paymentId, txid) {
-    const res = await fetch(`${PIPRIME_API_URL}/api/pi/complete`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ paymentId, txid }),
-    });
-    return res.json();
-  },
-};
-    
+    const PIPRIME_API_URL = "https://piprime-api.alhwryh311.workers.dev";
+    window.PIPRIME_API_URL = PIPRIME_API_URL;
+
+    window.piPrimeApi = {
+      async getProducts() {
+        const res = await fetch(`${PIPRIME_API_URL}/api/products`);
+        return res.json();
+      },
+      async createProduct(productData) {
+        const res = await fetch(`${PIPRIME_API_URL}/api/products`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(productData),
+        });
+        return res.json();
+      },
+      async approvePayment(paymentId) {
+        const res = await fetch(`${PIPRIME_API_URL}/api/pi/approve`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentId }),
+        });
+        return res.json();
+      },
+      async completePayment(paymentId, txid) {
+        const res = await fetch(`${PIPRIME_API_URL}/api/pi/complete`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentId, txid }),
+        });
+        return res.json();
+      },
+    };
   </script>
 </body>
 </html>
- 
