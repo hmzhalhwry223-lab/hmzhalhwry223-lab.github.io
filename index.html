@@ -2697,7 +2697,40 @@
           syncConversationsFromDb();
         }
       }, CHAT_DB_CONFIG.pollIntervalMs);
+const PIPRIME_API_URL = "https://piprime-api.alhwryh311.workers.dev";
+window.PIPRIME_API_URL = PIPRIME_API_URL;
+
+window.piPrimeApi = {
+  async getProducts() {
+    const res = await fetch(`${PIPRIME_API_URL}/api/products`);
+    return res.json();
+  },
+  async createProduct(productData) {
+    const res = await fetch(`${PIPRIME_API_URL}/api/products`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productData),
     });
+    return res.json();
+  },
+  async approvePayment(paymentId) {
+    const res = await fetch(`${PIPRIME_API_URL}/api/pi/approve`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paymentId }),
+    });
+    return res.json();
+  },
+  async completePayment(paymentId, txid) {
+    const res = await fetch(`${PIPRIME_API_URL}/api/pi/complete`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paymentId, txid }),
+    });
+    return res.json();
+  },
+};
+    
   </script>
 </body>
 </html>
