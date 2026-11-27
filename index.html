@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>PiTrust | سوقك الموثوق في عالم Pi</title>
+  <title>PiPrime | سوقك الموثوق في عالم Pi</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -414,6 +414,16 @@
       cursor: pointer;
     }
 
+    .prod-desc-mini {
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     .prod-meta {
       font-size: 11.5px;
       color: var(--text-muted);
@@ -694,14 +704,14 @@
         </div>
         <div class="brand-box">
           <div>
-            <div class="brand-name">PiTrust</div>
+            <div class="brand-name">PiPrime</div>
             <div class="brand-sub" data-i18n="brandSub">سوقك الموثوق في عالم Pi</div>
           </div>
           <div class="logo-square">π</div>
         </div>
       </div>
 
-      <h1 class="hero-title"><span data-i18n="welcomeTitle">أهلاً بك في PiTrust</span> <span class="dot-accent"></span></h1>
+      <h1 class="hero-title"><span data-i18n="welcomeTitle">أهلاً بك في PiPrime</span> <span class="dot-accent"></span></h1>
       <p class="hero-desc" data-i18n="welcomeDesc">تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.</p>
 
       <div class="search-bar">
@@ -801,7 +811,7 @@
         <a href="#privacy" onclick="openLegalModal('privacy'); return false;" data-i18n="privacyLink">سياسة الخصوصية</a>
         <a href="#tos" onclick="openLegalModal('tos'); return false;" data-i18n="tosLink">شروط الاستخدام</a>
       </div>
-      <div style="margin-top:6px;">PiTrust Marketplace • Pi Testnet</div>
+      <div style="margin-top:6px;">PiPrime Marketplace • Pi Testnet</div>
     </footer>
   </main>
 
@@ -840,8 +850,8 @@
       Pi.init({ version: "2.0", sandbox: true });
     }
 
-    const USER_ITEMS_KEY = "pitrust_custom_products_v4";
-    const LANG_KEY = "pitrust_lang_v1";
+    const USER_ITEMS_KEY = "piprime_custom_products_v1";
+    const LANG_KEY = "piprime_lang_v1";
     let currentLang = localStorage.getItem(LANG_KEY) || "ar";
     let currentUser = null;
     let activeCategory = "all";
@@ -854,7 +864,7 @@
         dir: "rtl",
         connectPi: "ربط حساب Pi",
         brandSub: "سوقك الموثوق في عالم Pi",
-        welcomeTitle: "أهلاً بك في PiTrust",
+        welcomeTitle: "أهلاً بك في PiPrime",
         welcomeDesc: "تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.",
         searchBtn: "بحث",
         searchPlaceholder: "ابحث عن ملابس، قيمنغ، تجميل، رياضة، سيارات...",
@@ -901,7 +911,7 @@
         nav_account: "حسابي",
         privacyLink: "سياسة الخصوصية",
         tosLink: "شروط الاستخدام",
-        privacyText: "يستخدم تطبيق PiTrust اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض هويتك داخل المنصة، ولا يطلب أي عبارات سرية لمحفظتك.",
+        privacyText: "يستخدم تطبيق PiPrime اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض هويتك داخل المنصة، ولا يطلب أي عبارات سرية لمحفظتك.",
         tosText: "يعمل التطبيق على شبكة الاختبار (Pi Testnet) لاستعراض وإضافة المنتجات وتجربة المنصة.",
         modalAddTitle: "إضافة منتج كتاجر",
         lblName: "اسم المنتج *",
@@ -917,7 +927,7 @@
         dir: "ltr",
         connectPi: "Connect Pi",
         brandSub: "Your Trusted Pi Marketplace",
-        welcomeTitle: "Welcome to PiTrust",
+        welcomeTitle: "Welcome to PiPrime",
         welcomeDesc: "Shop fashion, sports, women's beauty, auto accessories, gaming, and verified stores.",
         searchBtn: "Search",
         searchPlaceholder: "Search fashion, gaming, beauty, sports, auto...",
@@ -964,7 +974,7 @@
         nav_account: "Account",
         privacyLink: "Privacy Policy",
         tosLink: "Terms of Service",
-        privacyText: "PiTrust only uses your public Pi username to display your identity on the platform and never asks for wallet passphrases.",
+        privacyText: "PiPrime only uses your public Pi username to display your identity on the platform and never asks for wallet passphrases.",
         tosText: "This application operates on Pi Testnet for browsing, listing products, and testing marketplace flows.",
         modalAddTitle: "Add Product as Merchant",
         lblName: "Product Name *",
@@ -980,7 +990,7 @@
         dir: "ltr",
         connectPi: "Conectar Pi",
         brandSub: "Tu mercado confiable en Pi",
-        welcomeTitle: "Bienvenido a PiTrust",
+        welcomeTitle: "Bienvenido a PiPrime",
         welcomeDesc: "Compra moda, deportes, belleza femenina, accesorios de auto, gaming y tiendas verificadas.",
         searchBtn: "Buscar",
         searchPlaceholder: "Buscar moda, gaming, belleza, deportes, autos...",
@@ -1027,7 +1037,7 @@
         nav_account: "Cuenta",
         privacyLink: "Política de Privacidad",
         tosLink: "Términos de Uso",
-        privacyText: "PiTrust solo utiliza tu nombre de usuario público de Pi para mostrar tu identidad y nunca solicita contraseñas de billetera.",
+        privacyText: "PiPrime solo utiliza tu nombre de usuario público de Pi para mostrar tu identidad y nunca solicita contraseñas de billetera.",
         tosText: "Esta aplicación funciona en Pi Testnet para explorar y publicar productos de prueba.",
         modalAddTitle: "Añadir Producto como Comerciante",
         lblName: "Nombre del Producto *",
@@ -1043,7 +1053,7 @@
         dir: "ltr",
         connectPi: "Connecter Pi",
         brandSub: "Votre marché de confiance Pi",
-        welcomeTitle: "Bienvenue sur PiTrust",
+        welcomeTitle: "Bienvenue sur PiPrime",
         welcomeDesc: "Mode, sport, beauté femme, accessoires auto, gaming et boutiques vérifiées.",
         searchBtn: "Chercher",
         searchPlaceholder: "Rechercher mode, gaming, beauté, sport, auto...",
@@ -1090,7 +1100,7 @@
         nav_account: "Compte",
         privacyLink: "Confidentialité",
         tosLink: "Conditions d'utilisation",
-        privacyText: "PiTrust utilise uniquement votre nom d'utilisateur public Pi et ne demande jamais votre phrase secrète.",
+        privacyText: "PiPrime utilise uniquement votre nom d'utilisateur public Pi et ne demande jamais votre phrase secrète.",
         tosText: "Cette application fonctionne sur Pi Testnet pour tester et publier des produits.",
         modalAddTitle: "Ajouter un Produit",
         lblName: "Nom du Produit *",
@@ -1106,7 +1116,7 @@
         dir: "ltr",
         connectPi: "Conectar Pi",
         brandSub: "Seu mercado confiável no mundo Pi",
-        welcomeTitle: "Bem-vindo ao PiTrust",
+        welcomeTitle: "Bem-vindo ao PiPrime",
         welcomeDesc: "Moda, esportes, beleza feminina, acessórios automotivos, gaming e lojas verificadas.",
         searchBtn: "Buscar",
         searchPlaceholder: "Buscar moda, gaming, beleza, esportes, carros...",
@@ -1153,7 +1163,7 @@
         nav_account: "Conta",
         privacyLink: "Privacidade",
         tosLink: "Termos de Uso",
-        privacyText: "O PiTrust usa apenas seu nome de usuário público Pi e nunca solicita frases-chave da carteira.",
+        privacyText: "O PiPrime usa apenas seu nome de usuário público Pi e nunca solicita frases-chave da carteira.",
         tosText: "Este aplicativo opera na Pi Testnet para explorar e publicar produtos de teste.",
         modalAddTitle: "Adicionar Produto como Comerciante",
         lblName: "Nome do Produto *",
@@ -1169,7 +1179,7 @@
         dir: "ltr",
         connectPi: "Kết nối Pi",
         brandSub: "Chợ đáng tin cậy trong hệ sinh thái Pi",
-        welcomeTitle: "Chào mừng đến với PiTrust",
+        welcomeTitle: "Chào mừng đến với PiPrime",
         welcomeDesc: "Mua sắm thời trang, thể thao, làm đẹp nữ, phụ kiện ô tô, gaming và cửa hàng uy tín.",
         searchBtn: "Tìm kiếm",
         searchPlaceholder: "Tìm thời trang, gaming, làm đẹp, thể thao, ô tô...",
@@ -1216,7 +1226,7 @@
         nav_account: "Tài khoản",
         privacyLink: "Chính sách bảo mật",
         tosLink: "Điều khoản sử dụng",
-        privacyText: "PiTrust chỉ sử dụng tên người dùng Pi công khai của bạn để hiển thị danh tính và không bao giờ yêu cầu cụm mật khẩu ví.",
+        privacyText: "PiPrime chỉ sử dụng tên người dùng Pi công khai của bạn để hiển thị danh tính và không bao giờ yêu cầu cụm mật khẩu ví.",
         tosText: "Ứng dụng hoạt động trên mạng thử nghiệm Pi Testnet để trải nghiệm và đăng sản phẩm.",
         modalAddTitle: "Đăng sản phẩm mới",
         lblName: "Tên sản phẩm *",
@@ -1229,6 +1239,384 @@
         emptyResults: "Không tìm thấy sản phẩm phù hợp."
       }
     };
+
+    const itemTranslations = {
+      "prod-1": {
+        en: { title: "Wind & Rainproof Winter Jacket", desc: "Warm lightweight lining with front zipper and side pockets." },
+        es: { title: "Chaqueta de Invierno Impermeable", desc: "Forro cálido y ligero con cierre frontal y bolsillos laterales." },
+        fr: { title: "Veste d'Hiver Imperméable", desc: "Doublure chaude et légère avec zip frontal et poches latérales." },
+        pt: { title: "Jaqueta de Inverno Impermeável", desc: "Forro quente e leve com zíper frontal e bolsos laterais." },
+        vi: { title: "Áo khoác mùa đông chống gió mưa", desc: "Lớp lót ấm áp nhẹ nhàng với khóa kéo trước và túi hai bên." }
+      },
+      "prod-2": {
+        en: { title: "Classic Evening Dress", desc: "Soft flowing fabric with an elegant cut for special occasions." },
+        es: { title: "Vestido de Noche Clásico", desc: "Tela suave con caída elegante para ocasiones especiales." },
+        fr: { title: "Robe de Soirée Classique", desc: "Tissu doux et fluide à la coupe élégante pour vos soirées." },
+        pt: { title: "Vestido de Festa Clássico", desc: "Tecido macio e fluido com corte elegante para ocasiões especiais." },
+        vi: { title: "Đầm dạ hội cổ điển sang trọng", desc: "Chất vải mềm mại rũ đẹp với phom dáng thanh lịch cho sự kiện." }
+      },
+      "prod-3": {
+        en: { title: "Comfortable Cotton Tracksuit", desc: "Breathable cotton fabric ideal for workouts and daily walks." },
+        es: { title: "Conjunto Deportivo de Algodón", desc: "Algodón transpirable ideal para entrenar y caminar a diario." },
+        fr: { title: "Ensemble Sport en Coton", desc: "Coton respirant idéal pour l'entraînement et la marche." },
+        pt: { title: "Conjunto Esportivo de Algodão", desc: "Algodão respirável ideal para treinos e caminhadas diárias." },
+        vi: { title: "Bộ đồ thể thao cotton thoáng mát", desc: "Chất liệu cotton thoáng khí phù hợp tập luyện và đi dạo hằng ngày." }
+      },
+      "prod-4": {
+        en: { title: "Casual Linen Men's Shirt", desc: "Modern comfortable design suited for day and evening wear." },
+        es: { title: "Camisa Casual de Lino para Hombre", desc: "Diseño moderno y cómodo para el día o la noche." },
+        fr: { title: "Chemise Décontractée en Lin", desc: "Coupe moderne et confortable pour le jour comme le soir." },
+        pt: { title: "Camisa Masculina Casual de Linho", desc: "Design moderno e confortável para o dia a dia e lazer." },
+        vi: { title: "Áo sơ mi nam vải lanh trẻ trung", desc: "Thiết kế hiện đại thoải mái phù hợp mặc ban ngày lẫn buổi tối." }
+      },
+      "prod-5": {
+        en: { title: "Long Beige Women's Coat", desc: "Elegant silhouette with waist belt and warm quality fabric." },
+        es: { title: "Abrigo Largo Beige para Mujer", desc: "Corte elegante con cinturón y tejido cálido de calidad." },
+        fr: { title: "Manteau Long Beige Femme", desc: "Coupe élégante avec ceinture et matière chaude de qualité." },
+        pt: { title: "Casaco Feminino Longo Bege", desc: "Modelagem elegante com faixa na cintura e tecido quentinho." },
+        vi: { title: "Áo khoác dạ nữ dáng dài màu be", desc: "Dáng áo thanh lịch kèm đai eo và chất vải ấm áp cao cấp." }
+      },
+      "prod-6": {
+        en: { title: "Classic Brown Leather Shoes", desc: "Durable genuine leather with comfortable sole for formal wear." },
+        es: { title: "Zapatos Clásicos de Cuero Marrón", desc: "Cuero resistente con suela cómoda para uso formal o diario." },
+        fr: { title: "Chaussures Classiques en Cuir Marron", desc: "Cuir résistant et semelle confortable pour le bureau et sorties." },
+        pt: { title: "Sapato Social Clássico Couro Marrom", desc: "Couro durável com solado confortável para ocasiões formais." },
+        vi: { title: "Giày da cổ điển màu nâu sang trọng", desc: "Da bền đẹp cùng đế êm ái phù hợp đi làm và sự kiện." }
+      },
+      "prod-7": {
+        en: { title: "Modern Leather Handbag", desc: "Stylish design with adjustable strap and gold accents." },
+        es: { title: "Bolso de Mano de Cuero Moderno", desc: "Diseño elegante con correa ajustable y detalles dorados." },
+        fr: { title: "Sac à Main en Cuir Moderne", desc: "Design soigné avec bandoulière réglable et finitions dorées." },
+        pt: { title: "Bolsa Feminina de Couro Moderna", desc: "Design elegante com alça ajustável e detalhes dourados." },
+        vi: { title: "Túi xách da nữ hiện đại", desc: "Kiểu dáng tinh tế có dây đeo điều chỉnh và chi tiết ánh kim." }
+      },
+      "prod-8": {
+        en: { title: "Polarized Sunglasses", desc: "Full UV protection with a lightweight frame." },
+        es: { title: "Gafas de Sol Polarizadas", desc: "Protección UV completa con montura ligera." },
+        fr: { title: "Lunettes de Soleil Polarisées", desc: "Protection UV intégrale avec monture légère." },
+        pt: { title: "Óculos de Sol Polarizados", desc: "Proteção UV completa com armação leve." },
+        vi: { title: "Kính mát phân cực chống chói", desc: "Bảo vệ tia UV hiệu quả với gọng kính nhẹ nhàng." }
+      },
+      "prod-9": {
+        en: { title: "Classic Watch with Leather Strap", desc: "Scratch-resistant glass that adds refinement to your wrist." },
+        es: { title: "Reloj Clásico con Correa de Cuero", desc: "Cristal resistente y diseño elegante para cualquier momento." },
+        fr: { title: "Montre Classique Bracelet Cuir", desc: "Design intemporel et confortable pour toutes vos tenues." },
+        pt: { title: "Relógio Clássico com Pulseira de Couro", desc: "Visual refinado e resistente para o dia a dia ou eventos." },
+        vi: { title: "Đồng hồ cổ điển dây da", desc: "Mặt kính chống trầy cùng thiết kế lịch lãm cho cổ tay." }
+      },
+      "prod-10": {
+        en: { title: "Heavyweight Cotton Hoodie", desc: "Soft fleece interior for everyday comfort." },
+        es: { title: "Sudadera de Algodón Gruesa", desc: "Interior suave y cálido para comodidad diaria." },
+        fr: { title: "Sweat à Capuche en Coton Épais", desc: "Intérieur doux et confortable pour un usage quotidien." },
+        pt: { title: "Moletom de Algodão Encorpado", desc: "Interior macio e confortável para o uso diário." },
+        vi: { title: "Áo hoodie cotton dày dặn", desc: "Lớp trong mềm mại giữ ấm thoải mái khi mặc hằng ngày." }
+      },
+      "prod-11": {
+        en: { title: "Adjustable Dumbbell Set", desc: "Versatile weight plates for home strength and muscle training." },
+        es: { title: "Set de Mancuernas Ajustables", desc: "Discos variados para entrenamiento de fuerza en casa." },
+        fr: { title: "Kit d'Haltères Réglables", desc: "Disques modulables pour le renforcement musculaire à domicile." },
+        pt: { title: "Kit de Halteres Ajustáveis", desc: "Pesos variados para treinos de força e condicionamento em casa." },
+        vi: { title: "Bộ tạ tay điều chỉnh mức cân", desc: "Dễ dàng thay đổi trọng lượng để tập thể lực tại nhà." }
+      },
+      "prod-12": {
+        en: { title: "Running & Marathon Sneakers", desc: "Flexible shock-absorbing sole for great stability while running." },
+        es: { title: "Zapatillas para Correr y Maratón", desc: "Suela flexible que absorbe impactos y aporta estabilidad." },
+        fr: { title: "Chaussures de Course & Running", desc: "Semelle souple absorbant les chocs pour une foulée stable." },
+        pt: { title: "Tênis de Corrida Esportivo", desc: "Solado flexível com amortecimento para estabilidade na corrida." },
+        vi: { title: "Giày chạy bộ thể thao êm ái", desc: "Đế đàn hồi giảm chấn tốt giúp giữ thăng bằng khi chạy." }
+      },
+      "prod-13": {
+        en: { title: "Thick Yoga & Fitness Mat", desc: "Non-slip surface with carry strap for easy transport." },
+        es: { title: "Colchoneta Gruesa de Yoga y Fitness", desc: "Superficie antideslizante con correa de transporte." },
+        fr: { title: "Tapis de Yoga et Fitness Épais", desc: "Surface antidérapante avec sangle de transport pratique." },
+        pt: { title: "Tapete de Yoga e Fitness Espesso", desc: "Superfície antiderrapante com alça para levar onde quiser." },
+        vi: { title: "Thảm tập yoga & gym dày dặn", desc: "Chống trơn trượt kèm dây đeo tiện mang theo khi tập." }
+      },
+      "prod-14": {
+        en: { title: "21-Speed Mountain Bike", desc: "Lightweight alloy frame with strong disc brakes for trails." },
+        es: { title: "Bicicleta de Montaña 21 Velocidades", desc: "Cuadro ligero y frenos de disco para rutas variadas." },
+        fr: { title: "VTT 21 Vitesses", desc: "Cadre léger et freins fiables pour balades et sentiers." },
+        pt: { title: "Bicicleta Mountain Bike 21 Marchas", desc: "Quadro leve e boa aderência para trilhas e passeios." },
+        vi: { title: "Xe đạp địa hình 21 tốc độ", desc: "Khung nhẹ bền bỉ và phanh chắc chắn cho nhiều cung đường." }
+      },
+      "prod-15": {
+        en: { title: "Speed Jump Rope with Counter", desc: "Comfortable grips and smooth bearings for cardio workouts." },
+        es: { title: "Cuerda de Saltar Rápida con Contador", desc: "Mangos cómodos y giro fluido para cardio y resistencia." },
+        fr: { title: "Corde à Sauter Rapide avec Compteur", desc: "Poignées confortables et rotation fluide pour le cardio." },
+        pt: { title: "Corda de Pular Rápida com Contador", desc: "Pegada confortável e giro suave para treinos aeróbicos." },
+        vi: { title: "Dây nhảy thể lực có bộ đếm", desc: "Tay cầm êm và trục quay mượt hỗ trợ tập cardio đốt năng lượng." }
+      },
+      "prod-16": {
+        en: { title: "Full-Body Resistance Bands Set", desc: "5 resistance levels with handles and ankle strap for home workouts." },
+        es: { title: "Bandas de Resistencia para Todo el Cuerpo", desc: "5 niveles de resistencia con asas para entrenar en casa." },
+        fr: { title: "Kit Bandes de Résistance Complet", desc: "5 niveaux de résistance avec poignées pour entraînement complet." },
+        pt: { title: "Kit Faixas Elásticas de Resistência", desc: "5 níveis de resistência com alças para treinar corpo todo." },
+        vi: { title: "Bộ dây kháng lực tập toàn thân", desc: "5 mức kháng lực kèm tay cầm và dây cổ chân tiện lợi." }
+      },
+      "prod-17": {
+        en: { title: "Weightlifting Gloves with Wrist Wrap", desc: "Protects palms and gives a firm grip during training." },
+        es: { title: "Guantes de Pesas con Soporte de Muñeca", desc: "Protegen las manos y mejoran el agarre en el gimnasio." },
+        fr: { title: "Gants de Musculation avec Maintien Poignet", desc: "Protègent la paume et assurent une bonne prise." },
+        pt: { title: "Luvas de Musculação com Munhequeira", desc: "Protegem as mãos e oferecem firmeza nos exercícios." },
+        vi: { title: "Găng tay tập tạ bảo vệ cổ tay", desc: "Bảo vệ lòng bàn tay và tăng độ bám chắc khi nâng tạ." }
+      },
+      "prod-18": {
+        en: { title: "Match-Grade Football", desc: "Durable thermal stitching and balanced flight for play." },
+        es: { title: "Balón de Fútbol de Entrenamiento", desc: "Costura resistente y buen equilibrio para partidos." },
+        fr: { title: "Ballon de Football Résistant", desc: "Coutures durables et bon équilibre sur le terrain." },
+        pt: { title: "Bola de Futebol Resistente", desc: "Estrutura durável e ótimo controle para jogos e treinos." },
+        vi: { title: "Bóng đá tiêu chuẩn thi đấu", desc: "Đường ép bền chắc và độ cân bằng tốt khi chuyền sút." }
+      },
+      "prod-19": {
+        en: { title: "Lightweight Tennis Racket", desc: "Durable frame offering high control and clean shots." },
+        es: { title: "Raqueta de Tenis Ligera", desc: "Marco resistente con buen control y respuesta." },
+        fr: { title: "Raquette de Tennis Légère", desc: "Cadre réactif offrant contrôle et confort de jeu." },
+        pt: { title: "Raquete de Tênis Leve", desc: "Estrutura leve com bom controle para treinos e partidas." },
+        vi: { title: "Vợt tennis trọng lượng nhẹ", desc: "Khung bền giúp kiểm soát bóng tốt và đánh chuẩn xác." }
+      },
+      "prod-20": {
+        en: { title: "Quick-Setup Camping Tent", desc: "Weather-resistant shelter comfortably fitting up to 3 people." },
+        es: { title: "Tienda de Campaña de Montaje Rápido", desc: "Resistente al clima y cómoda para hasta 3 personas." },
+        fr: { title: "Tente de Camping Montage Rapide", desc: "Pratique et résistante pour accueillir jusqu'à 3 personnes." },
+        pt: { title: "Barraca de Camping Montagem Rápida", desc: "Prática e resistente para acomodar até 3 pessoas." },
+        vi: { title: "Lều cắm trại dựng nhanh gọn nhẹ", desc: "Chống gió mưa tốt với không gian thoải mái cho 3 người." }
+      },
+      "prod-21": {
+        en: { title: "18-Piece Complete Makeup Set", desc: "Includes eyeshadow palette, velvet lipsticks, and highlighter." },
+        es: { title: "Set Completo de Maquillaje 18 Piezas", desc: "Incluye sombras, labiales aterciopelados e iluminador." },
+        fr: { title: "Coffret Maquillage Complet 18 Pièces", desc: "Comprend palette d'ombres, rouges à lèvres et enlumineur." },
+        pt: { title: "Kit Completo de Maquiagem 18 Peças", desc: "Reúne sombras, batons aveludados e iluminador." },
+        vi: { title: "Bộ trang điểm đầy đủ 18 món", desc: "Gồm bảng phấn mắt, son lì mịn môi và phấn bắt sáng." }
+      },
+      "prod-22": {
+        en: { title: "Vitamin C Radiance Serum", desc: "Concentrated formula with hyaluronic acid for hydration and glow." },
+        es: { title: "Sérum de Vitamina C Iluminador", desc: "Fórmula con ácido hialurónico para hidratar y dar luminosidad." },
+        fr: { title: "Sérum Éclat à la Vitamine C", desc: "Formule à l'acide hyaluronique pour hydrater et illuminer." },
+        pt: { title: "Sérum Facial Vitamina C Iluminador", desc: "Fórmula com ácido hialurônico para hidratação e viço." },
+        vi: { title: "Serum Vitamin C dưỡng sáng da", desc: "Kết hợp Hyaluronic Acid giúp cấp ẩm và làm da rạng rỡ." }
+      },
+      "prod-23": {
+        en: { title: "Floral Eau de Parfum for Women", desc: "Warm jasmine and vanilla notes with lasting fragrance." },
+        es: { title: "Perfume Floral Eau de Parfum Mujer", desc: "Notas de jazmín y vainilla cálida de larga duración." },
+        fr: { title: "Eau de Parfum Florale Femme", desc: "Notes de jasmin et vanille douce à bonne tenue." },
+        pt: { title: "Perfume Floral Feminino Eau de Parfum", desc: "Notas florais e baunilha envolvente com boa fixação." },
+        vi: { title: "Nước hoa nữ hương hoa quyến rũ", desc: "Hương nhài và vani ấm áp với độ lưu hương bền lâu." }
+      },
+      "prod-24": {
+        en: { title: "Soft Professional Makeup Brushes", desc: "12 soft bristles for smooth blending with a sleek case." },
+        es: { title: "Brochas de Maquillaje Profesionales", desc: "12 brochas suaves para difuminar con estuche elegante." },
+        fr: { title: "Pinceaux Maquillage Doux Pro", desc: "12 pinceaux doux pour une application précise avec trousse." },
+        pt: { title: "Kit Pincéis de Maquiagem Macios", desc: "12 pincéis macios para acabamento uniforme com estojo." },
+        vi: { title: "Bộ cọ trang điểm lông mềm chuyên nghiệp", desc: "12 cây cọ tán mịn kèm hộp đựng gọn gàng." }
+      },
+      "prod-25": {
+        en: { title: "Fast Ionic Hair Dryer & Styler", desc: "Reduces frizz and adds shine with adjustable heat settings." },
+        es: { title: "Secador Iónico Rápido para Cabello", desc: "Reduce el frizz y aporta brillo con control de temperatura." },
+        fr: { title: "Sèche-Cheveux Ionique Rapide", desc: "Réduit les frisottis et apporte de la brillance." },
+        pt: { title: "Secador de Cabelo Iônico Rápido", desc: "Reduz o frizz e dá brilho com controle de calor." },
+        vi: { title: "Máy sấy tóc ion tạo kiểu nhanh", desc: "Giảm xơ rối và giúp tóc bóng mượt với nhiều mức nhiệt." }
+      },
+      "prod-26": {
+        en: { title: "Night Skincare Routine Set", desc: "Gentle cleanser and nourishing cream with aloe and botanical oils." },
+        es: { title: "Rutina Nocturna de Cuidado Facial", desc: "Limpiador suave y crema nutritiva con extractos naturales." },
+        fr: { title: "Coffret Soin de Nuit Visage", desc: "Nettoyant doux et crème nourrissante aux actifs naturels." },
+        pt: { title: "Kit Cuidados Noturnos com a Pele", desc: "Limpeza suave e creme nutritivo com extratos naturais." },
+        vi: { title: "Bộ dưỡng da ban đêm phục hồi", desc: "Sữa rửa mặt dịu nhẹ và kem dưỡng ẩm chiết xuất tự nhiên." }
+      },
+      "prod-27": {
+        en: { title: "Blush & Highlighter Palette", desc: "Warm natural shades suitable for all skin tones." },
+        es: { title: "Paleta de Rubor e Iluminador", desc: "Tonos cálidos naturales adaptables a distintos tonos de piel." },
+        fr: { title: "Palette Blush et Enlumineur", desc: "Teintes naturelles lumineuses adaptées à toutes les peaux." },
+        pt: { title: "Paleta de Blush e Iluminador", desc: "Tons naturais e luminosos para diversos tipos de pele." },
+        vi: { title: "Bảng phấn má hồng & bắt sáng", desc: "Tông màu tự nhiên ấm áp phù hợp nhiều sắc da." }
+      },
+      "prod-28": {
+        en: { title: "Velvet Matte Lipstick Set (6 Shades)", desc: "Long-lasting comfort enriched with vitamin E." },
+        es: { title: "Set de 6 Labiales Mate Terciopelo", desc: "Larga duración con vitamina E sin resecar los labios." },
+        fr: { title: "Lot de 6 Rouges à Lèvres Velours", desc: "Tenue longue durée enrichie en vitamine E." },
+        pt: { title: "Kit 6 Batons Matte Aveludados", desc: "Alta fixação com vitamina E sem ressecar os lábios." },
+        vi: { title: "Bộ 6 thỏi son lì mịn môi", desc: "Bền màu lâu trôi bổ sung vitamin E giúp môi mềm mịn." }
+      },
+      "prod-29": {
+        en: { title: "Full HD Car Dash Cam", desc: "Front and cabin recording with night vision and motion sensor." },
+        es: { title: "Cámara Dash Cam Full HD para Auto", desc: "Grabación clara con visión nocturna y sensor automático." },
+        fr: { title: "Caméra Embarquée Dash Cam Full HD", desc: "Enregistrement net avec vision nocturne et détection auto." },
+        pt: { title: "Câmera Veicular Dash Cam Full HD", desc: "Gravação nítida com visão noturna e sensor automático." },
+        vi: { title: "Camera hành trình ô tô Full HD", desc: "Ghi hình rõ nét hỗ trợ nhìn đêm và cảm biến chuyển động." }
+      },
+      "prod-30": {
+        en: { title: "360° Magnetic Car Phone Mount", desc: "Strong magnet holds your phone steady on bumpy roads." },
+        es: { title: "Soporte Magnético 360° para Celular", desc: "Sujeción firme sin vibraciones en cualquier trayecto." },
+        fr: { title: "Support Téléphone Magnétique 360°", desc: "Maintien stable et orientable pendant la conduite." },
+        pt: { title: "Suporte Magnético 360° para Celular", desc: "Fixação firme e ajustável durante a direção." },
+        vi: { title: "Giá đỡ điện thoại nam châm 360°", desc: "Nam châm giữ chắc chắn không rung lắc khi lái xe." }
+      },
+      "prod-31": {
+        en: { title: "Portable Digital Car Tire Inflator", desc: "12V power with pressure display and automatic shut-off." },
+        es: { title: "Inflador Digital Portátil para Neumáticos", desc: "Pantalla de presión digital con apagado automático." },
+        fr: { title: "Gonfleur Pneus Voiture Numérique", desc: "Affichage précis de la pression avec arrêt automatique." },
+        pt: { title: "Calibrador Digital Portátil Automotivo", desc: "Visor de pressão digital com desligamento automático." },
+        vi: { title: "Máy bơm lốp ô tô điện tử cầm tay", desc: "Màn hình hiển thị áp suất và tự ngắt khi đủ hơi." }
+      },
+      "prod-32": {
+        en: { title: "Cordless High-Suction Car Vacuum", desc: "Precision nozzles for cleaning seats and tight corners easily." },
+        es: { title: "Aspiradora Inalámbrica Potente para Auto", desc: "Accesorios prácticos para limpiar asientos y rincones." },
+        fr: { title: "Aspirateur Voiture Sans Fil Puissant", desc: "Embouts pratiques pour sièges et zones difficiles d'accès." },
+        pt: { title: "Aspirador Automotivo Sem Fio Potente", desc: "Bocais práticos para limpar bancos e cantos do carro." },
+        vi: { title: "Máy hút bụi ô tô không dây lực hút mạnh", desc: "Đầu hút tiện lợi làm sạch ghế và khe nhỏ dễ dàng." }
+      },
+      "prod-33": {
+        en: { title: "Dual-Port 65W Fast Car Charger", desc: "Rapid charging for phones and tablets on the road." },
+        es: { title: "Cargador Rápido de Auto 65W Doble Puerto", desc: "Carga rápida para móviles y tablets mientras conduces." },
+        fr: { title: "Chargeur Voiture Rapide 65W Double Port", desc: "Recharge rapide pour smartphones et tablettes en route." },
+        pt: { title: "Carregador Veicular Rápido 65W Duplo", desc: "Carregamento rápido para celulares e tablets no caminho." },
+        vi: { title: "Sạc nhanh ô tô 65W hai cổng", desc: "Sạc nhanh điện thoại và máy tính bảng khi di chuyển." }
+      },
+      "prod-34": {
+        en: { title: "Luxury Car Diffuser & Air Freshener", desc: "Clips onto air vents for a long-lasting fresh scent." },
+        es: { title: "Ambientador Difusor de Lujo para Auto", desc: "Se acopla a la rejilla con aroma duradero y agradable." },
+        fr: { title: "Diffuseur Parfum Voiture Élégant", desc: "Se fixe sur la grille d'aération pour une senteur durable." },
+        pt: { title: "Difusor Aromatizador Luxo para Carro", desc: "Encaixa na saída de ar com fragrância agradável e duradoura." },
+        vi: { title: "Tinh dầu thơm xe hơi kèm kẹp cửa gió", desc: "Gắn cửa điều hòa mang lại hương thơm dễ chịu bền lâu." }
+      },
+      "prod-35": {
+        en: { title: "Leather Car Seat Covers Set", desc: "Protects seats from spills and wear with a clean finish." },
+        es: { title: "Fundas de Cuero para Asientos de Auto", desc: "Protegen los asientos de manchas y desgaste con estilo." },
+        fr: { title: "Housses de Siège Auto en Cuir", desc: "Protègent les sièges des taches et de l'usure au quotidien." },
+        pt: { title: "Jogo de Capas de Couro para Bancos", desc: "Protege os bancos contra manchas e desgaste diário." },
+        vi: { title: "Bộ bọc ghế da ô tô sang trọng", desc: "Bảo vệ ghế khỏi bám bẩn, trầy xước và tăng thẩm mỹ." }
+      },
+      "prod-36": {
+        en: { title: "Ergonomic RGB Gaming Chair", desc: "Adjustable head and lumbar pillows with 180° recline." },
+        es: { title: "Silla Gaming Ergonómica RGB", desc: "Cojines ajustables y reclinación hasta 180° para mayor comodidad." },
+        fr: { title: "Chaise Gaming Ergonomique RGB", desc: "Coussins réglables et inclinaison jusqu'à 180°." },
+        pt: { title: "Cadeira Gamer Ergonômica RGB", desc: "Almofadas ajustáveis e reclinação de até 180°." },
+        vi: { title: "Ghế gaming công thái học RGB", desc: "Đệm đầu và lưng tùy chỉnh cùng độ ngả lên đến 180°." }
+      },
+      "prod-37": {
+        en: { title: "Mechanical RGB Gaming Keyboard", desc: "Responsive switches built for fast competitive gaming." },
+        es: { title: "Teclado Mecánico Gaming RGB", desc: "Interruptores rápidos y resistentes para partidas intensas." },
+        fr: { title: "Clavier Mécanique Gaming RGB", desc: "Switches réactifs conçus pour la rapidité en jeu." },
+        pt: { title: "Teclado Mecânico Gamer RGB", desc: "Switches responsivos para agilidade nas partidas." },
+        vi: { title: "Bàn phím cơ gaming đèn RGB", desc: "Phím bấm phản hồi nhanh đáp ứng tốt các pha thao tác." }
+      },
+      "prod-38": {
+        en: { title: "Ultra-Light Wireless Gaming Mouse", desc: "26,000 DPI sensor with programmable side buttons." },
+        es: { title: "Ratón Gaming Inalámbrico Ultraligero", desc: "Sensor de 26,000 DPI con botones programables." },
+        fr: { title: "Souris Gaming Sans Fil Ultra-Légère", desc: "Capteur 26 000 DPI avec boutons programmables." },
+        pt: { title: "Mouse Gamer Sem Fio Ultraleve", desc: "Sensor de 26.000 DPI com botões programáveis." },
+        vi: { title: "Chuột gaming không dây siêu nhẹ", desc: "Cảm biến 26.000 DPI kèm các nút tùy chỉnh linh hoạt." }
+      },
+      "prod-39": {
+        en: { title: "7.1 Surround Gaming Headset with Mic", desc: "Clear positional audio cues with plush ear cushions." },
+        es: { title: "Auriculares Gaming 7.1 con Micrófono", desc: "Sonido envolvente claro y almohadillas cómodas." },
+        fr: { title: "Casque Gaming Surround 7.1 avec Micro", desc: "Son spatialisé précis et coussinets confortables." },
+        pt: { title: "Headset Gamer Surround 7.1 com Microfone", desc: "Áudio direcional nítido com almofadas macias." },
+        vi: { title: "Tai nghe gaming âm thanh vòm 7.1 có mic", desc: "Định hướng âm thanh rõ ràng cùng đệm tai êm ái." }
+      },
+      "prod-40": {
+        en: { title: "27\" Curved 165Hz Gaming Monitor", desc: "1ms response time for smooth tear-free gameplay." },
+        es: { title: "Monitor Gaming Curvo 27\" 165Hz", desc: "Tiempo de respuesta de 1 ms para imágenes fluidas." },
+        fr: { title: "Écran Gaming Incurvé 27\" 165Hz", desc: "Temps de réponse 1 ms pour une fluidité optimale." },
+        pt: { title: "Monitor Gamer Curvo 27\" 165Hz", desc: "Tempo de resposta de 1 ms para jogabilidade fluida." },
+        vi: { title: "Màn hình gaming cong 27 inch 165Hz", desc: "Tốc độ phản hồi 1ms cho khung hình mượt mà." }
+      },
+      "prod-41": {
+        en: { title: "Wireless Gaming Controller", desc: "Responsive haptics compatible with PC and gaming setups." },
+        es: { title: "Mando Gaming Inalámbrico", desc: "Respuesta háptica cómoda compatible con PC y juegos." },
+        fr: { title: "Manette Gaming Sans Fil", desc: "Prise en main confortable compatible PC et jeux." },
+        pt: { title: "Controle Gamer Sem Fio", desc: "Resposta tátil confortável compatível com PC e jogos." },
+        vi: { title: "Tay cầm chơi game không dây", desc: "Cảm giác cầm nắm thoải mái tương thích PC và các nền tảng game." }
+      },
+      "prod-42": {
+        en: { title: "XL Light-Edge Gaming Mousepad", desc: "Smooth high-precision surface with non-slip base." },
+        es: { title: "Alfombrilla Gaming XL con Borde LED", desc: "Superficie suave y precisa con base antideslizante." },
+        fr: { title: "Tapis de Souris Gaming XL Lumineux", desc: "Surface glisse fluide avec bord éclairé et base stable." },
+        pt: { title: "Mousepad Gamer XL com Borda de Luz", desc: "Superfície lisa de alta precisão com base antiderrapante." },
+        vi: { title: "Bàn di chuột gaming XL viền sáng", desc: "Bề mặt mịn mượt chính xác kèm đế chống trượt." }
+      },
+      "prod-43": {
+        en: { title: "USB Streaming & Podcast Microphone", desc: "Clear voice capture for live streams and squad chat." },
+        es: { title: "Micrófono USB para Streaming y Podcast", desc: "Captura de voz nítida para transmisiones y chat." },
+        fr: { title: "Microphone USB Streaming & Podcast", desc: "Captation vocale claire pour le direct et la discussion." },
+        pt: { title: "Microfone USB para Streaming e Podcast", desc: "Captação de voz limpa para lives e chamadas." },
+        vi: { title: "Micro USB thu âm livestream & podcast", desc: "Thu giọng rõ nét phục vụ phát trực tiếp và trò chuyện." }
+      },
+      "prod-44": {
+        en: { title: "Ultra Pro Sport Smartwatch", desc: "AMOLED display, water resistance, and up to two weeks battery." },
+        es: { title: "Reloj Inteligente Deportivo Ultra Pro", desc: "Pantalla AMOLED, resistente al agua y gran autonomía." },
+        fr: { title: "Montre Connectée Sport Ultra Pro", desc: "Écran AMOLED, étanche et autonomie longue durée." },
+        pt: { title: "Smartwatch Esportivo Ultra Pro", desc: "Tela AMOLED, resistente à água e ótima bateria." },
+        vi: { title: "Đồng hồ thông minh thể thao Ultra Pro", desc: "Màn hình AMOLED, kháng nước và thời lượng pin dài." }
+      },
+      "prod-45": {
+        en: { title: "OLED Smartphone with Triple Camera", desc: "Fast performance, generous storage, and rapid charging." },
+        es: { title: "Smartphone OLED con Triple Cámara", desc: "Buen rendimiento, amplio almacenamiento y carga rápida." },
+        fr: { title: "Smartphone OLED Triple Caméra", desc: "Fluide, grand espace de stockage et charge rapide." },
+        pt: { title: "Smartphone OLED com Câmera Tripla", desc: "Bom desempenho, amplo espaço e carregamento rápido." },
+        vi: { title: "Điện thoại màn hình OLED cụm 3 camera", desc: "Hiệu năng mượt mà, bộ nhớ lớn và sạc nhanh." }
+      },
+      "prod-46": {
+        en: { title: "Home Espresso Coffee Maker", desc: "Steady extraction pressure for rich crema every morning." },
+        es: { title: "Cafetera Espresso para el Hogar", desc: "Extracción uniforme para un café con crema cada mañana." },
+        fr: { title: "Machine à Café Espresso Maison", desc: "Extraction régulière pour un espresso riche chaque matin." },
+        pt: { title: "Cafeteira Espresso Doméstica", desc: "Extração consistente para um café encorpado no dia a dia." },
+        vi: { title: "Máy pha cà phê espresso gia đình", desc: "Áp suất ổn định cho ly cà phê đậm vị mỗi sáng." }
+      },
+      "prod-47": {
+        en: { title: "Smart Robot Floor Vacuum", desc: "Automated smart cleaning with self-return to dock." },
+        es: { title: "Robot Aspirador Inteligente", desc: "Limpieza automática práctica con retorno a la base." },
+        fr: { title: "Robot Aspirateur Intelligent", desc: "Nettoyage automatisé avec retour à la station." },
+        pt: { title: "Robô Aspirador Inteligente", desc: "Limpeza automática prática com retorno à base." },
+        vi: { title: "Robot hút bụi thông minh lau nhà", desc: "Tự động dọn dẹp tiện lợi và tự quay về dock sạc." }
+      },
+      "st-1": {
+        en: { title: "Elite Electronics & Gaming Store", desc: "Trusted source for original gaming gear and electronics." },
+        es: { title: "Tienda Elite de Electrónica y Gaming", desc: "Selección confiable de equipo gaming y electrónica." },
+        fr: { title: "Boutique Élite Électronique & Gaming", desc: "Sélection fiable d'accessoires gaming et électroniques." },
+        pt: { title: "Loja Elite de Eletrônicos e Gaming", desc: "Seleção confiável de itens gamer e eletrônicos." },
+        vi: { title: "Cửa hàng Điện tử & Gaming tinh hoa", desc: "Nguồn thiết bị gaming và điện tử đáng tin cậy." }
+      },
+      "st-2": {
+        en: { title: "Beauty & Fashion Boutique", desc: "Curated boutique for women's fashion and beauty essentials." },
+        es: { title: "Boutique de Belleza y Moda", desc: "Selección cuidada de moda femenina y belleza." },
+        fr: { title: "Boutique Beauté & Mode", desc: "Sélection soignée de mode féminine et soins beauté." },
+        pt: { title: "Boutique de Beleza e Moda", desc: "Seleção especial de moda feminina e beleza." },
+        vi: { title: "Boutique Thời trang & Làm đẹp", desc: "Tuyển chọn thời trang nữ và mỹ phẩm chăm sóc." }
+      },
+      "st-3": {
+        en: { title: "Sports & Auto World", desc: "Complete sports equipment and modern car accessories." },
+        es: { title: "Mundo Deportivo y Automotor", desc: "Equipamiento deportivo y accesorios modernos para auto." },
+        fr: { title: "Univers Sport & Auto", desc: "Équipements sportifs et accessoires auto modernes." },
+        pt: { title: "Mundo Esportivo e Automotivo", desc: "Artigos esportivos e acessórios automotivos atuais." },
+        vi: { title: "Thế giới Thể thao & Ô tô", desc: "Dụng cụ thể thao và phụ kiện xe hơi hiện đại." }
+      },
+      "sv-1": {
+        en: { title: "Pi App UX & Readiness Audit", desc: "Interface review and readiness check inside Pi Browser." },
+        es: { title: "Revisión de UX y Preparación en Pi", desc: "Revisión de interfaz y flujo dentro de Pi Browser." },
+        fr: { title: "Audit UX & Préparation App Pi", desc: "Revue de l'interface et du parcours dans Pi Browser." },
+        pt: { title: "Auditoria de UX e Prontidão Pi", desc: "Análise de interface e fluxo dentro do Pi Browser." },
+        vi: { title: "Kiểm tra UX & độ sẵn sàng trên Pi", desc: "Đánh giá giao diện và luồng trải nghiệm trong Pi Browser." }
+      },
+      "sv-2": {
+        en: { title: "Store Brand Identity Design", desc: "Logos and storefront visuals crafted for merchants." },
+        es: { title: "Diseño de Identidad para Tiendas", desc: "Logotipos y tarjetas visuales para comerciantes." },
+        fr: { title: "Création d'Identité Visuelle Boutique", desc: "Logos et visuels de présentation pour marchands." },
+        pt: { title: "Design de Identidade para Lojas", desc: "Logos e materiais visuais para comerciantes." },
+        vi: { title: "Thiết kế nhận diện thương hiệu cửa hàng", desc: "Logo và hình ảnh trưng bày chuyên nghiệp cho người bán." }
+      }
+    };
+
+    function getLocalizedItem(item) {
+      if (currentLang === "ar" || item.isMine) {
+        return { title: item.title, desc: item.desc };
+      }
+      const tr = itemTranslations[item.id] && itemTranslations[item.id][currentLang];
+      if (tr) {
+        return { title: tr.title, desc: tr.desc };
+      }
+      return { title: item.title, desc: item.desc };
+    }
 
     function t(key) {
       return (i18n[currentLang] && i18n[currentLang][key]) || i18n.ar[key] || key;
@@ -1378,9 +1766,10 @@
     function addToCart(id) {
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
-      cartItems.push(item);
+      const loc = getLocalizedItem(item);
+      cartItems.push({ ...item, title: loc.title, desc: loc.desc });
       updateCartLabel();
-      updateStatus(`✓ ${item.title}`);
+      updateStatus(`✓ ${loc.title}`);
     }
 
     async function connectPi() {
@@ -1406,6 +1795,7 @@
     async function payItem(id) {
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
+      const loc = getLocalizedItem(item);
 
       if (!Pi) {
         openModal("Pi Browser", "<p>Pi payments work inside Pi Browser.</p>");
@@ -1417,13 +1807,13 @@
         if (!currentUser) return;
       }
 
-      updateStatus(`${item.title} (${item.amount} Test-Pi)...`);
+      updateStatus(`${loc.title} (${item.amount} Test-Pi)...`);
 
       try {
         await Pi.createPayment(
           {
             amount: item.amount,
-            memo: "PiTrust Testnet: " + item.title,
+            memo: "PiPrime Testnet: " + loc.title,
             metadata: { itemId: item.id, owner: item.owner, buyer: currentUser.username }
           },
           {
@@ -1450,6 +1840,7 @@
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
       openedSlotId = id;
+      const loc = getLocalizedItem(item);
 
       document.getElementById("catalogHomeView").style.display = "none";
       const slot = document.getElementById("productSlotView");
@@ -1460,10 +1851,10 @@
           <span style="font-size:12px; font-weight:800; color:#5b21b6;">${t("slotBadge")}</span>
         </div>
 
-        <img class="slot-hero-img" src="${item.img}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
+        <img class="slot-hero-img" src="${item.img}" alt="${loc.title}" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
 
-        <div class="slot-title">${item.title}</div>
-        <p style="font-size:14px; color:#475569;">${item.desc}</p>
+        <div class="slot-title">${loc.title}</div>
+        <p style="font-size:14px; color:#475569;">${loc.desc}</p>
 
         <div class="slot-price-box">
           <div>
@@ -1564,6 +1955,7 @@
         : t("sectionPrefix") + getCatLabel(activeCategory);
 
       const filtered = getAllCatalog().filter(item => {
+        const loc = getLocalizedItem(item);
         const matchFilter =
           activeFilterTab === "all" ||
           (activeFilterTab === "mine" ? item.isMine : item.type === activeFilterTab);
@@ -1571,6 +1963,8 @@
         const matchQuery = !query ||
           item.title.toLowerCase().includes(query) ||
           item.desc.toLowerCase().includes(query) ||
+          loc.title.toLowerCase().includes(query) ||
+          loc.desc.toLowerCase().includes(query) ||
           item.typeLabel.toLowerCase().includes(query) ||
           item.owner.toLowerCase().includes(query);
         return matchFilter && matchCat && matchQuery;
@@ -1583,30 +1977,34 @@
         return;
       }
 
-      grid.innerHTML = filtered.map(item => `
-        <article class="product-box">
-          <div class="prod-img-area" onclick="openProductSlot('${item.id}')">
-            <img src="${item.img}" alt="${item.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
-            <span class="prod-badge">${item.typeLabel}</span>
-          </div>
-          <div class="prod-body">
-            <div>
-              <div class="prod-name" onclick="openProductSlot('${item.id}')">${item.title}</div>
-              <div class="prod-meta">
-                <span>${item.owner}</span>
-                <span>${item.rating}</span>
+      grid.innerHTML = filtered.map(item => {
+        const loc = getLocalizedItem(item);
+        return `
+          <article class="product-box">
+            <div class="prod-img-area" onclick="openProductSlot('${item.id}')">
+              <img src="${item.img}" alt="${loc.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
+              <span class="prod-badge">${item.typeLabel}</span>
+            </div>
+            <div class="prod-body">
+              <div>
+                <div class="prod-name" onclick="openProductSlot('${item.id}')">${loc.title}</div>
+                <div class="prod-desc-mini">${loc.desc}</div>
+                <div class="prod-meta">
+                  <span>${item.owner}</span>
+                  <span>${item.rating}</span>
+                </div>
+              </div>
+              <div>
+                <div class="prod-price">${item.amount} Test-Pi</div>
+                <div class="prod-btns">
+                  <button class="btn-open-slot" onclick="openProductSlot('${item.id}')">${t("openSlot")}</button>
+                  <button class="btn-cart-add" onclick="addToCart('${item.id}')">${t("addToCart")}</button>
+                </div>
               </div>
             </div>
-            <div>
-              <div class="prod-price">${item.amount} Test-Pi</div>
-              <div class="prod-btns">
-                <button class="btn-open-slot" onclick="openProductSlot('${item.id}')">${t("openSlot")}</button>
-                <button class="btn-cart-add" onclick="addToCart('${item.id}')">${t("addToCart")}</button>
-              </div>
-            </div>
-          </div>
-        </article>
-      `).join("");
+          </article>
+        `;
+      }).join("");
     }
 
     function openAddProductModal() {
