@@ -1196,6 +1196,181 @@
       },
     };
   </script>
+  <script>
+(function () {
+  "use strict";
+
+  var st = document.createElement("style");
+  st.textContent = ".msg-buyer{border-end-start-radius:4px}.msg-seller{border-end-end-radius:4px}";
+  document.head.appendChild(st);
+  var vp = document.querySelector('meta[name="viewport"]');
+  if (vp) vp.setAttribute("content", "width=device-width, initial-scale=1.0");
+
+  window.connectPi = async function () {
+    var btn = document.getElementById("authBtn");
+    if (!Pi) {
+      openModal("Pi Browser", "<p>Open inside Pi Browser to connect your Pi account.</p>");
+      return;
+    }
+    btn.textContent = "...";
+    try {
+      var auth = await Pi.authenticate(["username", "payments"], async function (p) {
+        try {
+          if (p && p.transaction && p.transaction.txid) {
+            await piPrimeApi.completePayment(p.identifier, p.transaction.txid);
+          }
+        } catch (e) {}
+      });
+      currentUser = auth.user;
+      btn.classList.add("connected");
+      btn.textContent = "✓ @" + currentUser.username;
+      updateStatus("✓ @" + currentUser.username);
+      await syncConversationsFromDb();
+    } catch (e) {
+      btn.textContent = t("connectPi");
+    }
+  };
+
+  window.payAmount = async function (amount, memoText, metadataObj) {
+    if (!Pi) {
+      openModal("Pi Browser", "<p>Pi payments work inside Pi Browser.</p>");
+      return;
+    }
+    if (!currentUser) {
+      await connectPi();
+      if (!currentUser) return;
+    }
+    var n = Number(amount);
+    if (isNaN(n) || n <= 0) return;
+    updateStatus(memoText + " (" + n + " Test-Pi)...");
+    try {
+      await Pi.createPayment(
+        { amount: n, memo: memoText, metadata: Object.assign({}, metadataObj, { buyer: currentUser.username }) },
+        {
+          onReadyForServerApproval: async function (paymentId) {
+            try { await piPrimeApi.approvePayment(paymentId); }
+            catch (e) { updateStatus("Approve Error: " + e.message); }
+          },
+          onReadyForServerCompletion: async function (paymentId, txid) {
+            try {
+              await piPrimeApi.completePayment(paymentId, txid);
+              updateStatus("✓ " + txid);
+              if (metadataObj && metadataObj.itemIds) { cartItems = []; updateCartLabel(); }
+            } catch (e) { updateStatus("Complete Error: " + e.message); }
+          },
+          onCancel: function (paymentId) { updateStatus("Cancelled: " + paymentId); },
+          onError: function (error) { updateStatus("Error: " + (error && error.message ? error.message : error)); }
+        }
+      );
+    } catch (err) {
+      updateStatus("Error: " + (err && err.message ? err.message : err));
+    }
+  };
+
+  window.normalizeHandle = function (handle) {
+    var clean = String(handle || "").replace(/[^a-zA-Z0-9_]/g, "");
+    return clean ? "@" + clean : "@PioneerMerchant";
+  };
+  window.buildConversationId = function (productId, buyer, seller) {
+    var c = function (s) { return String(s || "").replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase(); };
+    return "conv_" + (c(productId) || "general") + "_" + c(buyer) + "_" + c(seller);
+  };
+
+  var origRenderChats = window.renderMyChatsView;
+  window.renderMyChatsView = function () {
+    if (activeConversationId &&
+        document.getElementById("chatMessageInput") &&
+        document.getElementById("chatMessagesArea")) {
+      renderChatThreadMessages(activeConversationId);
+      return;
+    }
+    origRenderChats();
+  };
+
+  var origOpenChat = window.openChatWithSeller;
+  window.openChatWithSeller = async function (productId) {
+    var item = getAllCatalog().find(function (x) { return x.id === productId; });
+    var me = getCurrentActorUsername().toLowerCase();
+    if (item && me && normalizeHandle(item.owner).toLowerCase() === me) return;
+    return origOpenChat(productId);
+  };
+
+  window.renderChatThreadMessages = function (convId) {
+    var area = document.getElementById("chatMessagesArea");
+    if (!area) return;
+    var msgs = messagesByConv[convId] || [];
+    var conv = conversations.find(function (c) { return c.id === convId; });
+    var me = getCurrentActorUsername().toLowerCase();
+    var iAmBuyer = conv && String(conv.buyer_username || "").toLowerCase() === me;
+    if (msgs.length === 0) {
+      area.innerHTML = '<div style="text-align:center;color:#64748b;font-size:13px;margin:auto;">' + escapeHtml(t("noMessagesYet")) + "</div>";
+      return;
+    }
+    area.innerHTML = msgs.map(function (m) {
+      var mine = String(m.sender_username || "").toLowerCase() === me;
+      var label = mine
+        ? (iAmBuyer ? t("youLabel") : t("sellerLabel"))
+        : (iAmBuyer ? t("sellerLabel") + " (" + m.sender_username + ")" : m.sender_username);
+      return '<div class="msg-bubble ' + (mine ? "msg-buyer" : "msg-seller") + '"><div>' + escapeHtml(m.body) +
+        '</div><div class="msg-meta"><span>' + escapeHtml(label) + "</span><span>" + escapeHtml(formatMsgTime(m.created_at)) + "</span></div></div>";
+    }).join("");
+    area.scrollTop = area.scrollHeight;
+  };
+
+  var origOpenAdd = window.openAddProductModal;
+  window.openAddProductModal = function () {
+    origOpenAdd();
+    var o = document.getElementById("pOwner");
+    if (o && currentUser) { o.value = "@" + currentUser.username; o.readOnly = true; }
+  };
+
+  var origSave = window.saveNewProduct;
+  window.saveNewProduct = function () {
+    if (!currentUser) { closeModal(); connectPi(); return; }
+    var o = document.getElementById("pOwner");
+    if (o) o.value = "@" + currentUser.username;
+    origSave();
+  };
+
+  var origGetUser = window.getUserProducts;
+  window.getUserProducts = function () {
+    return origGetUser().map(function (i) { return Object.assign({}, i, { trust: "—", rating: "جديد" }); });
+  };
+
+  var origOpenSlot = window.openProductSlot;
+  window.openProductSlot = function (id) {
+    origOpenSlot(id);
+    var item = getAllCatalog().find(function (x) { return x.id === id; });
+    var slot = document.getElementById("productSlotView");
+    if (!slot) return;
+    if (item && item.isMine) {
+      slot.querySelectorAll(".slot-price-box span").forEach(function (s) { s.style.display = "none"; });
+    }
+    if (!isSupabaseReady()) {
+      var b = slot.querySelector(".btn-slot-chat");
+      if (b) b.style.display = "none";
+    }
+  };
+
+  window.setFilterTab = function (tab) {
+    closeProductSlot();
+    activeFilterTab = tab;
+    activeCategory = "all";
+    syncFilterAndCatUI();
+    renderProducts();
+  };
+
+  document.addEventListener("error", function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== "IMG") return;
+    var p = img.parentElement;
+        if (p && (p.classList.contains("prod-visual-area") || p.classList.contains("slot-hero-banner")) &&
+        !p.querySelector(".prod-pi-placeholder")) {
+      p.insertAdjacentHTML("afterbegin", '<div class="prod-pi-placeholder">π</div>');
+    }
+  }, true);
+})();
+</script>
   <script src="piprime-payments.js"></script>
 </body>
 </html>
