@@ -1379,6 +1379,22 @@
       });
     };
  }
+    piPrimeApi.approvePayment = async function (id) {
+    updateStatus("APPROVE: calling...");
+    try {
+      var r = await fetch(PIPRIME_API_URL + "/api/pi/approve", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentId: id })
+      });
+      var tx = await r.text();
+      updateStatus("APPROVE " + r.status + ": " + tx.slice(0, 200));
+      return tx;
+    } catch (e) {
+      updateStatus("APPROVE FETCH ERR: " + e.message);
+      throw e;
+    }
+  };
 })();
 </script>
   <script src="piprime-payments.js"></script>
