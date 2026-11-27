@@ -1395,6 +1395,32 @@
       throw e;
     }
   };
+   function dbg(m) {
+    var d = document.getElementById("dbgBox");
+    if (!d) {
+      d = document.createElement("div");
+      d.id = "dbgBox";
+      d.style.cssText = "position:fixed;bottom:70px;left:0;right:0;max-height:30vh;overflow:auto;z-index:99998;background:#111;color:#0f0;font:11px monospace;padding:6px;direction:ltr;white-space:pre-wrap";
+      document.body.appendChild(d);
+    }
+    d.textContent += m + "\n";
+  }
+  piPrimeApi.approvePayment = async function (id) {
+    dbg("1) approve called: " + id);
+    try {
+      var r = await fetch(PIPRIME_API_URL + "/api/pi/approve", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentId: id })
+      });
+      var tx = await r.text();
+      dbg("2) status " + r.status + ": " + tx.slice(0, 300));
+      return tx;
+    } catch (e) {
+      dbg("2) FETCH ERR: " + e.message);
+      throw e;
+    }
+  };
 })();
 </script>
   <script src="piprime-payments.js"></script>
