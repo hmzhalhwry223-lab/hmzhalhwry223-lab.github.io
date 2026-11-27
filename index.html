@@ -1434,5 +1434,11 @@ if (window.Pi) {
   };
 }
  </script> 
+  <script>
+document.querySelectorAll(".footer-note a").forEach(function (a) {
+  a.href = a.getAttribute("href") === "#privacy" ? "privacy.html" : "terms.html";
+  a.onclick = null;
+});
+  </script>
 </body>
 </html>
