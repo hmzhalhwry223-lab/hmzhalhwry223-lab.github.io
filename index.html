@@ -56,8 +56,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-select {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .lang-select option {
+      background: #2e1065;
+      color: #fff;
     }
 
     .account-chip {
@@ -135,7 +160,7 @@
     .search-bar {
       background: #fff;
       border-radius: 16px;
-      padding: 6px 6px 6px 14px;
+      padding: 6px 12px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -173,7 +198,7 @@
     .tx-strip {
       background: #fff;
       border: 1px solid #ddd6fe;
-      border-right: 4px solid #7c3aed;
+      border-inline-start: 4px solid #7c3aed;
       border-radius: 14px;
       padding: 10px 14px;
       font-size: 12.5px;
@@ -254,7 +279,6 @@
       cursor: pointer;
     }
 
-    /* شبكة الأقسام */
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -365,7 +389,7 @@
     .prod-badge {
       position: absolute;
       top: 8px;
-      right: 8px;
+      inset-inline-start: 8px;
       background: rgba(255, 255, 255, 0.94);
       color: #4c1d95;
       font-size: 10.5px;
@@ -435,7 +459,6 @@
       cursor: pointer;
     }
 
-    /* خانة صفحة المنتج الخاصة */
     .product-slot-view {
       display: none;
       background: #fff;
@@ -658,21 +681,31 @@
   <header class="top-header">
     <div class="header-inner">
       <div class="top-bar">
-        <button id="authBtn" class="account-chip" onclick="connectPi()">ربط حساب Pi</button>
+        <div class="top-controls">
+          <button id="authBtn" class="account-chip" onclick="connectPi()" data-i18n="connectPi">ربط حساب Pi</button>
+          <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Language">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="pt">Português</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
         <div class="brand-box">
           <div>
             <div class="brand-name">PiTrust</div>
-            <div class="brand-sub">سوقك الموثوق في عالم Pi</div>
+            <div class="brand-sub" data-i18n="brandSub">سوقك الموثوق في عالم Pi</div>
           </div>
           <div class="logo-square">π</div>
         </div>
       </div>
 
-      <h1 class="hero-title">أهلاً بك في PiTrust <span class="dot-accent"></span></h1>
-      <p class="hero-desc">تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.</p>
+      <h1 class="hero-title"><span data-i18n="welcomeTitle">أهلاً بك في PiTrust</span> <span class="dot-accent"></span></h1>
+      <p class="hero-desc" data-i18n="welcomeDesc">تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.</p>
 
       <div class="search-bar">
-        <button class="btn-search" onclick="renderProducts()">بحث</button>
+        <button class="btn-search" onclick="renderProducts()" data-i18n="searchBtn">بحث</button>
         <input
           type="text"
           id="searchInput"
@@ -687,74 +720,72 @@
   <main class="main-wrap">
     <div class="tx-strip">
       <span id="statusText">حالة المنصة: جاهز • اختر قسماً أو افتح خانة أي منتج.</span>
-      <button class="btn-mini-gold" onclick="openAddProductModal()">+ أضف منتجك</button>
+      <button class="btn-mini-gold" onclick="openAddProductModal()" data-i18n="addProductShort">+ أضف منتجك</button>
     </div>
 
-    <!-- الخانة الخاصة بالمنتج -->
     <section id="productSlotView" class="product-slot-view"></section>
 
-    <!-- الصفحة الرئيسية للسوق -->
     <div id="catalogHomeView">
       <section class="promo-banner">
-        <h2>تسوّق بثقة داخل منظومة Pi</h2>
-        <p>أقسام متكاملة للرواد والتجار — انشر منتجك في القسم المناسب الآن.</p>
-        <button class="btn-promo" onclick="openAddProductModal()">انضم كتاجر وأضف منتجاً ←</button>
+        <h2 data-i18n="promoTitle">تسوّق بثقة داخل منظومة Pi</h2>
+        <p data-i18n="promoDesc">أقسام متكاملة للرواد والتجار — انشر منتجك في القسم المناسب الآن.</p>
+        <button class="btn-promo" onclick="openAddProductModal()" data-i18n="promoBtn">انضم كتاجر وأضف منتجاً ←</button>
       </section>
 
       <div class="section-head">
-        <h2 class="section-title">تسوّق حسب القسم</h2>
-        <button class="link-all" onclick="selectCategory('all')">عرض الكل</button>
+        <h2 class="section-title" data-i18n="shopByCat">تسوّق حسب القسم</h2>
+        <button class="link-all" onclick="selectCategory('all')" data-i18n="viewAll">عرض الكل</button>
       </div>
 
       <div class="cat-grid">
         <div class="cat-card active" id="cat-all" onclick="selectCategory('all')">
           <div class="cat-icon">🛍️</div>
-          <div class="cat-label">الكل</div>
+          <div class="cat-label" data-i18n="cat_all">الكل</div>
         </div>
         <div class="cat-card" id="cat-fashion" onclick="selectCategory('fashion')">
           <div class="cat-icon">👗</div>
-          <div class="cat-label">ملابس</div>
+          <div class="cat-label" data-i18n="cat_fashion">ملابس</div>
         </div>
         <div class="cat-card" id="cat-sports" onclick="selectCategory('sports')">
           <div class="cat-icon">🏋️</div>
-          <div class="cat-label">أدوات رياضية</div>
+          <div class="cat-label" data-i18n="cat_sports">أدوات رياضية</div>
         </div>
         <div class="cat-card" id="cat-beauty" onclick="selectCategory('beauty')">
           <div class="cat-icon">💄</div>
-          <div class="cat-label">تجميل النساء</div>
+          <div class="cat-label" data-i18n="cat_beauty">تجميل النساء</div>
         </div>
         <div class="cat-card" id="cat-auto" onclick="selectCategory('auto')">
           <div class="cat-icon">🚗</div>
-          <div class="cat-label">إكسسوارات سيارات</div>
+          <div class="cat-label" data-i18n="cat_auto">إكسسوارات سيارات</div>
         </div>
         <div class="cat-card" id="cat-gaming" onclick="selectCategory('gaming')">
           <div class="cat-icon">🎮</div>
-          <div class="cat-label">قيمنغ</div>
+          <div class="cat-label" data-i18n="cat_gaming">قيمنغ</div>
         </div>
         <div class="cat-card" id="cat-electronics" onclick="selectCategory('electronics')">
           <div class="cat-icon">📱</div>
-          <div class="cat-label">إلكترونيات</div>
+          <div class="cat-label" data-i18n="cat_electronics">إلكترونيات</div>
         </div>
         <div class="cat-card" id="cat-home" onclick="selectCategory('home')">
           <div class="cat-icon">🏠</div>
-          <div class="cat-label">منزل وقهوة</div>
+          <div class="cat-label" data-i18n="cat_home">منزل وقهوة</div>
         </div>
         <div class="cat-card" id="cat-stores" onclick="selectCategory('stores')">
           <div class="cat-icon">🏪</div>
-          <div class="cat-label">المتاجر</div>
+          <div class="cat-label" data-i18n="cat_stores">المتاجر</div>
         </div>
         <div class="cat-card" id="cat-services" onclick="selectCategory('services')">
           <div class="cat-icon">✨</div>
-          <div class="cat-label">خدمات</div>
+          <div class="cat-label" data-i18n="cat_services">خدمات</div>
         </div>
       </div>
 
       <div class="filter-tabs">
-        <button class="f-tab active" id="ftab-all" onclick="setFilterTab('all')">جميع العناصر</button>
-        <button class="f-tab" id="ftab-products" onclick="setFilterTab('products')">المنتجات</button>
-        <button class="f-tab" id="ftab-stores" onclick="setFilterTab('stores')">المتاجر المعتمدة</button>
-        <button class="f-tab" id="ftab-services" onclick="setFilterTab('services')">الخدمات</button>
-        <button class="f-tab" id="ftab-mine" onclick="setFilterTab('mine')">منتجاتي</button>
+        <button class="f-tab active" id="ftab-all" onclick="setFilterTab('all')" data-i18n="tab_all">جميع العناصر</button>
+        <button class="f-tab" id="ftab-products" onclick="setFilterTab('products')" data-i18n="tab_products">المنتجات</button>
+        <button class="f-tab" id="ftab-stores" onclick="setFilterTab('stores')" data-i18n="tab_stores">المتاجر المعتمدة</button>
+        <button class="f-tab" id="ftab-services" onclick="setFilterTab('services')" data-i18n="tab_services">الخدمات</button>
+        <button class="f-tab" id="ftab-mine" onclick="setFilterTab('mine')" data-i18n="tab_mine">منتجاتي</button>
       </div>
 
       <div class="section-head">
@@ -767,8 +798,8 @@
 
     <footer class="footer-note">
       <div>
-        <a href="#privacy" onclick="openLegalModal('privacy'); return false;">سياسة الخصوصية</a>
-        <a href="#tos" onclick="openLegalModal('tos'); return false;">شروط الاستخدام</a>
+        <a href="#privacy" onclick="openLegalModal('privacy'); return false;" data-i18n="privacyLink">سياسة الخصوصية</a>
+        <a href="#tos" onclick="openLegalModal('tos'); return false;" data-i18n="tosLink">شروط الاستخدام</a>
       </div>
       <div style="margin-top:6px;">PiTrust Marketplace • Pi Testnet</div>
     </footer>
@@ -777,11 +808,11 @@
   <nav class="bottom-nav">
     <button class="nav-item active" id="nav-home" onclick="goHomeTab()">
       <span class="nav-ico">🏠</span>
-      <span>الرئيسية</span>
+      <span data-i18n="nav_home">الرئيسية</span>
     </button>
     <button class="nav-item" id="nav-stores" onclick="selectCategory('stores')">
       <span class="nav-ico">🏪</span>
-      <span>المتاجر</span>
+      <span data-i18n="nav_stores">المتاجر</span>
     </button>
     <button class="nav-item" id="nav-cart" onclick="openCartModal()">
       <span class="nav-ico">🛒</span>
@@ -789,7 +820,7 @@
     </button>
     <button class="nav-item" id="nav-account" onclick="openAccountModal()">
       <span class="nav-ico">👤</span>
-      <span>حسابي</span>
+      <span data-i18n="nav_account">حسابي</span>
     </button>
   </nav>
 
@@ -809,26 +840,426 @@
       Pi.init({ version: "2.0", sandbox: true });
     }
 
-    const USER_ITEMS_KEY = "pitrust_custom_products_v3";
+    const USER_ITEMS_KEY = "pitrust_custom_products_v4";
+    const LANG_KEY = "pitrust_lang_v1";
+    let currentLang = localStorage.getItem(LANG_KEY) || "ar";
     let currentUser = null;
     let activeCategory = "all";
     let activeFilterTab = "all";
     let cartItems = [];
+    let openedSlotId = null;
 
-    const categoryNames = {
-      fashion: "ملابس",
-      sports: "أدوات رياضية",
-      beauty: "تجميل النساء",
-      auto: "إكسسوارات سيارات",
-      gaming: "قيمنغ",
-      electronics: "إلكترونيات",
-      home: "منزل وقهوة",
-      stores: "متجر معتمد",
-      services: "خدمة"
+    const i18n = {
+      ar: {
+        dir: "rtl",
+        connectPi: "ربط حساب Pi",
+        brandSub: "سوقك الموثوق في عالم Pi",
+        welcomeTitle: "أهلاً بك في PiTrust",
+        welcomeDesc: "تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.",
+        searchBtn: "بحث",
+        searchPlaceholder: "ابحث عن ملابس، قيمنغ، تجميل، رياضة، سيارات...",
+        statusReady: "حالة المنصة: جاهز • اختر قسماً أو افتح خانة أي منتج.",
+        addProductShort: "+ أضف منتجك",
+        promoTitle: "تسوّق بثقة داخل منظومة Pi",
+        promoDesc: "أقسام متكاملة للرواد والتجار — انشر منتجك في القسم المناسب الآن.",
+        promoBtn: "انضم كتاجر وأضف منتجاً ←",
+        shopByCat: "تسوّق حسب القسم",
+        viewAll: "عرض الكل",
+        cat_all: "الكل",
+        cat_fashion: "ملابس",
+        cat_sports: "أدوات رياضية",
+        cat_beauty: "تجميل النساء",
+        cat_auto: "إكسسوارات سيارات",
+        cat_gaming: "قيمنغ",
+        cat_electronics: "إلكترونيات",
+        cat_home: "منزل وقهوة",
+        cat_stores: "المتاجر",
+        cat_services: "خدمات",
+        tab_all: "جميع العناصر",
+        tab_products: "المنتجات",
+        tab_stores: "المتاجر المعتمدة",
+        tab_services: "الخدمات",
+        tab_mine: "منتجاتي",
+        gridAllTitle: "المنتجات والمتاجر",
+        sectionPrefix: "قسم: ",
+        itemCount: "عنصر",
+        openSlot: "فتح الخانة",
+        addToCart: "+ السلة",
+        backToMarket: "← العودة إلى السوق",
+        slotBadge: "خانة المنتج الخاصة",
+        testPrice: "سعر الاختبار",
+        verified: "✓ موثّق",
+        specCategory: "القسم",
+        specSeller: "التاجر / المزود",
+        specTrust: "مؤشر الوثوقية",
+        payWithPi: "دفع بـ Pi",
+        addCartFull: "إضافة للسلة",
+        deleteProduct: "حذف هذا المنتج",
+        nav_home: "الرئيسية",
+        nav_stores: "المتاجر",
+        nav_cart: "السلة",
+        nav_account: "حسابي",
+        privacyLink: "سياسة الخصوصية",
+        tosLink: "شروط الاستخدام",
+        privacyText: "يستخدم تطبيق PiTrust اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض هويتك داخل المنصة، ولا يطلب أي عبارات سرية لمحفظتك.",
+        tosText: "يعمل التطبيق على شبكة الاختبار (Pi Testnet) لاستعراض وإضافة المنتجات وتجربة المنصة.",
+        modalAddTitle: "إضافة منتج كتاجر",
+        lblName: "اسم المنتج *",
+        lblCat: "القسم",
+        lblPrice: "السعر (Test-Pi)",
+        lblOwner: "حساب التاجر",
+        lblImg: "رابط صورة (اختياري)",
+        lblDesc: "وصف المنتج *",
+        btnPublish: "نشر المنتج وإنشاء خانته",
+        emptyResults: "لا توجد عناصر مطابقة لهذا القسم أو البحث."
+      },
+      en: {
+        dir: "ltr",
+        connectPi: "Connect Pi",
+        brandSub: "Your Trusted Pi Marketplace",
+        welcomeTitle: "Welcome to PiTrust",
+        welcomeDesc: "Shop fashion, sports, women's beauty, auto accessories, gaming, and verified stores.",
+        searchBtn: "Search",
+        searchPlaceholder: "Search fashion, gaming, beauty, sports, auto...",
+        statusReady: "Platform ready • Choose a category or open any product slot.",
+        addProductShort: "+ Add Product",
+        promoTitle: "Shop with Trust in Pi Ecosystem",
+        promoDesc: "Complete categories for Pioneers and merchants — publish your product now.",
+        promoBtn: "Become a Merchant & Add Product →",
+        shopByCat: "Shop by Category",
+        viewAll: "View All",
+        cat_all: "All",
+        cat_fashion: "Fashion",
+        cat_sports: "Sports Gear",
+        cat_beauty: "Women's Beauty",
+        cat_auto: "Auto Accessories",
+        cat_gaming: "Gaming",
+        cat_electronics: "Electronics",
+        cat_home: "Home & Coffee",
+        cat_stores: "Stores",
+        cat_services: "Services",
+        tab_all: "All Items",
+        tab_products: "Products",
+        tab_stores: "Verified Stores",
+        tab_services: "Services",
+        tab_mine: "My Products",
+        gridAllTitle: "Products & Stores",
+        sectionPrefix: "Category: ",
+        itemCount: "items",
+        openSlot: "Open Slot",
+        addToCart: "+ Cart",
+        backToMarket: "← Back to Market",
+        slotBadge: "Dedicated Product Slot",
+        testPrice: "Testnet Price",
+        verified: "✓ Verified",
+        specCategory: "Category",
+        specSeller: "Merchant / Provider",
+        specTrust: "Trust Score",
+        payWithPi: "Pay with Pi",
+        addCartFull: "Add to Cart",
+        deleteProduct: "Delete This Product",
+        nav_home: "Home",
+        nav_stores: "Stores",
+        nav_cart: "Cart",
+        nav_account: "Account",
+        privacyLink: "Privacy Policy",
+        tosLink: "Terms of Service",
+        privacyText: "PiTrust only uses your public Pi username to display your identity on the platform and never asks for wallet passphrases.",
+        tosText: "This application operates on Pi Testnet for browsing, listing products, and testing marketplace flows.",
+        modalAddTitle: "Add Product as Merchant",
+        lblName: "Product Name *",
+        lblCat: "Category",
+        lblPrice: "Price (Test-Pi)",
+        lblOwner: "Merchant Username",
+        lblImg: "Image URL (Optional)",
+        lblDesc: "Product Description *",
+        btnPublish: "Publish Product & Create Slot",
+        emptyResults: "No items match this category or search."
+      },
+      es: {
+        dir: "ltr",
+        connectPi: "Conectar Pi",
+        brandSub: "Tu mercado confiable en Pi",
+        welcomeTitle: "Bienvenido a PiTrust",
+        welcomeDesc: "Compra moda, deportes, belleza femenina, accesorios de auto, gaming y tiendas verificadas.",
+        searchBtn: "Buscar",
+        searchPlaceholder: "Buscar moda, gaming, belleza, deportes, autos...",
+        statusReady: "Plataforma lista • Elige una categoría o abre la ficha de un producto.",
+        addProductShort: "+ Añadir producto",
+        promoTitle: "Compra con confianza en Pi",
+        promoDesc: "Categorías completas para Pioneros y comerciantes — publica tu producto ahora.",
+        promoBtn: "Sé comerciante y añade producto →",
+        shopByCat: "Comprar por categoría",
+        viewAll: "Ver todo",
+        cat_all: "Todo",
+        cat_fashion: "Moda",
+        cat_sports: "Deportes",
+        cat_beauty: "Belleza Mujer",
+        cat_auto: "Accesorios Auto",
+        cat_gaming: "Gaming",
+        cat_electronics: "Electrónica",
+        cat_home: "Hogar y Café",
+        cat_stores: "Tiendas",
+        cat_services: "Servicios",
+        tab_all: "Todos",
+        tab_products: "Productos",
+        tab_stores: "Tiendas Verificadas",
+        tab_services: "Servicios",
+        tab_mine: "Mis Productos",
+        gridAllTitle: "Productos y Tiendas",
+        sectionPrefix: "Categoría: ",
+        itemCount: "artículos",
+        openSlot: "Ver Ficha",
+        addToCart: "+ Carrito",
+        backToMarket: "← Volver al mercado",
+        slotBadge: "Ficha Exclusiva del Producto",
+        testPrice: "Precio Testnet",
+        verified: "✓ Verificado",
+        specCategory: "Categoría",
+        specSeller: "Comerciante",
+        specTrust: "Índice de Confianza",
+        payWithPi: "Pagar con Pi",
+        addCartFull: "Añadir al Carrito",
+        deleteProduct: "Eliminar Producto",
+        nav_home: "Inicio",
+        nav_stores: "Tiendas",
+        nav_cart: "Carrito",
+        nav_account: "Cuenta",
+        privacyLink: "Política de Privacidad",
+        tosLink: "Términos de Uso",
+        privacyText: "PiTrust solo utiliza tu nombre de usuario público de Pi para mostrar tu identidad y nunca solicita contraseñas de billetera.",
+        tosText: "Esta aplicación funciona en Pi Testnet para explorar y publicar productos de prueba.",
+        modalAddTitle: "Añadir Producto como Comerciante",
+        lblName: "Nombre del Producto *",
+        lblCat: "Categoría",
+        lblPrice: "Precio (Test-Pi)",
+        lblOwner: "Usuario Comerciante",
+        lblImg: "URL de Imagen (Opcional)",
+        lblDesc: "Descripción *",
+        btnPublish: "Publicar y Crear Ficha",
+        emptyResults: "No hay artículos que coincidan con tu búsqueda."
+      },
+      fr: {
+        dir: "ltr",
+        connectPi: "Connecter Pi",
+        brandSub: "Votre marché de confiance Pi",
+        welcomeTitle: "Bienvenue sur PiTrust",
+        welcomeDesc: "Mode, sport, beauté femme, accessoires auto, gaming et boutiques vérifiées.",
+        searchBtn: "Chercher",
+        searchPlaceholder: "Rechercher mode, gaming, beauté, sport, auto...",
+        statusReady: "Plateforme prête • Choisissez une catégorie ou ouvrez une fiche produit.",
+        addProductShort: "+ Ajouter produit",
+        promoTitle: "Achetez en confiance sur Pi",
+        promoDesc: "Catégories complètes pour Pionniers et marchands — publiez votre produit.",
+        promoBtn: "Devenir marchand et publier →",
+        shopByCat: "Acheter par catégorie",
+        viewAll: "Voir tout",
+        cat_all: "Tout",
+        cat_fashion: "Mode",
+        cat_sports: "Sport",
+        cat_beauty: "Beauté Femme",
+        cat_auto: "Accessoires Auto",
+        cat_gaming: "Gaming",
+        cat_electronics: "Électronique",
+        cat_home: "Maison & Café",
+        cat_stores: "Boutiques",
+        cat_services: "Services",
+        tab_all: "Tous",
+        tab_products: "Produits",
+        tab_stores: "Boutiques Vérifiées",
+        tab_services: "Services",
+        tab_mine: "Mes Produits",
+        gridAllTitle: "Produits et Boutiques",
+        sectionPrefix: "Catégorie : ",
+        itemCount: "articles",
+        openSlot: "Ouvrir Fiche",
+        addToCart: "+ Panier",
+        backToMarket: "← Retour au marché",
+        slotBadge: "Fiche Produit Dédiée",
+        testPrice: "Prix Testnet",
+        verified: "✓ Vérifié",
+        specCategory: "Catégorie",
+        specSeller: "Marchand",
+        specTrust: "Score de Confiance",
+        payWithPi: "Payer avec Pi",
+        addCartFull: "Ajouter au Panier",
+        deleteProduct: "Supprimer ce Produit",
+        nav_home: "Accueil",
+        nav_stores: "Boutiques",
+        nav_cart: "Panier",
+        nav_account: "Compte",
+        privacyLink: "Confidentialité",
+        tosLink: "Conditions d'utilisation",
+        privacyText: "PiTrust utilise uniquement votre nom d'utilisateur public Pi et ne demande jamais votre phrase secrète.",
+        tosText: "Cette application fonctionne sur Pi Testnet pour tester et publier des produits.",
+        modalAddTitle: "Ajouter un Produit",
+        lblName: "Nom du Produit *",
+        lblCat: "Catégorie",
+        lblPrice: "Prix (Test-Pi)",
+        lblOwner: "Nom du Marchand",
+        lblImg: "Lien Image (Optionnel)",
+        lblDesc: "Description *",
+        btnPublish: "Publier le Produit",
+        emptyResults: "Aucun article ne correspond à votre recherche."
+      },
+      pt: {
+        dir: "ltr",
+        connectPi: "Conectar Pi",
+        brandSub: "Seu mercado confiável no mundo Pi",
+        welcomeTitle: "Bem-vindo ao PiTrust",
+        welcomeDesc: "Moda, esportes, beleza feminina, acessórios automotivos, gaming e lojas verificadas.",
+        searchBtn: "Buscar",
+        searchPlaceholder: "Buscar moda, gaming, beleza, esportes, carros...",
+        statusReady: "Plataforma pronta • Escolha uma categoria ou abra a página de um produto.",
+        addProductShort: "+ Adicionar",
+        promoTitle: "Compre com confiança no Pi",
+        promoDesc: "Categorias completas para Pioneiros e comerciantes — publique seu produto agora.",
+        promoBtn: "Seja comerciante e publique →",
+        shopByCat: "Comprar por Categoria",
+        viewAll: "Ver Tudo",
+        cat_all: "Todos",
+        cat_fashion: "Moda",
+        cat_sports: "Esportes",
+        cat_beauty: "Beleza Feminina",
+        cat_auto: "Acessórios Auto",
+        cat_gaming: "Gaming",
+        cat_electronics: "Eletrônicos",
+        cat_home: "Casa e Café",
+        cat_stores: "Lojas",
+        cat_services: "Serviços",
+        tab_all: "Todos os Itens",
+        tab_products: "Produtos",
+        tab_stores: "Lojas Verificadas",
+        tab_services: "Serviços",
+        tab_mine: "Meus Produtos",
+        gridAllTitle: "Produtos e Lojas",
+        sectionPrefix: "Categoria: ",
+        itemCount: "itens",
+        openSlot: "Abrir Página",
+        addToCart: "+ Carrinho",
+        backToMarket: "← Voltar ao mercado",
+        slotBadge: "Página Dedicada do Produto",
+        testPrice: "Preço Testnet",
+        verified: "✓ Verificado",
+        specCategory: "Categoria",
+        specSeller: "Comerciante",
+        specTrust: "Índice de Confiança",
+        payWithPi: "Pagar com Pi",
+        addCartFull: "Adicionar ao Carrinho",
+        deleteProduct: "Excluir Produto",
+        nav_home: "Início",
+        nav_stores: "Lojas",
+        nav_cart: "Carrinho",
+        nav_account: "Conta",
+        privacyLink: "Privacidade",
+        tosLink: "Termos de Uso",
+        privacyText: "O PiTrust usa apenas seu nome de usuário público Pi e nunca solicita frases-chave da carteira.",
+        tosText: "Este aplicativo opera na Pi Testnet para explorar e publicar produtos de teste.",
+        modalAddTitle: "Adicionar Produto como Comerciante",
+        lblName: "Nome do Produto *",
+        lblCat: "Categoria",
+        lblPrice: "Preço (Test-Pi)",
+        lblOwner: "Usuário Comerciante",
+        lblImg: "URL da Imagem (Opcional)",
+        lblDesc: "Descrição *",
+        btnPublish: "Publicar Produto",
+        emptyResults: "Nenhum item encontrado para esta busca."
+      },
+      vi: {
+        dir: "ltr",
+        connectPi: "Kết nối Pi",
+        brandSub: "Chợ đáng tin cậy trong hệ sinh thái Pi",
+        welcomeTitle: "Chào mừng đến với PiTrust",
+        welcomeDesc: "Mua sắm thời trang, thể thao, làm đẹp nữ, phụ kiện ô tô, gaming và cửa hàng uy tín.",
+        searchBtn: "Tìm kiếm",
+        searchPlaceholder: "Tìm thời trang, gaming, làm đẹp, thể thao, ô tô...",
+        statusReady: "Sẵn sàng • Chọn danh mục hoặc mở trang chi tiết của từng sản phẩm.",
+        addProductShort: "+ Đăng sản phẩm",
+        promoTitle: "Mua sắm an toàn cùng Pi Network",
+        promoDesc: "Đầy đủ danh mục cho Pioneer và người bán — đăng sản phẩm của bạn ngay.",
+        promoBtn: "Trở thành người bán & đăng ngay →",
+        shopByCat: "Mua theo danh mục",
+        viewAll: "Xem tất cả",
+        cat_all: "Tất cả",
+        cat_fashion: "Thời trang",
+        cat_sports: "Thể thao",
+        cat_beauty: "Làm đẹp Nữ",
+        cat_auto: "Phụ kiện Ô tô",
+        cat_gaming: "Gaming",
+        cat_electronics: "Điện tử",
+        cat_home: "Nhà cửa & Cà phê",
+        cat_stores: "Cửa hàng",
+        cat_services: "Dịch vụ",
+        tab_all: "Tất cả mục",
+        tab_products: "Sản phẩm",
+        tab_stores: "Cửa hàng uy tín",
+        tab_services: "Dịch vụ",
+        tab_mine: "Sản phẩm của tôi",
+        gridAllTitle: "Sản phẩm & Cửa hàng",
+        sectionPrefix: "Danh mục: ",
+        itemCount: "sản phẩm",
+        openSlot: "Mở trang SP",
+        addToCart: "+ Giỏ hàng",
+        backToMarket: "← Quay lại chợ",
+        slotBadge: "Trang riêng của sản phẩm",
+        testPrice: "Giá Testnet",
+        verified: "✓ Đã xác minh",
+        specCategory: "Danh mục",
+        specSeller: "Người bán",
+        specTrust: "Điểm uy tín",
+        payWithPi: "Thanh toán Pi",
+        addCartFull: "Thêm vào giỏ",
+        deleteProduct: "Xóa sản phẩm này",
+        nav_home: "Trang chủ",
+        nav_stores: "Cửa hàng",
+        nav_cart: "Giỏ hàng",
+        nav_account: "Tài khoản",
+        privacyLink: "Chính sách bảo mật",
+        tosLink: "Điều khoản sử dụng",
+        privacyText: "PiTrust chỉ sử dụng tên người dùng Pi công khai của bạn để hiển thị danh tính và không bao giờ yêu cầu cụm mật khẩu ví.",
+        tosText: "Ứng dụng hoạt động trên mạng thử nghiệm Pi Testnet để trải nghiệm và đăng sản phẩm.",
+        modalAddTitle: "Đăng sản phẩm mới",
+        lblName: "Tên sản phẩm *",
+        lblCat: "Danh mục",
+        lblPrice: "Giá (Test-Pi)",
+        lblOwner: "Tài khoản người bán",
+        lblImg: "Link hình ảnh (Tùy chọn)",
+        lblDesc: "Mô tả sản phẩm *",
+        btnPublish: "Đăng sản phẩm ngay",
+        emptyResults: "Không tìm thấy sản phẩm phù hợp."
+      }
     };
 
+    function t(key) {
+      return (i18n[currentLang] && i18n[currentLang][key]) || i18n.ar[key] || key;
+    }
+
+    function changeLanguage(lang) {
+      currentLang = i18n[lang] ? lang : "ar";
+      localStorage.setItem(LANG_KEY, currentLang);
+      applyTranslations();
+    }
+
+    function applyTranslations() {
+      const dict = i18n[currentLang] || i18n.ar;
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = dict.dir;
+      document.getElementById("langSelect").value = currentLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (key === "connectPi" && currentUser) return;
+        if (dict[key]) el.textContent = dict[key];
+      });
+
+      document.getElementById("searchInput").placeholder = dict.searchPlaceholder;
+      document.getElementById("statusText").textContent = dict.statusReady;
+      updateCartLabel();
+      renderProducts();
+      if (openedSlotId) openProductSlot(openedSlotId);
+    }
+
     const catalogProducts = [
-      /* قسم الملابس (fashion) */
       { title: "جاكيت شتوي مقاوم للرياح والمطر", cat: "fashion", amount: 0.025, owner: "@UrbanWearPi", desc: "تبطين دافئ وخفيف الوزن مع سحاب أمامي وجيوب جانبية.", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80" },
       { title: "فستان سهرة أنيق بقصة كلاسيكية", cat: "fashion", amount: 0.035, owner: "@EleganceStylePi", desc: "قماش ناعم وانسيابي بتصميم راقٍ للمناسبات الخاصة.", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80" },
       { title: "طقم ملابس رياضية قطني مريح", cat: "fashion", amount: 0.022, owner: "@ActiveFitPi", desc: "خامة قطنية تسمح بالتهوية مثالية للتمارين والمشي اليومي.", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80" },
@@ -840,7 +1271,6 @@
       { title: "ساعة يد كلاسيكية بسوار جلدي", cat: "fashion", amount: 0.025, owner: "@ClassicTimePi", desc: "مقاومة للخدش وتضفي لمسة فخامة على معصمك.", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" },
       { title: "هودي قطني ثقيل بتصميم عصري", cat: "fashion", amount: 0.019, owner: "@StreetVibePi", desc: "مبطن من الداخل ومريح جداً للارتداء اليومي.", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80" },
 
-      /* قسم الأدوات الرياضية (sports) */
       { title: "مجموعة أوزان دامبل قابلة للتعديل", cat: "sports", amount: 0.032, owner: "@IronGymPi", desc: "أقراص أوزان متنوعة لتمارين القوة وبناء العضلات في المنزل.", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" },
       { title: "حذاء رياضي للجري والماراثون", cat: "sports", amount: 0.022, owner: "@StepFitPi", desc: "نعل مرن يمتص الصدمات ويوفر ثباتاً ممتازاً أثناء الجري.", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80" },
       { title: "سجادة يوغا وتمارين أرضية سميكة", cat: "sports", amount: 0.014, owner: "@FitHomePi", desc: "مانعة للانزلاق ومزودة بحزام حمل لسهولة التنقل.", img: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=700&q=80" },
@@ -852,7 +1282,6 @@
       { title: "مضرب تنس أرضي خفيف الوزن", cat: "sports", amount: 0.029, owner: "@AceTennisPi", desc: "إطار كربوني متين يوفر تحكماً عالياً وضربات قوية.", img: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=700&q=80" },
       { title: "خيمة تخييم ورحلات سريعة التركيب", cat: "sports", amount: 0.032, owner: "@CampOutPi", desc: "مقاومة للرياح والأمطار وتتسع لـ 3 أشخاص بكل راحة.", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=700&q=80" },
 
-      /* قسم تجميل النساء (beauty) */
       { title: "مجموعة مكياج متكاملة 18 قطعة", cat: "beauty", amount: 0.03, owner: "@GlamQueenPi", desc: "تضم باليت ظلال عيون، أحمر شفاه مخملي، وبودرة إضاءة.", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80" },
       { title: "سيروم فيتامين سي لإشراقة البشرة", cat: "beauty", amount: 0.018, owner: "@GlowCarePi", desc: "تركيبة مركزة مع حمض الهيالورونيك لترطيب ونضارة الوجه.", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=700&q=80" },
       { title: "عطر نسائي زهري فاخر Eau de Parfum", cat: "beauty", amount: 0.032, owner: "@FloralMistPi", desc: "نفحات الياسمين والفانيليا الدافئة بثبات يدوم طوال اليوم.", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" },
@@ -862,7 +1291,6 @@
       { title: "باليت أحمر خدود وإضاءة هايلايتر", cat: "beauty", amount: 0.016, owner: "@RadiantBeautyPi", desc: "ألوان طبيعية دافئة تناسب جميع درجات البشرة.", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=700&q=80" },
       { title: "مجموعة أحمر شفاه مات مخملي 6 ألوان", cat: "beauty", amount: 0.017, owner: "@VelvetLipPi", desc: "ثبات عالٍ دون جفاف بتركيبة غنية بفيتامين E.", img: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=80" },
 
-      /* قسم إكسسوارات السيارات (auto) */
       { title: "كاميرا داش كام للسيارة Full HD", cat: "auto", amount: 0.026, owner: "@RoadSafePi", desc: "تسجيل أمامي وداخلي مع رؤية ليلية وحساس حركة تلقائي.", img: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80" },
       { title: "حامل هاتف مغناطيسي للسيارة 360", cat: "auto", amount: 0.01, owner: "@AutoGearPi", desc: "مغناطيس قوي يثبت الهاتف على الطرق الوعرة دون اهتزاز.", img: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=700&q=80" },
       { title: "منفاخ إطارات سيارة رقمي محمول", cat: "auto", amount: 0.024, owner: "@CarCarePi", desc: "يعمل على ولاعة السيارة مع شاشة قياس ضغط وإيقاف تلقائي.", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=700&q=80" },
@@ -871,7 +1299,6 @@
       { title: "معطر سيارة فاخر مع موزع معدني", cat: "auto", amount: 0.011, owner: "@AutoScentPi", desc: "يثبت على فتحات التكييف برائحة منعشة تدوم طويلاً.", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80" },
       { title: "طقم أغطية مقاعد سيارة جلدية مريحة", cat: "auto", amount: 0.042, owner: "@SeatMasterPi", desc: "حماية كاملة للمقاعد من البقع والخدوش بمظهر فاخر.", img: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=700&q=80" },
 
-      /* قسم القيمنغ (gaming) */
       { title: "كرسي قيمنغ احترافي مريح RGB", cat: "gaming", amount: 0.045, owner: "@ProGamerPi", desc: "وسادة رأس وظهر قابلة للتعديل مع إمالة 180 درجة.", img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=700&q=80" },
       { title: "كيبورد قيمنغ ميكانيكي بإضاءة RGB", cat: "gaming", amount: 0.022, owner: "@KeyGearPi", desc: "مفاتيح سريعة الاستجابة ومقاومة للتآكل للعب التنافسي.", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=700&q=80" },
       { title: "ماوس قيمنغ لاسلكي فائق الخفة", cat: "gaming", amount: 0.018, owner: "@ProClickPi", desc: "مستشعر 26000 DPI مع أزرار قابلة للبرمجة.", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=700&q=80" },
@@ -881,7 +1308,6 @@
       { title: "ماوس باد قيمنغ كبير مضيء XL", cat: "gaming", amount: 0.012, owner: "@DeskSetupPi", desc: "سطح ناعم عالي الدقة مع حواف مضيئة وقاعدة مانعة للانزلاق.", img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=700&q=80" },
       { title: "مايكروفون ستريمنغ وبودكاست USB", cat: "gaming", amount: 0.023, owner: "@VoiceLabPi", desc: "صوت نقي للبث المباشر والدردشة الجماعية أثناء اللعب.", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" },
 
-      /* إلكترونيات ومنزل (electronics & home) */
       { title: "ساعة ذكية رياضية Ultra Pro", cat: "electronics", amount: 0.02, owner: "@TechWatch_Jo", desc: "شاشة AMOLED ومقاومة للماء مع بطارية تدوم أسبوعين.", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=80" },
       { title: "هاتف ذكي بشاشة OLED وكاميرا ثلاثية", cat: "electronics", amount: 0.045, owner: "@MobileHubPi", desc: "أداء سريع وذاكرة كبيرة مع شحن فائق السرعة.", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80" },
       { title: "آلة تحضير قهوة الإسبريسو المنزلية", cat: "home", amount: 0.04, owner: "@RoastPi", desc: "ضغط مثالي لاستخلاص قهوة غنية الرغوة كل صباح.", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=700&q=80" },
@@ -889,12 +1315,16 @@
     ];
 
     const extraCatalog = [
-      { id: "st-1", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "متجر النخبة للإلكترونيات والقيمنغ", desc: "موزع معتمد لأجهزة القيمنغ والإلكترونيات الأصلية.", trust: "99%", rating: "4.9 ★", amount: 0.01, owner: "@EliteStorePi", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" },
-      { id: "st-2", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "بوتيك الجمال والأزياء", desc: "متجر متخصص في الأزياء النسائية ومنتجات التجميل.", trust: "98%", rating: "4.9 ★", amount: 0.02, owner: "@BeautyBoutiquePi", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" },
-      { id: "st-3", type: "stores", cat: "stores", typeLabel: "متجر معتمد", title: "عالم الرياضة والسيارات", desc: "تجهيزات رياضية متكاملة وإكسسوارات سيارات حديثة.", trust: "97%", rating: "4.8 ★", amount: 0.015, owner: "@SportAutoPi", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80" },
-      { id: "sv-1", type: "services", cat: "services", typeLabel: "خدمة", title: "تدقيق ومراجعة تطبيقات Pi", desc: "مراجعة تجربة الواجهة والجاهزية داخل Pi Browser.", trust: "100%", rating: "5.0 ★", amount: 0.02, owner: "@PiAuditLab", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80" },
-      { id: "sv-2", type: "services", cat: "services", typeLabel: "خدمة", title: "تصميم هوية بصرية للمتاجر", desc: "تصميم شعارات وبطاقات عرض احترافية للتجار.", trust: "99%", rating: "4.9 ★", amount: 0.025, owner: "@BrandStudioPi", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80" }
+      { id: "st-1", type: "stores", cat: "stores", title: "متجر النخبة للإلكترونيات والقيمنغ", desc: "موزع معتمد لأجهزة القيمنغ والإلكترونيات الأصلية.", trust: "99%", rating: "4.9 ★", amount: 0.01, owner: "@EliteStorePi", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-2", type: "stores", cat: "stores", title: "بوتيك الجمال والأزياء", desc: "متجر متخصص في الأزياء النسائية ومنتجات التجميل.", trust: "98%", rating: "4.9 ★", amount: 0.02, owner: "@BeautyBoutiquePi", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" },
+      { id: "st-3", type: "stores", cat: "stores", title: "عالم الرياضة والسيارات", desc: "تجهيزات رياضية متكاملة وإكسسوارات سيارات حديثة.", trust: "97%", rating: "4.8 ★", amount: 0.015, owner: "@SportAutoPi", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80" },
+      { id: "sv-1", type: "services", cat: "services", title: "تدقيق ومراجعة تطبيقات Pi", desc: "مراجعة تجربة الواجهة والجاهزية داخل Pi Browser.", trust: "100%", rating: "5.0 ★", amount: 0.02, owner: "@PiAuditLab", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80" },
+      { id: "sv-2", type: "services", cat: "services", title: "تصميم هوية بصرية للمتاجر", desc: "تصميم شعارات وبطاقات عرض احترافية للتجار.", trust: "99%", rating: "4.9 ★", amount: 0.025, owner: "@BrandStudioPi", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=700&q=80" }
     ];
+
+    function getCatLabel(cat) {
+      return t("cat_" + cat) || cat;
+    }
 
     function getUserProducts() {
       try {
@@ -916,7 +1346,7 @@
         id: "prod-" + (i + 1),
         type: "products",
         cat: p.cat,
-        typeLabel: categoryNames[p.cat] || "منتج موثوق",
+        typeLabel: getCatLabel(p.cat),
         title: p.title,
         desc: p.desc,
         trust: (97 + (i % 3)) + "%",
@@ -926,15 +1356,23 @@
         isMine: false,
         img: p.img
       }));
-      return [...getUserProducts(), ...builtIn, ...extraCatalog];
+      const userList = getUserProducts().map(u => ({
+        ...u,
+        typeLabel: getCatLabel(u.cat)
+      }));
+      const extras = extraCatalog.map(ex => ({
+        ...ex,
+        typeLabel: getCatLabel(ex.cat)
+      }));
+      return [...userList, ...builtIn, ...extras];
     }
 
     function updateStatus(msg) {
-      document.getElementById("statusText").textContent = "حالة المنصة: " + msg;
+      document.getElementById("statusText").textContent = msg;
     }
 
     function updateCartLabel() {
-      document.getElementById("cartNavLabel").textContent = `السلة (${cartItems.length})`;
+      document.getElementById("cartNavLabel").textContent = `${t("nav_cart")} (${cartItems.length})`;
     }
 
     function addToCart(id) {
@@ -942,27 +1380,26 @@
       if (!item) return;
       cartItems.push(item);
       updateCartLabel();
-      updateStatus(`تمت إضافة "${item.title}" إلى السلة.`);
+      updateStatus(`✓ ${item.title}`);
     }
 
     async function connectPi() {
       const btn = document.getElementById("authBtn");
       if (!Pi) {
-        openModal("تنبيه المتصفح", "<p>افتح الرابط داخل تطبيق Pi Browser لربط حسابك على شبكة Pi.</p>");
+        openModal("Pi Browser", "<p>Open inside Pi Browser to connect your Pi account.</p>");
         return;
       }
-      btn.textContent = "جاري الربط...";
+      btn.textContent = "...";
       try {
         const auth = await Pi.authenticate(["username", "payments"], function(incompletePayment) {
-          updateStatus("معاملة سابقة غير مكتملة: " + incompletePayment.identifier);
+          updateStatus("Incomplete payment: " + incompletePayment.identifier);
         });
         currentUser = auth.user;
         btn.classList.add("connected");
         btn.textContent = "✓ @" + currentUser.username;
-        updateStatus("تم ربط الحساب @" + currentUser.username);
+        updateStatus("✓ @" + currentUser.username);
       } catch (e) {
-        btn.textContent = "ربط حساب Pi";
-        updateStatus("تعذر ربط الحساب. تأكد من الفتح داخل Pi Browser.");
+        btn.textContent = t("connectPi");
       }
     }
 
@@ -971,7 +1408,7 @@
       if (!item) return;
 
       if (!Pi) {
-        openModal("مطلوب Pi Browser", "<p>زر الدفع يعمل داخل تطبيق Pi Browser فقط.</p>");
+        openModal("Pi Browser", "<p>Pi payments work inside Pi Browser.</p>");
         return;
       }
 
@@ -980,7 +1417,7 @@
         if (!currentUser) return;
       }
 
-      updateStatus(`جاري فتح نافذة الدفع لـ (${item.title}) بقيمة ${item.amount} Test-Pi...`);
+      updateStatus(`${item.title} (${item.amount} Test-Pi)...`);
 
       try {
         await Pi.createPayment(
@@ -991,35 +1428,36 @@
           },
           {
             onReadyForServerApproval: function(paymentId) {
-              updateStatus("تم إنشاء الدفعة (ID: " + paymentId + ") وبانتظار موافقة الخادم.");
+              updateStatus("Payment ID: " + paymentId);
             },
             onReadyForServerCompletion: function(paymentId, txid) {
-              updateStatus("تم تأكيد الدفعة! Payment ID: " + paymentId + " | TXID: " + txid);
+              updateStatus("Completed TXID: " + txid);
             },
             onCancel: function(paymentId) {
-              updateStatus("تم إلغاء عملية الدفع (" + paymentId + ").");
+              updateStatus("Cancelled: " + paymentId);
             },
             onError: function(error) {
-              updateStatus("تعذر الدفع: " + (error && error.message ? error.message : error));
+              updateStatus("Error: " + (error && error.message ? error.message : error));
             }
           }
         );
       } catch (err) {
-        updateStatus("خطأ أثناء بدء الدفع: " + (err && err.message ? err.message : err));
+        updateStatus("Error: " + (err && err.message ? err.message : err));
       }
     }
 
     function openProductSlot(id) {
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
+      openedSlotId = id;
 
       document.getElementById("catalogHomeView").style.display = "none";
       const slot = document.getElementById("productSlotView");
       slot.classList.add("active");
       slot.innerHTML = `
         <div class="slot-top-nav">
-          <button class="btn-back" onclick="closeProductSlot()">← العودة إلى السوق</button>
-          <span style="font-size:12px; font-weight:800; color:#5b21b6;">خانة المنتج الخاصة</span>
+          <button class="btn-back" onclick="closeProductSlot()">${t("backToMarket")}</button>
+          <span style="font-size:12px; font-weight:800; color:#5b21b6;">${t("slotBadge")}</span>
         </div>
 
         <img class="slot-hero-img" src="${item.img}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80'" />
@@ -1029,28 +1467,29 @@
 
         <div class="slot-price-box">
           <div>
-            <div style="font-size:11.5px; color:#64748b;">سعر الاختبار</div>
+            <div style="font-size:11.5px; color:#64748b;">${t("testPrice")}</div>
             <div style="font-size:18px; font-weight:800; color:#4c1d95;">${item.amount} Test-Pi</div>
           </div>
-          <span style="background:#d1fae5; color:#065f46; padding:5px 10px; border-radius:9px; font-size:12px; font-weight:800;">✓ موثّق</span>
+          <span style="background:#d1fae5; color:#065f46; padding:5px 10px; border-radius:9px; font-size:12px; font-weight:800;">${t("verified")}</span>
         </div>
 
         <div class="slot-specs">
-          <div class="slot-spec-row"><span>القسم</span><strong>${item.typeLabel}</strong></div>
-          <div class="slot-spec-row"><span>التاجر / المزود</span><strong>${item.owner}</strong></div>
-          <div class="slot-spec-row"><span>مؤشر الوثوقية</span><strong>${item.trust} (${item.rating})</strong></div>
+          <div class="slot-spec-row"><span>${t("specCategory")}</span><strong>${item.typeLabel}</strong></div>
+          <div class="slot-spec-row"><span>${t("specSeller")}</span><strong>${item.owner}</strong></div>
+          <div class="slot-spec-row"><span>${t("specTrust")}</span><strong>${item.trust} (${item.rating})</strong></div>
         </div>
 
         <div class="slot-actions">
-          <button class="btn-slot-pay" onclick="payItem('${item.id}')">دفع بـ Pi</button>
-          <button class="btn-slot-cart" onclick="addToCart('${item.id}')">إضافة للسلة</button>
+          <button class="btn-slot-pay" onclick="payItem('${item.id}')">${t("payWithPi")}</button>
+          <button class="btn-slot-cart" onclick="addToCart('${item.id}')">${t("addCartFull")}</button>
         </div>
-        ${item.isMine ? `<button onclick="deleteMyProduct('${item.id}')" style="margin-top:10px; width:100%; background:#fee2e2; color:#991b1b; border:none; padding:9px; border-radius:11px; font-family:'Tajawal',sans-serif; font-weight:800; cursor:pointer;">حذف هذا المنتج</button>` : ""}
+        ${item.isMine ? `<button onclick="deleteMyProduct('${item.id}')" style="margin-top:10px; width:100%; background:#fee2e2; color:#991b1b; border:none; padding:9px; border-radius:11px; font-family:'Tajawal',sans-serif; font-weight:800; cursor:pointer;">${t("deleteProduct")}</button>` : ""}
       `;
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function closeProductSlot() {
+      openedSlotId = null;
       document.getElementById("productSlotView").classList.remove("active");
       document.getElementById("productSlotView").innerHTML = "";
       document.getElementById("catalogHomeView").style.display = "block";
@@ -1101,9 +1540,9 @@
     }
 
     function syncFilterUI() {
-      ["all", "products", "stores", "services", "mine"].forEach(t => {
-        const el = document.getElementById("ftab-" + t);
-        if (el) el.classList.toggle("active", t === activeFilterTab);
+      ["all", "products", "stores", "services", "mine"].forEach(tKey => {
+        const el = document.getElementById("ftab-" + tKey);
+        if (el) el.classList.toggle("active", tKey === activeFilterTab);
       });
     }
 
@@ -1121,8 +1560,8 @@
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
       headingEl.textContent = activeCategory === "all"
-        ? "المنتجات والمتاجر"
-        : "قسم: " + (categoryNames[activeCategory] || activeCategory);
+        ? t("gridAllTitle")
+        : t("sectionPrefix") + getCatLabel(activeCategory);
 
       const filtered = getAllCatalog().filter(item => {
         const matchFilter =
@@ -1137,10 +1576,10 @@
         return matchFilter && matchCat && matchQuery;
       });
 
-      countEl.textContent = `${filtered.length} عنصر`;
+      countEl.textContent = `${filtered.length} ${t("itemCount")}`;
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:28px; color:var(--text-muted);">لا توجد عناصر مطابقة لهذا القسم أو البحث.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:28px; color:var(--text-muted);">${t("emptyResults")}</div>`;
         return;
       }
 
@@ -1161,8 +1600,8 @@
             <div>
               <div class="prod-price">${item.amount} Test-Pi</div>
               <div class="prod-btns">
-                <button class="btn-open-slot" onclick="openProductSlot('${item.id}')">فتح الخانة</button>
-                <button class="btn-cart-add" onclick="addToCart('${item.id}')">+ السلة</button>
+                <button class="btn-open-slot" onclick="openProductSlot('${item.id}')">${t("openSlot")}</button>
+                <button class="btn-cart-add" onclick="addToCart('${item.id}')">${t("addToCart")}</button>
               </div>
             </div>
           </div>
@@ -1172,41 +1611,41 @@
 
     function openAddProductModal() {
       const defaultOwner = currentUser ? "@" + currentUser.username : "@PioneerMerchant";
-      openModal("إضافة منتج كتاجر", `
+      openModal(t("modalAddTitle"), `
         <div class="form-group">
-          <label class="form-label">اسم المنتج *</label>
-          <input type="text" id="pTitle" class="form-control" placeholder="مثال: فستان أنيق أو كيبورد قيمنغ" />
+          <label class="form-label">${t("lblName")}</label>
+          <input type="text" id="pTitle" class="form-control" />
         </div>
         <div class="form-group">
-          <label class="form-label">القسم</label>
+          <label class="form-label">${t("lblCat")}</label>
           <select id="pCat" class="form-control">
-            <option value="fashion">ملابس</option>
-            <option value="sports">أدوات رياضية</option>
-            <option value="beauty">تجميل النساء</option>
-            <option value="auto">إكسسوارات سيارات</option>
-            <option value="gaming">قيمنغ</option>
-            <option value="electronics">إلكترونيات</option>
-            <option value="home">منزل وقهوة</option>
+            <option value="fashion">${t("cat_fashion")}</option>
+            <option value="sports">${t("cat_sports")}</option>
+            <option value="beauty">${t("cat_beauty")}</option>
+            <option value="auto">${t("cat_auto")}</option>
+            <option value="gaming">${t("cat_gaming")}</option>
+            <option value="electronics">${t("cat_electronics")}</option>
+            <option value="home">${t("cat_home")}</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">السعر (Test-Pi)</label>
+          <label class="form-label">${t("lblPrice")}</label>
           <input type="number" step="0.005" min="0.005" id="pAmount" class="form-control" value="0.02" />
         </div>
         <div class="form-group">
-          <label class="form-label">حساب التاجر</label>
+          <label class="form-label">${t("lblOwner")}</label>
           <input type="text" id="pOwner" class="form-control" value="${defaultOwner}" />
         </div>
         <div class="form-group">
-          <label class="form-label">رابط صورة (اختياري)</label>
+          <label class="form-label">${t("lblImg")}</label>
           <input type="url" id="pImg" class="form-control" placeholder="https://..." />
         </div>
         <div class="form-group">
-          <label class="form-label">وصف المنتج *</label>
-          <textarea id="pDesc" rows="2" class="form-control" placeholder="اكتب وصفاً واضحاً للمنتج..."></textarea>
+          <label class="form-label">${t("lblDesc")}</label>
+          <textarea id="pDesc" rows="2" class="form-control"></textarea>
         </div>
         <div id="pErr" style="color:#b91c1c; font-size:12px; margin-bottom:8px;"></div>
-        <button class="btn-submit-modal" onclick="saveNewProduct()">نشر المنتج وإنشاء خانته</button>
+        <button class="btn-submit-modal" onclick="saveNewProduct()">${t("btnPublish")}</button>
       `);
     }
 
@@ -1220,7 +1659,7 @@
       const err = document.getElementById("pErr");
 
       if (!title || !desc || isNaN(amount) || amount <= 0) {
-        err.textContent = "يرجى إدخال اسم المنتج والوصف وسعر صحيح.";
+        err.textContent = "*";
         return;
       }
 
@@ -1231,7 +1670,7 @@
         id: "my-" + Date.now(),
         type: "products",
         cat,
-        typeLabel: categoryNames[cat] || "منتج رائد",
+        typeLabel: getCatLabel(cat),
         title,
         desc,
         trust: "98%",
@@ -1250,7 +1689,6 @@
 
       closeModal();
       goHomeTab();
-      updateStatus(`تم نشر "${title}" في قسم ${categoryNames[cat]} وإنشاء خانته الخاصة.`);
       openProductSlot(newItem.id);
     }
 
@@ -1259,13 +1697,12 @@
       saveUserProducts(list);
       closeProductSlot();
       renderProducts();
-      updateStatus("تم حذف المنتج.");
     }
 
     function openCartModal() {
       setActiveNav("nav-cart");
       if (cartItems.length === 0) {
-        openModal("السلة", "<p>السلة فارغة حالياً. أضف أي منتج من السوق أو من خانة المنتج.</p>");
+        openModal(t("nav_cart"), "<p>0</p>");
         return;
       }
       const total = cartItems.reduce((sum, i) => sum + Number(i.amount || 0), 0).toFixed(3);
@@ -1275,14 +1712,14 @@
             <strong>${it.title}</strong>
             <div style="font-size:11.5px; color:#64748b;">${it.amount} Test-Pi</div>
           </div>
-          <button onclick="removeCartIdx(${idx})" style="background:#fee2e2; color:#991b1b; border:none; padding:4px 9px; border-radius:8px; cursor:pointer;">حذف</button>
+          <button onclick="removeCartIdx(${idx})" style="background:#fee2e2; color:#991b1b; border:none; padding:4px 9px; border-radius:8px; cursor:pointer;">×</button>
         </div>
       `).join("");
 
-      openModal("سلة المشتريات", `
+      openModal(t("nav_cart"), `
         ${listHtml}
-        <div style="margin-top:12px; font-weight:800; color:#4c1d95;">الإجمالي التجريبي: ${total} Test-Pi</div>
-        <button class="btn-submit-modal" style="margin-top:12px;" onclick="payItem('${cartItems[0].id}')">متابعة الدفع لأول منتج</button>
+        <div style="margin-top:12px; font-weight:800; color:#4c1d95;">${total} Test-Pi</div>
+        <button class="btn-submit-modal" style="margin-top:12px;" onclick="payItem('${cartItems[0].id}')">${t("payWithPi")}</button>
       `);
     }
 
@@ -1294,19 +1731,19 @@
 
     function openAccountModal() {
       setActiveNav("nav-account");
-      const userInfo = currentUser ? `<strong>@${currentUser.username}</strong>` : "غير مرتبط بعد";
-      openModal("حسابي في PiTrust", `
-        <p style="margin-bottom:10px;">حالة الحساب: ${userInfo}</p>
-        <p style="margin-bottom:14px;">منتجاتي المضافة: <strong>${getUserProducts().length}</strong></p>
-        <button class="btn-submit-modal" onclick="closeModal(); connectPi();">ربط / تحديث حساب Pi</button>
+      const userInfo = currentUser ? `<strong>@${currentUser.username}</strong>` : "-";
+      openModal(t("nav_account"), `
+        <p style="margin-bottom:10px;">Pi: ${userInfo}</p>
+        <p style="margin-bottom:14px;">${t("tab_mine")}: <strong>${getUserProducts().length}</strong></p>
+        <button class="btn-submit-modal" onclick="closeModal(); connectPi();">${t("connectPi")}</button>
       `);
     }
 
     function openLegalModal(type) {
       if (type === "privacy") {
-        openModal("سياسة الخصوصية", "<p>يستخدم تطبيق PiTrust اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض هويتك داخل المنصة، ولا يطلب أي عبارات سرية لمحفظتك.</p>");
+        openModal(t("privacyLink"), `<p>${t("privacyText")}</p>`);
       } else {
-        openModal("شروط الاستخدام", "<p>يعمل التطبيق على شبكة الاختبار (Pi Testnet) لاستعراض وإضافة المنتجات وتجربة المنصة.</p>");
+        openModal(t("tosLink"), `<p>${t("tosText")}</p>`);
       }
     }
 
@@ -1325,8 +1762,7 @@
     }
 
     window.addEventListener("load", () => {
-      updateCartLabel();
-      renderProducts();
+      applyTranslations();
       if (window.location.hash === "#privacy") openLegalModal("privacy");
       if (window.location.hash === "#tos") openLegalModal("tos");
     });
