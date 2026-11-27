@@ -1387,6 +1387,25 @@
     if (!r.ok) throw new Error("Approve failed: " + r.status);
     return r.json();
   };
+    // ===== تنظيف المحتوى المزيف =====
+  var origGetAll = window.getAllCatalog;
+  window.getAllCatalog = function () {
+    return origGetAll().map(function (i) {
+      return Object.assign({}, i, { trust: "—", rating: "جديد" });
+    });
+  };
+
+  var prevOpenSlot = window.openProductSlot;
+  window.openProductSlot = function (id) {
+    prevOpenSlot(id);
+    var slot = document.getElementById("productSlotView");
+    if (!slot) return;
+    slot.querySelectorAll(".slot-price-box span").forEach(function (s) {
+      s.style.display = "none";
+    });
+    var rows = slot.querySelectorAll(".slot-spec-row");
+    if (rows.length) rows[rows.length - 1].style.display = "none";
+  };
    
 })();
 </script>
