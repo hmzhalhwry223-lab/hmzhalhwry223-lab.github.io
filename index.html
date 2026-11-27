@@ -590,8 +590,9 @@
 
     .slot-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr auto;
       gap: 10px;
+      align-items: stretch;
     }
 
     .btn-slot-pay {
@@ -618,6 +619,258 @@
       cursor: pointer;
     }
 
+    .btn-slot-chat {
+      background: #faf5ff;
+      color: #4c1d95;
+      border: 1.5px solid #c084fc;
+      padding: 10px 14px;
+      border-radius: 13px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .btn-slot-chat:hover {
+      background: #f3e8ff;
+      border-color: var(--gold-bright);
+    }
+
+    /* صفحة محادثاتي والمحادثة الخاصة */
+    .chats-page-view {
+      display: none;
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      padding: 18px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .chats-page-view.active {
+      display: block;
+    }
+
+    .conv-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .conv-card {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .conv-card:hover {
+      border-color: #6b21a8;
+      background: #f3e8ff;
+    }
+
+    .conv-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4c1d95, #6b21a8);
+      color: var(--gold-bright);
+      font-weight: 800;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1.5px solid var(--gold-bright);
+    }
+
+    .conv-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .conv-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .conv-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .conv-seller {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .conv-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .conv-product-tag {
+      font-size: 11px;
+      color: #6b21a8;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .conv-last-msg {
+      font-size: 12.5px;
+      color: #475569;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .unread-badge {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-inline-start: 6px;
+    }
+
+    .chat-thread-box {
+      margin-top: 12px;
+      border: 1px solid #e9d5ff;
+      border-radius: 18px;
+      background: #f9f7fd;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+      max-height: 62vh;
+    }
+
+    .chat-thread-header {
+      background: linear-gradient(135deg, #4c1d95, #3b0764);
+      color: #fff;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chat-messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg-bubble {
+      max-width: 80%;
+      padding: 10px 13px;
+      border-radius: 16px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .msg-buyer {
+      align-self: flex-start;
+      background: linear-gradient(135deg, #4c1d95, #6b21a8);
+      color: #fff;
+      border-bottom-start-radius: 4px;
+    }
+
+    .msg-seller {
+      align-self: flex-end;
+      background: #fff;
+      color: var(--text-dark);
+      border: 1.5px solid var(--gold);
+      border-bottom-end-radius: 4px;
+    }
+
+    .msg-meta {
+      font-size: 10.5px;
+      margin-top: 4px;
+      opacity: 0.8;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .chat-input-bar {
+      background: #fff;
+      border-top: 1px solid var(--border-soft);
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: #6b21a8;
+    }
+
+    .btn-send-msg {
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      cursor: pointer;
+    }
+
+    .chat-toast {
+      position: fixed;
+      top: 16px;
+      inset-inline-end: 16px;
+      background: #2e1065;
+      color: #fff;
+      border: 1.5px solid var(--gold-bright);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      z-index: 120;
+      box-shadow: 0 10px 24px rgba(46, 16, 101, 0.35);
+      display: none;
+      cursor: pointer;
+    }
+
+    .chat-toast.show {
+      display: block;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -626,8 +879,8 @@
       background: #ffffff;
       border-top: 1px solid var(--border-soft);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      padding: 8px 4px 10px;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 8px 2px 10px;
       z-index: 60;
       box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.06);
     }
@@ -641,9 +894,10 @@
       align-items: center;
       gap: 2px;
       color: var(--text-muted);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
+      position: relative;
     }
 
     .nav-item.active {
@@ -653,6 +907,27 @@
 
     .nav-ico {
       font-size: 18px;
+    }
+
+    .nav-dot-badge {
+      position: absolute;
+      top: -2px;
+      inset-inline-end: 18%;
+      background: var(--gold-bright);
+      color: #1e1b4b;
+      font-size: 10px;
+      font-weight: 800;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+
+    .nav-dot-badge.visible {
+      display: inline-flex;
     }
 
     .modal-backdrop {
@@ -732,6 +1007,8 @@
 </head>
 <body>
 
+  <div id="chatToast" class="chat-toast" onclick="handleToastClick()"></div>
+
   <header class="top-header">
     <div class="header-inner">
       <div class="top-bar">
@@ -778,6 +1055,7 @@
     </div>
 
     <section id="productSlotView" class="product-slot-view"></section>
+    <section id="myChatsView" class="chats-page-view"></section>
 
     <div id="catalogHomeView">
       <section class="promo-banner">
@@ -868,6 +1146,11 @@
       <span class="nav-ico">🏪</span>
       <span data-i18n="nav_stores">المتاجر</span>
     </button>
+    <button class="nav-item" id="nav-chats" onclick="openMyChatsPage()">
+      <span id="unreadNavBadge" class="nav-dot-badge">0</span>
+      <span class="nav-ico">💬</span>
+      <span data-i18n="nav_chats">محادثاتي</span>
+    </button>
     <button class="nav-item" id="nav-cart" onclick="openCartModal()">
       <span class="nav-ico">🛒</span>
       <span id="cartNavLabel">السلة (0)</span>
@@ -894,14 +1177,85 @@
       Pi.init({ version: "2.0", sandbox: true });
     }
 
+    /**
+     * إعدادات قاعدة بيانات الدردشة الفعلية (Supabase):
+     * ضع رابط المشروع والمفتاح العام (anon key) بعد إنشاء الجداول في Supabase.
+     * عند ضبطهما، تتصل الدردشة مباشرة بقاعدة البيانات وتستمع للرسائل الجديدة عبر Realtime/Polling.
+     */
+    const CHAT_DB_CONFIG = {
+      supabaseUrl: "",       // مثال: "https://xxxxxxxxxxxx.supabase.co"
+      supabaseAnonKey: "",    // مثال: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      pollIntervalMs: 3000
+    };
+
     const USER_ITEMS_KEY = "piprime_custom_products_v1";
     const LANG_KEY = "piprime_lang_v1";
+    const CHAT_STATE_KEY = "piprime_chat_cache_v1";
+
     let currentLang = localStorage.getItem(LANG_KEY) || "ar";
     let currentUser = null;
     let activeCategory = "all";
     let activeFilterTab = "all";
     let cartItems = [];
     let openedSlotId = null;
+    let statusTouched = false;
+
+    // حالة الدردشة
+    let conversations = [];
+    let messagesByConv = {};
+    let activeConversationId = null;
+    let unreadCounts = {};
+    let pollTimer = null;
+    let toastTimer = null;
+    let pendingToastConvId = null;
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function sanitizeHttpsUrl(url) {
+      try {
+        const parsed = new URL(String(url || "").trim());
+        return parsed.protocol === "https:" ? parsed.href : "";
+      } catch (e) {
+        return "";
+      }
+    }
+
+    function getCurrentActorUsername() {
+      if (currentUser && currentUser.username) {
+        return "@" + String(currentUser.username).replace(/^@+/, "");
+      }
+      return "";
+    }
+
+    function normalizeHandle(handle) {
+      const clean = String(handle || "").trim().replace(/^@+/, "");
+      return clean ? "@" + clean : "@PioneerMerchant";
+    }
+
+    function formatMsgTime(isoString) {
+      if (!isoString) return "";
+      const date = new Date(isoString);
+      if (Number.isNaN(date.getTime())) return "";
+      const localeMap = {
+        ar: "ar-SA",
+        en: "en-US",
+        es: "es-ES",
+        fr: "fr-FR",
+        pt: "pt-BR",
+        vi: "vi-VN"
+      };
+      return date.toLocaleTimeString(localeMap[currentLang] || "ar-SA", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
 
     const i18n = {
       ar: {
@@ -948,9 +1302,11 @@
         specTrust: "مؤشر الوثوقية",
         payWithPi: "دفع بـ Pi",
         addCartFull: "إضافة للسلة",
+        chatWithSeller: "دردشة مع البائع",
         deleteProduct: "حذف هذا المنتج",
         nav_home: "الرئيسية",
         nav_stores: "المتاجر",
+        nav_chats: "محادثاتي",
         nav_cart: "السلة",
         nav_account: "حسابي",
         privacyLink: "سياسة الخصوصية",
@@ -966,7 +1322,20 @@
         lblDesc: "وصف المنتج *",
         btnPublish: "نشر المنتج وإنشاء خانته",
         emptyTitle: "لا توجد منتجات معروضة حالياً",
-        emptyDesc: "كن أول تاجر ينشر منتجه هنا ويفتح له خانة خاصة في السوق."
+        emptyDesc: "كن أول تاجر ينشر منتجه هنا ويفتح له خانة خاصة في السوق.",
+        myChatsTitle: "محادثاتي",
+        backToConvs: "← جميع المحادثات",
+        noConvsTitle: "لا توجد محادثات بعد",
+        noConvsDesc: "افتح أي منتج واضغط على أيقونة الدردشة للتواصل مع البائع.",
+        noMessagesYet: "لا توجد رسائل بعد. ابدأ المحادثة مع البائع.",
+        msgPlaceholder: "اكتب رسالتك هنا...",
+        sendBtn: "إرسال",
+        youLabel: "أنت (المشتري)",
+        sellerLabel: "البائع",
+        productRef: "المنتج: ",
+        newMsgNotif: "رسالة جديدة من ",
+        dbNotConfigured: "يرجى ضبط إعدادات Supabase (supabaseUrl و supabaseAnonKey) في CHAT_DB_CONFIG لتفعيل قاعدة البيانات الحية.",
+        loginRequiredChat: "يرجى ربط حساب Pi أولاً للوصول إلى محادثاتك الخاصة وإرسال الرسائل."
       },
       en: {
         dir: "ltr",
@@ -1012,9 +1381,11 @@
         specTrust: "Trust Score",
         payWithPi: "Pay with Pi",
         addCartFull: "Add to Cart",
+        chatWithSeller: "Chat with Seller",
         deleteProduct: "Delete This Product",
         nav_home: "Home",
         nav_stores: "Stores",
+        nav_chats: "My Chats",
         nav_cart: "Cart",
         nav_account: "Account",
         privacyLink: "Privacy Policy",
@@ -1030,7 +1401,20 @@
         lblDesc: "Product Description *",
         btnPublish: "Publish Product & Create Slot",
         emptyTitle: "No products listed yet",
-        emptyDesc: "Be the first merchant to publish a product and create a dedicated slot here."
+        emptyDesc: "Be the first merchant to publish a product and create a dedicated slot here.",
+        myChatsTitle: "My Chats",
+        backToConvs: "← All Conversations",
+        noConvsTitle: "No conversations yet",
+        noConvsDesc: "Open any product and click the chat button to message the seller.",
+        noMessagesYet: "No messages yet. Start chatting with the seller.",
+        msgPlaceholder: "Type your message...",
+        sendBtn: "Send",
+        youLabel: "You (Buyer)",
+        sellerLabel: "Seller",
+        productRef: "Product: ",
+        newMsgNotif: "New message from ",
+        dbNotConfigured: "Configure Supabase (supabaseUrl & supabaseAnonKey) in CHAT_DB_CONFIG to enable live database storage.",
+        loginRequiredChat: "Please connect your Pi account first to access your private chats and send messages."
       },
       es: {
         dir: "ltr",
@@ -1076,9 +1460,11 @@
         specTrust: "Índice de Confianza",
         payWithPi: "Pagar con Pi",
         addCartFull: "Añadir al Carrito",
+        chatWithSeller: "Chat con el Vendedor",
         deleteProduct: "Eliminar Producto",
         nav_home: "Inicio",
         nav_stores: "Tiendas",
+        nav_chats: "Mis Chats",
         nav_cart: "Carrito",
         nav_account: "Cuenta",
         privacyLink: "Política de Privacidad",
@@ -1094,7 +1480,20 @@
         lblDesc: "Descripción *",
         btnPublish: "Publicar y Crear Ficha",
         emptyTitle: "Aún no hay productos publicados",
-        emptyDesc: "Sé el primer comerciante en publicar un producto aquí."
+        emptyDesc: "Sé el primer comerciante en publicar un producto aquí.",
+        myChatsTitle: "Mis Chats",
+        backToConvs: "← Todas las Conversaciones",
+        noConvsTitle: "Aún no hay chats",
+        noConvsDesc: "Abre un producto y toca el botón de chat para escribir al vendedor.",
+        noMessagesYet: "Aún no hay mensajes. Inicia la conversación.",
+        msgPlaceholder: "Escribe tu mensaje...",
+        sendBtn: "Enviar",
+        youLabel: "Tú (Comprador)",
+        sellerLabel: "Vendedor",
+        productRef: "Producto: ",
+        newMsgNotif: "Nuevo mensaje de ",
+        dbNotConfigured: "Configura Supabase (supabaseUrl y supabaseAnonKey) en CHAT_DB_CONFIG para activar la base de datos.",
+        loginRequiredChat: "Conecta tu cuenta de Pi primero para acceder a tus chats privados."
       },
       fr: {
         dir: "ltr",
@@ -1140,9 +1539,11 @@
         specTrust: "Score de Confiance",
         payWithPi: "Payer avec Pi",
         addCartFull: "Ajouter au Panier",
+        chatWithSeller: "Discuter avec le Vendeur",
         deleteProduct: "Supprimer ce Produit",
         nav_home: "Accueil",
         nav_stores: "Boutiques",
+        nav_chats: "Mes Chats",
         nav_cart: "Panier",
         nav_account: "Compte",
         privacyLink: "Confidentialité",
@@ -1158,7 +1559,20 @@
         lblDesc: "Description *",
         btnPublish: "Publier le Produit",
         emptyTitle: "Aucun produit publié pour le moment",
-        emptyDesc: "Soyez le premier marchand à publier un produit ici."
+        emptyDesc: "Soyez le premier marchand à publier un produit ici.",
+        myChatsTitle: "Mes Chats",
+        backToConvs: "← Toutes les Discussions",
+        noConvsTitle: "Aucune discussion",
+        noConvsDesc: "Ouvrez un produit et cliquez sur le bouton chat pour contacter le vendeur.",
+        noMessagesYet: "Aucun message pour le moment.",
+        msgPlaceholder: "Écrivez votre message...",
+        sendBtn: "Envoyer",
+        youLabel: "Vous (Acheteur)",
+        sellerLabel: "Vendeur",
+        productRef: "Produit : ",
+        newMsgNotif: "Nouveau message de ",
+        dbNotConfigured: "Configurez Supabase (supabaseUrl et supabaseAnonKey) dans CHAT_DB_CONFIG pour la base de données.",
+        loginRequiredChat: "Connectez votre compte Pi pour accéder à vos discussions privées."
       },
       pt: {
         dir: "ltr",
@@ -1204,9 +1618,11 @@
         specTrust: "Índice de Confiança",
         payWithPi: "Pagar com Pi",
         addCartFull: "Adicionar ao Carrinho",
+        chatWithSeller: "Chat com Vendedor",
         deleteProduct: "Excluir Produto",
         nav_home: "Início",
         nav_stores: "Lojas",
+        nav_chats: "Meus Chats",
         nav_cart: "Carrinho",
         nav_account: "Conta",
         privacyLink: "Privacidade",
@@ -1222,7 +1638,20 @@
         lblDesc: "Descrição *",
         btnPublish: "Publicar Produto",
         emptyTitle: "Nenhum produto publicado ainda",
-        emptyDesc: "Seja o primeiro comerciante a publicar um produto aqui."
+        emptyDesc: "Seja o primeiro comerciante a publicar um produto aqui.",
+        myChatsTitle: "Meus Chats",
+        backToConvs: "← Todas as Conversas",
+        noConvsTitle: "Nenhuma conversa ainda",
+        noConvsDesc: "Abra um produto e clique no botão de chat para falar com o vendedor.",
+        noMessagesYet: "Nenhuma mensagem ainda.",
+        msgPlaceholder: "Digite sua mensagem...",
+        sendBtn: "Enviar",
+        youLabel: "Você (Comprador)",
+        sellerLabel: "Vendedor",
+        productRef: "Produto: ",
+        newMsgNotif: "Nova mensagem de ",
+        dbNotConfigured: "Configure o Supabase (supabaseUrl e supabaseAnonKey) em CHAT_DB_CONFIG para o banco de dados.",
+        loginRequiredChat: "Conecte sua conta Pi primeiro para acessar seus chats privados."
       },
       vi: {
         dir: "ltr",
@@ -1268,9 +1697,11 @@
         specTrust: "Điểm uy tín",
         payWithPi: "Thanh toán Pi",
         addCartFull: "Thêm vào giỏ",
+        chatWithSeller: "Chat người bán",
         deleteProduct: "Xóa sản phẩm này",
         nav_home: "Trang chủ",
         nav_stores: "Cửa hàng",
+        nav_chats: "Trò chuyện",
         nav_cart: "Giỏ hàng",
         nav_account: "Tài khoản",
         privacyLink: "Chính sách bảo mật",
@@ -1286,7 +1717,20 @@
         lblDesc: "Mô tả sản phẩm *",
         btnPublish: "Đăng sản phẩm ngay",
         emptyTitle: "Chưa có sản phẩm nào được đăng",
-        emptyDesc: "Hãy là người bán đầu tiên đăng sản phẩm tại đây."
+        emptyDesc: "Hãy là người bán đầu tiên đăng sản phẩm tại đây.",
+        myChatsTitle: "Trò chuyện của tôi",
+        backToConvs: "← Tất cả hội thoại",
+        noConvsTitle: "Chưa có cuộc trò chuyện",
+        noConvsDesc: "Mở sản phẩm bất kỳ và nhấn nút chat để nhắn cho người bán.",
+        noMessagesYet: "Chưa có tin nhắn nào.",
+        msgPlaceholder: "Nhập tin nhắn...",
+        sendBtn: "Gửi",
+        youLabel: "Bạn (Người mua)",
+        sellerLabel: "Người bán",
+        productRef: "Sản phẩm: ",
+        newMsgNotif: "Tin nhắn mới từ ",
+        dbNotConfigured: "Hãy cấu hình Supabase (supabaseUrl & supabaseAnonKey) trong CHAT_DB_CONFIG để dùng cơ sở dữ liệu.",
+        loginRequiredChat: "Vui lòng kết nối tài khoản Pi để truy cập hội thoại riêng tư."
       }
     };
 
@@ -1313,10 +1757,16 @@
       });
 
       document.getElementById("searchInput").placeholder = dict.searchPlaceholder;
-      document.getElementById("statusText").textContent = dict.statusReady;
+      if (!statusTouched) {
+        document.getElementById("statusText").textContent = dict.statusReady;
+      }
       updateCartLabel();
+      updateUnreadBadge();
       renderProducts();
       if (openedSlotId) openProductSlot(openedSlotId);
+      if (document.getElementById("myChatsView").classList.contains("active")) {
+        renderMyChatsView();
+      }
     }
 
     function getCatLabel(cat) {
@@ -1346,6 +1796,7 @@
     }
 
     function updateStatus(msg) {
+      statusTouched = true;
       document.getElementById("statusText").textContent = msg;
     }
 
@@ -1376,15 +1827,13 @@
         btn.classList.add("connected");
         btn.textContent = "✓ @" + currentUser.username;
         updateStatus("✓ @" + currentUser.username);
+        await syncConversationsFromDb();
       } catch (e) {
         btn.textContent = t("connectPi");
       }
     }
 
-    async function payItem(id) {
-      const item = getAllCatalog().find(x => x.id === id);
-      if (!item) return;
-
+    async function payAmount(amount, memoText, metadataObj) {
       if (!Pi) {
         openModal("Pi Browser", "<p>Pi payments work inside Pi Browser.</p>");
         return;
@@ -1395,14 +1844,17 @@
         if (!currentUser) return;
       }
 
-      updateStatus(`${item.title} (${item.amount} Test-Pi)...`);
+      const normalizedAmount = Number(amount);
+      if (isNaN(normalizedAmount) || normalizedAmount <= 0) return;
+
+      updateStatus(`${memoText} (${normalizedAmount} Test-Pi)...`);
 
       try {
         await Pi.createPayment(
           {
-            amount: item.amount,
-            memo: "PiPrime Testnet: " + item.title,
-            metadata: { itemId: item.id, owner: item.owner, buyer: currentUser.username }
+            amount: normalizedAmount,
+            memo: memoText,
+            metadata: { ...metadataObj, buyer: currentUser.username }
           },
           {
             onReadyForServerApproval: function(paymentId) {
@@ -1424,13 +1876,469 @@
       }
     }
 
+    async function payItem(id) {
+      const item = getAllCatalog().find(x => x.id === id);
+      if (!item) return;
+      await payAmount(item.amount, "PiPrime Testnet: " + item.title, {
+        itemId: item.id,
+        owner: item.owner
+      });
+    }
+
+    async function payCart() {
+      if (cartItems.length === 0) return;
+      const total = Number(cartItems.reduce((sum, i) => sum + Number(i.amount || 0), 0).toFixed(4));
+      await payAmount(total, `PiPrime Cart (${cartItems.length} items)`, {
+        itemIds: cartItems.map(i => i.id)
+      });
+    }
+
+    /* ==================== نظام الدردشة وقاعدة البيانات ==================== */
+
+    function isSupabaseReady() {
+      return Boolean(CHAT_DB_CONFIG.supabaseUrl && CHAT_DB_CONFIG.supabaseAnonKey);
+    }
+
+    async function supabaseRequest(path, options = {}) {
+      const baseUrl = CHAT_DB_CONFIG.supabaseUrl.replace(/\/+$/, "");
+      const res = await fetch(`${baseUrl}/rest/v1/${path}`, {
+        ...options,
+        headers: {
+          "apikey": CHAT_DB_CONFIG.supabaseAnonKey,
+          "Authorization": `Bearer ${CHAT_DB_CONFIG.supabaseAnonKey}`,
+          "Content-Type": "application/json",
+          ...(options.headers || {})
+        }
+      });
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || `HTTP ${res.status}`);
+      }
+      if (res.status === 204) return null;
+      return res.json();
+    }
+
+    function buildConversationId(productId, buyerHandle, sellerHandle) {
+      const p = String(productId || "general").replace(/[^a-zA-Z0-9_-]/g, "");
+      const b = String(buyerHandle || "").replace(/^@+/, "").toLowerCase();
+      const s = String(sellerHandle || "").replace(/^@+/, "").toLowerCase();
+      return `conv_${p}_${b}_${s}`;
+    }
+
+    function canUserAccessConversation(conv) {
+      const me = getCurrentActorUsername().toLowerCase();
+      if (!me || !conv) return false;
+      const buyer = String(conv.buyer_username || "").toLowerCase();
+      const seller = String(conv.seller_username || "").toLowerCase();
+      return me === buyer || me === seller;
+    }
+
+    function showIncomingNotification(convId, sender, bodyText) {
+      const toast = document.getElementById("chatToast");
+      pendingToastConvId = convId;
+      toast.innerHTML = `💬 <strong>${escapeHtml(t("newMsgNotif"))}${escapeHtml(sender)}</strong><div style="font-size:11.5px; opacity:0.9; margin-top:2px;">${escapeHtml(bodyText)}</div>`;
+      toast.classList.add("show");
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 4500);
+    }
+
+    function handleToastClick() {
+      document.getElementById("chatToast").classList.remove("show");
+      if (pendingToastConvId) {
+        openMyChatsPage(pendingToastConvId);
+      }
+    }
+
+    function updateUnreadBadge() {
+      const badge = document.getElementById("unreadNavBadge");
+      const totalUnread = Object.values(unreadCounts).reduce((a, b) => a + (Number(b) || 0), 0);
+      if (totalUnread > 0) {
+        badge.textContent = String(totalUnread);
+        badge.classList.add("visible");
+      } else {
+        badge.textContent = "0";
+        badge.classList.remove("visible");
+      }
+    }
+
+    async function syncConversationsFromDb() {
+      const me = getCurrentActorUsername();
+      if (!me) {
+        conversations = [];
+        updateUnreadBadge();
+        return;
+      }
+      if (!isSupabaseReady()) {
+        updateUnreadBadge();
+        return;
+      }
+
+      try {
+        const encodedMe = encodeURIComponent(me);
+        const rows = await supabaseRequest(
+          `piprime_conversations?or=(buyer_username.eq.${encodedMe},seller_username.eq.${encodedMe})&order=last_message_at.desc`
+        );
+        const authorized = (Array.isArray(rows) ? rows : []).filter(canUserAccessConversation);
+
+        for (const conv of authorized) {
+          const prevConv = conversations.find(c => c.id === conv.id);
+          if (
+            prevConv &&
+            prevConv.last_message_at !== conv.last_message_at &&
+            prevConv.last_message !== conv.last_message &&
+            activeConversationId !== conv.id
+          ) {
+            unreadCounts[conv.id] = (unreadCounts[conv.id] || 0) + 1;
+            showIncomingNotification(conv.id, conv.seller_username === me ? conv.buyer_username : conv.seller_username, conv.last_message);
+          }
+        }
+
+        conversations = authorized;
+        updateUnreadBadge();
+
+        if (activeConversationId) {
+          await syncMessagesForConversation(activeConversationId);
+        }
+        if (document.getElementById("myChatsView").classList.contains("active")) {
+          renderMyChatsView();
+        }
+      } catch (err) {
+        updateStatus("Chat DB Sync Error: " + err.message);
+      }
+    }
+
+    async function syncMessagesForConversation(convId) {
+      const conv = conversations.find(c => c.id === convId);
+      if (!conv || !canUserAccessConversation(conv)) return;
+      if (!isSupabaseReady()) return;
+
+      try {
+        const rows = await supabaseRequest(
+          `piprime_messages?conversation_id=eq.${encodeURIComponent(convId)}&order=created_at.asc`
+        );
+        const prevMsgs = messagesByConv[convId] || [];
+        const nextMsgs = Array.isArray(rows) ? rows : [];
+
+        if (nextMsgs.length > prevMsgs.length && prevMsgs.length > 0) {
+          const newest = nextMsgs[nextMsgs.length - 1];
+          const me = getCurrentActorUsername().toLowerCase();
+          if (String(newest.sender_username || "").toLowerCase() !== me && activeConversationId !== convId) {
+            unreadCounts[convId] = (unreadCounts[convId] || 0) + 1;
+            updateUnreadBadge();
+            showIncomingNotification(convId, newest.sender_username, newest.body);
+          }
+        }
+
+        messagesByConv[convId] = nextMsgs;
+        if (activeConversationId === convId && document.getElementById("myChatsView").classList.contains("active")) {
+          renderChatThreadMessages(convId);
+        }
+      } catch (err) {
+        updateStatus("Messages Sync Error: " + err.message);
+      }
+    }
+
+    async function openChatWithSeller(productId) {
+      const item = getAllCatalog().find(x => x.id === productId);
+      if (!item) return;
+
+      if (!getCurrentActorUsername()) {
+        if (Pi) {
+          await connectPi();
+        }
+        if (!getCurrentActorUsername()) {
+          openModal(t("nav_chats"), `<p>${escapeHtml(t("loginRequiredChat"))}</p><button class="btn-submit-modal" style="margin-top:12px;" onclick="closeModal(); connectPi();">${escapeHtml(t("connectPi"))}</button>`);
+          return;
+        }
+      }
+
+      if (!isSupabaseReady()) {
+        openModal(t("nav_chats"), `<p>${escapeHtml(t("dbNotConfigured"))}</p>`);
+        return;
+      }
+
+      const buyerHandle = getCurrentActorUsername();
+      const sellerHandle = normalizeHandle(item.owner);
+      const convId = buildConversationId(item.id, buyerHandle, sellerHandle);
+
+      const newConvPayload = {
+        id: convId,
+        product_id: String(item.id),
+        product_title: String(item.title),
+        buyer_username: buyerHandle,
+        seller_username: sellerHandle,
+        seller_avatar: sanitizeHttpsUrl(item.img),
+        last_message: "",
+        last_message_at: new Date().toISOString()
+      };
+
+      try {
+        await supabaseRequest("piprime_conversations?on_conflict=id", {
+          method: "POST",
+          headers: { "Prefer": "resolution=merge-duplicates,return=representation" },
+          body: JSON.stringify(newConvPayload)
+        });
+        await syncConversationsFromDb();
+        openMyChatsPage(convId);
+      } catch (err) {
+        openModal(t("nav_chats"), `<p>${escapeHtml(err.message)}</p>`);
+      }
+    }
+
+    function openMyChatsPage(targetConvId = null) {
+      closeProductSlot();
+      document.getElementById("catalogHomeView").style.display = "none";
+      const chatsView = document.getElementById("myChatsView");
+      chatsView.classList.add("active");
+      setActiveNav("nav-chats");
+
+      if (!getCurrentActorUsername()) {
+        chatsView.innerHTML = `
+          <div class="slot-top-nav">
+            <button class="btn-back" onclick="goHomeTab()">${escapeHtml(t("backToMarket"))}</button>
+            <span style="font-size:13px; font-weight:800; color:#4c1d95;">${escapeHtml(t("myChatsTitle"))}</span>
+          </div>
+          <div class="empty-market-box">
+            <div class="empty-market-icon">💬</div>
+            <h3 style="font-size:16px; color:#3b0764; margin-bottom:8px;">${escapeHtml(t("loginRequiredChat"))}</h3>
+            <button class="btn-promo" onclick="connectPi()">${escapeHtml(t("connectPi"))}</button>
+          </div>
+        `;
+        return;
+      }
+
+      if (!isSupabaseReady()) {
+        chatsView.innerHTML = `
+          <div class="slot-top-nav">
+            <button class="btn-back" onclick="goHomeTab()">${escapeHtml(t("backToMarket"))}</button>
+            <span style="font-size:13px; font-weight:800; color:#4c1d95;">${escapeHtml(t("myChatsTitle"))}</span>
+          </div>
+          <div class="empty-market-box">
+            <div class="empty-market-icon">⚙️</div>
+            <p style="font-size:13.5px; color:#475569;">${escapeHtml(t("dbNotConfigured"))}</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (targetConvId) {
+        const targetConv = conversations.find(c => c.id === targetConvId);
+        if (targetConv && canUserAccessConversation(targetConv)) {
+          activeConversationId = targetConvId;
+          unreadCounts[targetConvId] = 0;
+          updateUnreadBadge();
+        }
+      }
+
+      renderMyChatsView();
+      syncConversationsFromDb();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function backToConversationsList() {
+      activeConversationId = null;
+      renderMyChatsView();
+    }
+
+    function renderMyChatsView() {
+      const chatsView = document.getElementById("myChatsView");
+      if (!chatsView.classList.contains("active")) return;
+
+      const me = getCurrentActorUsername();
+      const accessibleConvs = conversations.filter(canUserAccessConversation);
+
+      if (activeConversationId) {
+        const conv = accessibleConvs.find(c => c.id === activeConversationId);
+        if (!conv) {
+          activeConversationId = null;
+        } else {
+          const otherParty = String(conv.seller_username).toLowerCase() === me.toLowerCase()
+            ? conv.buyer_username
+            : conv.seller_username;
+          const safeAvatar = sanitizeHttpsUrl(conv.seller_avatar);
+          const initial = escapeHtml(String(otherParty || "P").replace(/^@/, "").charAt(0).toUpperCase() || "π");
+
+          chatsView.innerHTML = `
+            <div class="slot-top-nav">
+              <button class="btn-back" onclick="backToConversationsList()">${escapeHtml(t("backToConvs"))}</button>
+              <span style="font-size:12px; font-weight:800; color:#5b21b6;">${escapeHtml(t("productRef"))}${escapeHtml(conv.product_title)}</span>
+            </div>
+
+            <div class="chat-thread-box">
+              <div class="chat-thread-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="conv-avatar" style="width:36px; height:36px; font-size:14px;">
+                    ${safeAvatar ? `<img src="${escapeHtml(safeAvatar)}" alt="${escapeHtml(otherParty)}" onerror="this.remove()" />` : initial}
+                  </div>
+                  <div>
+                    <div style="font-size:14.5px; font-weight:800;">${escapeHtml(otherParty)}</div>
+                    <div style="font-size:11px; color:#e9d5ff;">${escapeHtml(conv.product_title)}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="chatMessagesArea" class="chat-messages-area"></div>
+
+              <form class="chat-input-bar" onsubmit="handleSendMessage(event, '${escapeHtml(conv.id)}')">
+                <input
+                  type="text"
+                  id="chatMessageInput"
+                  class="chat-input"
+                  placeholder="${escapeHtml(t("msgPlaceholder"))}"
+                  autocomplete="off"
+                />
+                <button type="submit" class="btn-send-msg">${escapeHtml(t("sendBtn"))}</button>
+              </form>
+            </div>
+          `;
+          renderChatThreadMessages(conv.id);
+          syncMessagesForConversation(conv.id);
+          return;
+        }
+      }
+
+      const listHtml = accessibleConvs.length === 0
+        ? `
+          <div class="empty-market-box">
+            <div class="empty-market-icon">💬</div>
+            <h3 style="font-size:16px; color:#3b0764; margin-bottom:6px;">${escapeHtml(t("noConvsTitle"))}</h3>
+            <p style="font-size:13px; color:#64748b;">${escapeHtml(t("noConvsDesc"))}</p>
+          </div>
+        `
+        : `<div class="conv-list">${accessibleConvs.map(conv => {
+            const otherParty = String(conv.seller_username).toLowerCase() === me.toLowerCase()
+              ? conv.buyer_username
+              : conv.seller_username;
+            const safeAvatar = sanitizeHttpsUrl(conv.seller_avatar);
+            const initial = escapeHtml(String(otherParty || "P").replace(/^@/, "").charAt(0).toUpperCase() || "π");
+            const unread = Number(unreadCounts[conv.id] || 0);
+            const timeStr = formatMsgTime(conv.last_message_at);
+
+            return `
+              <div class="conv-card" onclick="openMyChatsPage('${escapeHtml(conv.id)}')">
+                <div class="conv-avatar">
+                  ${safeAvatar ? `<img src="${escapeHtml(safeAvatar)}" alt="${escapeHtml(otherParty)}" onerror="this.remove()" />` : initial}
+                </div>
+                <div class="conv-main">
+                  <div class="conv-top-row">
+                    <span class="conv-seller">
+                      ${escapeHtml(otherParty)}
+                      ${unread > 0 ? `<span class="unread-badge">${unread}</span>` : ""}
+                    </span>
+                    <span class="conv-time">${escapeHtml(timeStr)}</span>
+                  </div>
+                  <div class="conv-product-tag">${escapeHtml(t("productRef"))}${escapeHtml(conv.product_title)}</div>
+                  <div class="conv-last-msg">${escapeHtml(conv.last_message || t("noMessagesYet"))}</div>
+                </div>
+              </div>
+            `;
+          }).join("")}</div>`;
+
+      chatsView.innerHTML = `
+        <div class="slot-top-nav">
+          <button class="btn-back" onclick="goHomeTab()">${escapeHtml(t("backToMarket"))}</button>
+          <span style="font-size:15px; font-weight:800; color:#3b0764;">${escapeHtml(t("myChatsTitle"))}</span>
+        </div>
+        ${listHtml}
+      `;
+    }
+
+    function renderChatThreadMessages(convId) {
+      const area = document.getElementById("chatMessagesArea");
+      if (!area) return;
+      const msgs = messagesByConv[convId] || [];
+      const me = getCurrentActorUsername().toLowerCase();
+
+      if (msgs.length === 0) {
+        area.innerHTML = `<div style="text-align:center; color:#64748b; font-size:13px; margin:auto;">${escapeHtml(t("noMessagesYet"))}</div>`;
+        return;
+      }
+
+      area.innerHTML = msgs.map(m => {
+        const isBuyer = String(m.sender_username || "").toLowerCase() === me;
+        const bubbleClass = isBuyer ? "msg-bubble msg-buyer" : "msg-bubble msg-seller";
+        const senderRole = isBuyer ? t("youLabel") : `${t("sellerLabel")} (${m.sender_username})`;
+        const timeStr = formatMsgTime(m.created_at);
+
+        return `
+          <div class="${bubbleClass}">
+            <div>${escapeHtml(m.body)}</div>
+            <div class="msg-meta">
+              <span>${escapeHtml(senderRole)}</span>
+              <span>${escapeHtml(timeStr)}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      area.scrollTop = area.scrollHeight;
+    }
+
+    async function handleSendMessage(event, convId) {
+      event.preventDefault();
+      const input = document.getElementById("chatMessageInput");
+      if (!input) return;
+      const bodyText = input.value.trim();
+      if (!bodyText) return;
+
+      const conv = conversations.find(c => c.id === convId);
+      const me = getCurrentActorUsername();
+      if (!conv || !canUserAccessConversation(conv) || !me || !isSupabaseReady()) return;
+
+      input.value = "";
+      const nowIso = new Date().toISOString();
+
+      try {
+        await supabaseRequest("piprime_messages", {
+          method: "POST",
+          headers: { "Prefer": "return=representation" },
+          body: JSON.stringify({
+            conversation_id: convId,
+            sender_username: me,
+            body: bodyText,
+            created_at: nowIso
+          })
+        });
+
+        await supabaseRequest(`piprime_conversations?id=eq.${encodeURIComponent(convId)}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            last_message: bodyText,
+            last_message_at: nowIso
+          })
+        });
+
+        await syncMessagesForConversation(convId);
+        await syncConversationsFromDb();
+      } catch (err) {
+        updateStatus("Send Error: " + err.message);
+      }
+    }
+
+    /* ==================== واجهة المنتجات والصفحات ==================== */
+
     function openProductSlot(id) {
       const item = getAllCatalog().find(x => x.id === id);
       if (!item) return;
       openedSlotId = id;
 
-      const visualHtml = item.img
-        ? `<img src="${item.img}" alt="${item.title}" onerror="this.remove()" />`
+      document.getElementById("myChatsView").classList.remove("active");
+      document.getElementById("myChatsView").innerHTML = "";
+
+      const safeImg = sanitizeHttpsUrl(item.img);
+      const safeTitle = escapeHtml(item.title);
+      const safeDesc = escapeHtml(item.desc);
+      const safeType = escapeHtml(item.typeLabel);
+      const safeOwner = escapeHtml(item.owner);
+      const safeTrust = escapeHtml(item.trust);
+      const safeRating = escapeHtml(item.rating);
+      const safeId = escapeHtml(item.id);
+      const safeAmount = Number(item.amount) || 0;
+
+      const visualHtml = safeImg
+        ? `<img src="${escapeHtml(safeImg)}" alt="${safeTitle}" onerror="this.remove()" />`
         : `<div class="prod-pi-placeholder" style="width:68px;height:68px;font-size:34px;">π</div>`;
 
       document.getElementById("catalogHomeView").style.display = "none";
@@ -1438,34 +2346,35 @@
       slot.classList.add("active");
       slot.innerHTML = `
         <div class="slot-top-nav">
-          <button class="btn-back" onclick="closeProductSlot()">${t("backToMarket")}</button>
-          <span style="font-size:12px; font-weight:800; color:#5b21b6;">${t("slotBadge")}</span>
+          <button class="btn-back" onclick="closeProductSlot()">${escapeHtml(t("backToMarket"))}</button>
+          <span style="font-size:12px; font-weight:800; color:#5b21b6;">${escapeHtml(t("slotBadge"))}</span>
         </div>
 
         <div class="slot-hero-banner">${visualHtml}</div>
 
-        <div class="slot-title">${item.title}</div>
-        <p style="font-size:14px; color:#475569;">${item.desc}</p>
+        <div class="slot-title">${safeTitle}</div>
+        <p style="font-size:14px; color:#475569;">${safeDesc}</p>
 
         <div class="slot-price-box">
           <div>
-            <div style="font-size:11.5px; color:#64748b;">${t("testPrice")}</div>
-            <div style="font-size:18px; font-weight:800; color:#4c1d95;">${item.amount} Test-Pi</div>
+            <div style="font-size:11.5px; color:#64748b;">${escapeHtml(t("testPrice"))}</div>
+            <div style="font-size:18px; font-weight:800; color:#4c1d95;">${safeAmount} Test-Pi</div>
           </div>
-          <span style="background:#d1fae5; color:#065f46; padding:5px 10px; border-radius:9px; font-size:12px; font-weight:800;">${t("verified")}</span>
+          <span style="background:#d1fae5; color:#065f46; padding:5px 10px; border-radius:9px; font-size:12px; font-weight:800;">${escapeHtml(t("verified"))}</span>
         </div>
 
         <div class="slot-specs">
-          <div class="slot-spec-row"><span>${t("specCategory")}</span><strong>${item.typeLabel}</strong></div>
-          <div class="slot-spec-row"><span>${t("specSeller")}</span><strong>${item.owner}</strong></div>
-          <div class="slot-spec-row"><span>${t("specTrust")}</span><strong>${item.trust} (${item.rating})</strong></div>
+          <div class="slot-spec-row"><span>${escapeHtml(t("specCategory"))}</span><strong>${safeType}</strong></div>
+          <div class="slot-spec-row"><span>${escapeHtml(t("specSeller"))}</span><strong>${safeOwner}</strong></div>
+          <div class="slot-spec-row"><span>${escapeHtml(t("specTrust"))}</span><strong>${safeTrust} (${safeRating})</strong></div>
         </div>
 
         <div class="slot-actions">
-          <button class="btn-slot-pay" onclick="payItem('${item.id}')">${t("payWithPi")}</button>
-          <button class="btn-slot-cart" onclick="addToCart('${item.id}')">${t("addCartFull")}</button>
+          <button class="btn-slot-pay" onclick="payItem('${safeId}')">${escapeHtml(t("payWithPi"))}</button>
+          <button class="btn-slot-cart" onclick="addToCart('${safeId}')">${escapeHtml(t("addCartFull"))}</button>
+          <button class="btn-slot-chat" onclick="openChatWithSeller('${safeId}')">💬 <span>${escapeHtml(t("chatWithSeller"))}</span></button>
         </div>
-        <button onclick="deleteMyProduct('${item.id}')" style="margin-top:10px; width:100%; background:#fee2e2; color:#991b1b; border:none; padding:9px; border-radius:11px; font-family:'Tajawal',sans-serif; font-weight:800; cursor:pointer;">${t("deleteProduct")}</button>
+        <button onclick="deleteMyProduct('${safeId}')" style="margin-top:10px; width:100%; background:#fee2e2; color:#991b1b; border:none; padding:9px; border-radius:11px; font-family:'Tajawal',sans-serif; font-weight:800; cursor:pointer;">${escapeHtml(t("deleteProduct"))}</button>
       `;
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1479,6 +2388,10 @@
 
     function goHomeTab() {
       closeProductSlot();
+      activeConversationId = null;
+      document.getElementById("myChatsView").classList.remove("active");
+      document.getElementById("myChatsView").innerHTML = "";
+      document.getElementById("catalogHomeView").style.display = "block";
       activeCategory = "all";
       activeFilterTab = "all";
       syncCatUI();
@@ -1489,6 +2402,10 @@
 
     function selectCategory(cat) {
       closeProductSlot();
+      activeConversationId = null;
+      document.getElementById("myChatsView").classList.remove("active");
+      document.getElementById("myChatsView").innerHTML = "";
+      document.getElementById("catalogHomeView").style.display = "block";
       activeCategory = cat;
       if (cat === "stores") {
         activeFilterTab = "stores";
@@ -1529,7 +2446,7 @@
     }
 
     function setActiveNav(id) {
-      ["nav-home", "nav-stores", "nav-cart", "nav-account"].forEach(n => {
+      ["nav-home", "nav-stores", "nav-chats", "nav-cart", "nav-account"].forEach(n => {
         const el = document.getElementById(n);
         if (el) el.classList.toggle("active", n === id);
       });
@@ -1551,10 +2468,10 @@
           (activeFilterTab === "mine" ? item.isMine : item.type === activeFilterTab);
         const matchCat = activeCategory === "all" || item.cat === activeCategory;
         const matchQuery = !query ||
-          item.title.toLowerCase().includes(query) ||
-          item.desc.toLowerCase().includes(query) ||
-          item.typeLabel.toLowerCase().includes(query) ||
-          item.owner.toLowerCase().includes(query);
+          String(item.title || "").toLowerCase().includes(query) ||
+          String(item.desc || "").toLowerCase().includes(query) ||
+          String(item.typeLabel || "").toLowerCase().includes(query) ||
+          String(item.owner || "").toLowerCase().includes(query);
         return matchFilter && matchCat && matchQuery;
       });
 
@@ -1564,39 +2481,48 @@
         grid.innerHTML = `
           <div class="empty-market-box">
             <div class="empty-market-icon">π</div>
-            <h3 style="font-size:16px; color:#3b0764; margin-bottom:6px;">${t("emptyTitle")}</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:14px;">${t("emptyDesc")}</p>
-            <button class="btn-promo" onclick="openAddProductModal()">${t("addProductShort")}</button>
+            <h3 style="font-size:16px; color:#3b0764; margin-bottom:6px;">${escapeHtml(t("emptyTitle"))}</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:14px;">${escapeHtml(t("emptyDesc"))}</p>
+            <button class="btn-promo" onclick="openAddProductModal()">${escapeHtml(t("addProductShort"))}</button>
           </div>
         `;
         return;
       }
 
       grid.innerHTML = filtered.map(item => {
-        const visualHtml = item.img
-          ? `<img src="${item.img}" alt="${item.title}" loading="lazy" onerror="this.remove()" />`
+        const safeImg = sanitizeHttpsUrl(item.img);
+        const safeTitle = escapeHtml(item.title);
+        const safeDesc = escapeHtml(item.desc);
+        const safeType = escapeHtml(item.typeLabel);
+        const safeOwner = escapeHtml(item.owner);
+        const safeRating = escapeHtml(item.rating);
+        const safeId = escapeHtml(item.id);
+        const safeAmount = Number(item.amount) || 0;
+
+        const visualHtml = safeImg
+          ? `<img src="${escapeHtml(safeImg)}" alt="${safeTitle}" loading="lazy" onerror="this.remove()" />`
           : `<div class="prod-pi-placeholder">π</div>`;
 
         return `
           <article class="product-box">
-            <div class="prod-visual-area" onclick="openProductSlot('${item.id}')">
+            <div class="prod-visual-area" onclick="openProductSlot('${safeId}')">
               ${visualHtml}
-              <span class="prod-badge">${item.typeLabel}</span>
+              <span class="prod-badge">${safeType}</span>
             </div>
             <div class="prod-body">
               <div>
-                <div class="prod-name" onclick="openProductSlot('${item.id}')">${item.title}</div>
-                <div class="prod-desc-mini">${item.desc}</div>
+                <div class="prod-name" onclick="openProductSlot('${safeId}')">${safeTitle}</div>
+                <div class="prod-desc-mini">${safeDesc}</div>
                 <div class="prod-meta">
-                  <span>${item.owner}</span>
-                  <span>${item.rating}</span>
+                  <span>${safeOwner}</span>
+                  <span>${safeRating}</span>
                 </div>
               </div>
               <div>
-                <div class="prod-price">${item.amount} Test-Pi</div>
+                <div class="prod-price">${safeAmount} Test-Pi</div>
                 <div class="prod-btns">
-                  <button class="btn-open-slot" onclick="openProductSlot('${item.id}')">${t("openSlot")}</button>
-                  <button class="btn-cart-add" onclick="addToCart('${item.id}')">${t("addToCart")}</button>
+                  <button class="btn-open-slot" onclick="openProductSlot('${safeId}')">${escapeHtml(t("openSlot"))}</button>
+                  <button class="btn-cart-add" onclick="addToCart('${safeId}')">${escapeHtml(t("addToCart"))}</button>
                 </div>
               </div>
             </div>
@@ -1610,41 +2536,41 @@
       const defaultCat = (activeCategory !== "all") ? activeCategory : "fashion";
       openModal(t("modalAddTitle"), `
         <div class="form-group">
-          <label class="form-label">${t("lblName")}</label>
+          <label class="form-label">${escapeHtml(t("lblName"))}</label>
           <input type="text" id="pTitle" class="form-control" />
         </div>
         <div class="form-group">
-          <label class="form-label">${t("lblCat")}</label>
+          <label class="form-label">${escapeHtml(t("lblCat"))}</label>
           <select id="pCat" class="form-control">
-            <option value="fashion" ${defaultCat==="fashion"?"selected":""}>${t("cat_fashion")}</option>
-            <option value="sports" ${defaultCat==="sports"?"selected":""}>${t("cat_sports")}</option>
-            <option value="beauty" ${defaultCat==="beauty"?"selected":""}>${t("cat_beauty")}</option>
-            <option value="auto" ${defaultCat==="auto"?"selected":""}>${t("cat_auto")}</option>
-            <option value="gaming" ${defaultCat==="gaming"?"selected":""}>${t("cat_gaming")}</option>
-            <option value="electronics" ${defaultCat==="electronics"?"selected":""}>${t("cat_electronics")}</option>
-            <option value="home" ${defaultCat==="home"?"selected":""}>${t("cat_home")}</option>
-            <option value="stores" ${defaultCat==="stores"?"selected":""}>${t("cat_stores")}</option>
-            <option value="services" ${defaultCat==="services"?"selected":""}>${t("cat_services")}</option>
+            <option value="fashion" ${defaultCat==="fashion"?"selected":""}>${escapeHtml(t("cat_fashion"))}</option>
+            <option value="sports" ${defaultCat==="sports"?"selected":""}>${escapeHtml(t("cat_sports"))}</option>
+            <option value="beauty" ${defaultCat==="beauty"?"selected":""}>${escapeHtml(t("cat_beauty"))}</option>
+            <option value="auto" ${defaultCat==="auto"?"selected":""}>${escapeHtml(t("cat_auto"))}</option>
+            <option value="gaming" ${defaultCat==="gaming"?"selected":""}>${escapeHtml(t("cat_gaming"))}</option>
+            <option value="electronics" ${defaultCat==="electronics"?"selected":""}>${escapeHtml(t("cat_electronics"))}</option>
+            <option value="home" ${defaultCat==="home"?"selected":""}>${escapeHtml(t("cat_home"))}</option>
+            <option value="stores" ${defaultCat==="stores"?"selected":""}>${escapeHtml(t("cat_stores"))}</option>
+            <option value="services" ${defaultCat==="services"?"selected":""}>${escapeHtml(t("cat_services"))}</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">${t("lblPrice")}</label>
+          <label class="form-label">${escapeHtml(t("lblPrice"))}</label>
           <input type="number" step="0.005" min="0.005" id="pAmount" class="form-control" value="0.02" />
         </div>
         <div class="form-group">
-          <label class="form-label">${t("lblOwner")}</label>
-          <input type="text" id="pOwner" class="form-control" value="${defaultOwner}" />
+          <label class="form-label">${escapeHtml(t("lblOwner"))}</label>
+          <input type="text" id="pOwner" class="form-control" value="${escapeHtml(defaultOwner)}" />
         </div>
         <div class="form-group">
-          <label class="form-label">${t("lblImg")}</label>
+          <label class="form-label">${escapeHtml(t("lblImg"))}</label>
           <input type="url" id="pImg" class="form-control" placeholder="https://..." />
         </div>
         <div class="form-group">
-          <label class="form-label">${t("lblDesc")}</label>
+          <label class="form-label">${escapeHtml(t("lblDesc"))}</label>
           <textarea id="pDesc" rows="2" class="form-control"></textarea>
         </div>
         <div id="pErr" style="color:#b91c1c; font-size:12px; margin-bottom:8px;"></div>
-        <button class="btn-submit-modal" onclick="saveNewProduct()">${t("btnPublish")}</button>
+        <button class="btn-submit-modal" onclick="saveNewProduct()">${escapeHtml(t("btnPublish"))}</button>
       `);
     }
 
@@ -1679,7 +2605,7 @@
         amount,
         owner,
         isMine: true,
-        img: (imgInput && imgInput.startsWith("https://")) ? imgInput : ""
+        img: sanitizeHttpsUrl(imgInput)
       };
 
       const list = getUserProducts();
@@ -1708,8 +2634,8 @@
       const listHtml = cartItems.map((it, idx) => `
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f1f5f9;">
           <div>
-            <strong>${it.title}</strong>
-            <div style="font-size:11.5px; color:#64748b;">${it.amount} Test-Pi</div>
+            <strong>${escapeHtml(it.title)}</strong>
+            <div style="font-size:11.5px; color:#64748b;">${Number(it.amount || 0)} Test-Pi</div>
           </div>
           <button onclick="removeCartIdx(${idx})" style="background:#fee2e2; color:#991b1b; border:none; padding:4px 9px; border-radius:8px; cursor:pointer;">×</button>
         </div>
@@ -1717,8 +2643,8 @@
 
       openModal(t("nav_cart"), `
         ${listHtml}
-        <div style="margin-top:12px; font-weight:800; color:#4c1d95;">${total} Test-Pi</div>
-        <button class="btn-submit-modal" style="margin-top:12px;" onclick="payItem('${cartItems[0].id}')">${t("payWithPi")}</button>
+        <div style="margin-top:12px; font-weight:800; color:#4c1d95;">${escapeHtml(total)} Test-Pi</div>
+        <button class="btn-submit-modal" style="margin-top:12px;" onclick="payCart()">${escapeHtml(t("payWithPi"))}</button>
       `);
     }
 
@@ -1730,19 +2656,19 @@
 
     function openAccountModal() {
       setActiveNav("nav-account");
-      const userInfo = currentUser ? `<strong>@${currentUser.username}</strong>` : "-";
+      const userInfo = currentUser ? `<strong>@${escapeHtml(currentUser.username)}</strong>` : "-";
       openModal(t("nav_account"), `
         <p style="margin-bottom:10px;">Pi: ${userInfo}</p>
-        <p style="margin-bottom:14px;">${t("tab_mine")}: <strong>${getUserProducts().length}</strong></p>
-        <button class="btn-submit-modal" onclick="closeModal(); connectPi();">${t("connectPi")}</button>
+        <p style="margin-bottom:14px;">${escapeHtml(t("tab_mine"))}: <strong>${getUserProducts().length}</strong></p>
+        <button class="btn-submit-modal" onclick="closeModal(); connectPi();">${escapeHtml(t("connectPi"))}</button>
       `);
     }
 
     function openLegalModal(type) {
       if (type === "privacy") {
-        openModal(t("privacyLink"), `<p>${t("privacyText")}</p>`);
+        openModal(t("privacyLink"), `<p>${escapeHtml(t("privacyText"))}</p>`);
       } else {
-        openModal(t("tosLink"), `<p>${t("tosText")}</p>`);
+        openModal(t("tosLink"), `<p>${escapeHtml(t("tosText"))}</p>`);
       }
     }
 
@@ -1764,6 +2690,13 @@
       applyTranslations();
       if (window.location.hash === "#privacy") openLegalModal("privacy");
       if (window.location.hash === "#tos") openLegalModal("tos");
+
+      if (pollTimer) clearInterval(pollTimer);
+      pollTimer = setInterval(() => {
+        if (getCurrentActorUsername() && isSupabaseReady()) {
+          syncConversationsFromDb();
+        }
+      }, CHAT_DB_CONFIG.pollIntervalMs);
     });
   </script>
 </body>
