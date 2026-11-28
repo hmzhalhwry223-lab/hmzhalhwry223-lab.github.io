@@ -1542,7 +1542,7 @@ window.openAccountModal = function () {
   var o = window.openAccountModal;
   window.openAccountModal = function () {
     o.apply(this, arguments);
-    if (window.currentUser) {
+        if (typeof currentUser !== "undefined" && currentUser) {
       document.querySelectorAll("#modalContent .btn-submit-modal").forEach(function (b) {
         if ((b.getAttribute("onclick") || "").indexOf("connectPi") > -1) b.style.display = "none";
       });
