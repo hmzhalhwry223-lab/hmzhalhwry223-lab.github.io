@@ -1550,5 +1550,18 @@ window.openAccountModal = function () {
   };
 })();
   </script>
+  <script>
+(function () {
+  var box = document.getElementById("modalContent");
+  if (!box) return;
+  function hideConnect() {
+    if (typeof currentUser === "undefined" || !currentUser) return;
+    box.querySelectorAll("button").forEach(function (b) {
+      if ((b.getAttribute("onclick") || "").indexOf("connectPi") > -1) b.style.display = "none";
+    });
+  }
+  new MutationObserver(hideConnect).observe(box, { childList: true, subtree: true });
+})();
+  </script>
 </body>
 </html>
