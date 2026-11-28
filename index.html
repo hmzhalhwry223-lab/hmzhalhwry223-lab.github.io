@@ -390,5 +390,26 @@ $("lang").addEventListener("change", e => {
 
 applyLang(); render(); loadProducts();
 </script>
+  if (url.pathname === "/api/report" && request.method === "POST") {
+  const user = await verifyPiUser(request, env); // يستدعي api.minepi.com/v2/me
+  if (!user) return json({ ok: false, error: "unauthorized" }, 401);
+
+  const { productId, reason, note } = await request.json();
+  const reasons = ["prohibited", "fake", "scam", "adult", "other"];
+  if (!productId || !reasons.includes(reason))
+    return json({ ok: false, error: "invalid" }, 400);
+
+  // منع تكرار نفس البلاغ من نفس المستخدم
+  const key = `report:${productId}:${user.username}`;
+  if (await env.DB.get(key)) return json({ ok: true });
+
+  await env.DB.put(key, JSON.stringify({
+    productId, reason,
+    note: String(note || "").slice(0, 500),
+    reporter: user.username,
+    at: new Date().toISOString()
+  }));
+  return json({ ok: true });
+}
 </body>
 </html>
