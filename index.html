@@ -1518,5 +1518,21 @@ document.querySelectorAll(".footer-note a").forEach(function (a) {
   loadProducts();
 })();
     </script>
+  <script>
+window.openAccountModal = function () {
+  setActiveNav("nav-account");
+  var mine = getAllCatalog().filter(function (i) { return i.isMine; });
+  var user = currentUser ? "@" + escapeHtml(currentUser.username) : "-";
+  var list = mine.map(function (i) {
+    return '<button class="btn-open-slot" style="width:100%;margin-bottom:6px" onclick="closeModal();goHomeTab();openProductSlot(\'' +
+      escapeHtml(i.id) + '\')">' + escapeHtml(i.title) + " • " + Number(i.amount) + " Test-Pi</button>";
+  }).join("");
+  openModal(t("nav_account"),
+    '<p style="margin-bottom:10px">Pi: <strong>' + user + "</strong></p>" +
+    '<p style="margin-bottom:10px">' + escapeHtml(t("tab_mine")) + ": <strong>" + mine.length + "</strong></p>" +
+    list +
+    '<button class="btn-submit-modal" onclick="closeModal();connectPi()">' + escapeHtml(t("connectPi")) + "</button>");
+};
+</script>
 </body>
 </html>
