@@ -444,5 +444,39 @@ $("lang").addEventListener("change", e => {
 
 applyLang(); render(); loadProducts();
 </script>
+  <script>
+/* PiPrime: طلباتي - زر الشحن للتاجر وزر الاستلام للمشتري، حتى لو نفس الحساب */
+async function openOrders() {
+  if (!(await connect())) return;
+  modal(t("orders"), `<p>${esc(t("loading"))}</p>`);
+  try {
+    const d = await api("/api/orders", undefined, true);
+    const mine = me().toLowerCase();
+    const ar = lang === "ar";
+    $("mBody").innerHTML = !d.orders.length ? `<p>${esc(t("noOrders"))}</p>` : d.orders.map(o => {
+      const isBuyer = String(o.buyer).toLowerCase() === mine;
+      const isSeller = String(o.seller).toLowerCase() === mine;
+      const act = isSeller && o.status === "paid" ? ["shipped", t("markShipped")]
+        : isBuyer && o.status === "shipped" ? ["received", t("markReceived")] : null;
+      const names = (o.items || []).map(i => i.title).join("، ");
+      const role = isBuyer && isSeller ? t("asBuyer") + " + " + t("asSeller") : t(isBuyer ? "asBuyer" : "asSeller");
+      const other = isBuyer ? o.seller : o.buyer;
+      let payNote = "";
+      if (isSeller && o.status === "received") {
+        payNote = o.payout_status === "paid" ? (ar ? "✓ تم تحويل المبلغ للتاجر" : "✓ Payout sent to seller")
+          : o.payout_status === "failed" ? (ar ? "تعذّر التحويل، سيُعاد تلقائياً" : "Payout failed, will retry")
+          : (ar ? "بانتظار التحويل للتاجر" : "Payout pending");
+      }
+      return `<div style="border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;gap:8px"><strong>${esc(names)}</strong><span class="own">${esc(role)}</span></div>
+        <div class="own" style="margin:4px 0">${esc(other)} • ${Number(o.amount)} ${unit()} • ${esc(new Date(o.created_at).toLocaleDateString(lang))}</div>
+        <div style="font-weight:800;color:var(--p2)">${esc(t("st_" + o.status))}</div>
+        ${payNote ? `<div class="own" style="margin-top:4px">${esc(payNote)}</div>` : ""}
+        ${act ? `<button class="gold s" style="margin-top:8px;width:100%" data-ost="${o.id}:${act[0]}">${esc(act[1])}</button>` : ""}</div>`;
+    }).join("");
+  } catch (e) { $("mBody").innerHTML = `<p>Error: ${esc(e.message)}</p>`; }
+}
+</script>
+
 </body>
 </html>
