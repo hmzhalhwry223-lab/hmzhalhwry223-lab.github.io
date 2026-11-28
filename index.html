@@ -29,10 +29,13 @@ main{max-width:960px;margin:0 auto;padding:16px}
 .cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none}
 .cats button{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px;font-weight:700;font-size:12.5px;white-space:nowrap;color:var(--mut)}
 .cats button.on{background:var(--p2);color:#fff;border-color:var(--p2)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
 .thumb{height:130px;background:linear-gradient(135deg,var(--p2),var(--p3));display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:30px;font-weight:800;cursor:pointer}
 .thumb img{width:100%;height:100%;object-fit:cover}
+.thumb svg{width:52%;height:52%}
+.detail .hero svg{width:34%;height:72%}
+.cats button svg{width:17px;height:17px;vertical-align:-4px;margin-inline-end:5px}
 .cb{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
 .nm{font-weight:800;font-size:15px;cursor:pointer}
 .ds{font-size:12px;color:#475569;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -73,6 +76,23 @@ main{max-width:960px;margin:0 auto;padding:16px}
 footer{text-align:center;font-size:12px;color:var(--mut);margin-top:26px}
 footer a{color:var(--p3);font-weight:700;text-decoration:none;margin:0 8px}
 :focus-visible{outline:2px solid var(--p3);outline-offset:2px}
+/* شبكة: 3 خانات بكل صف، والصفوف تحت بعض */
+.card{min-width:0;border-radius:14px}
+.thumb{height:auto;aspect-ratio:1/1}
+.thumb svg{width:56%;height:56%}
+.cb{padding:7px 8px 8px;gap:2px}
+.nm{font-size:12px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ds,.own{display:none}
+.pr{font-size:12px}
+.row{grid-template-columns:1fr;margin-top:4px}
+.row .soft{display:none}
+.gold.s{padding:6px;font-size:11px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+/* أزرار الأقسام: 3 خانات بكل صف، أيقونة فوق والاسم تحتها */
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;overflow:visible;padding-bottom:0;margin-bottom:12px}
+.cats button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 4px;white-space:normal;text-align:center;line-height:1.25;border-radius:14px;min-width:0}
+.cats button svg{width:26px;height:26px;margin:0;vertical-align:baseline}
+@media(min-width:700px){.cats{grid-template-columns:repeat(6,1fr)}}
 </style>
 </head>
 <body>
@@ -116,6 +136,24 @@ const API = "https://piprime-api.alhwryh311.workers.dev";
 const SANDBOX = true;               // غيّرها إلى false عند الانتقال إلى Mainnet
 const CART_KEY = "piprime_cart_v2", LANG_KEY = "piprime_lang_v1", SHIP_KEY = "piprime_ship_v1";
 const CATS = ["fashion","sports","beauty","auto","gaming","electronics","home","stores","services"];
+
+/* ============ Category art ============ */
+// لاستبدال الأيقونة بصورة حقيقية لقسم: ضع رابط https هنا، مثل: fashion: "https://.../fashion.jpg"
+const CAT_PHOTO = {};
+const CATSVG = {
+ fashion:'<path d="M17 8 6 14l4 8 5-2v22h18V20l5 2 4-8-11-6c-1 3-4 5-7 5s-6-2-7-5z"/>',
+ sports:'<path d="M7 20v8M12 15v18M36 15v18M41 20v8M12 24h24"/>',
+ beauty:'<path d="M19 41V27h10v14zM21 27v-9h6v9zM22 18l2-9 2 9"/>',
+ auto:'<path d="M6 33l4-11h28l4 11v7h-6v-4H12v4H6z"/><circle cx="14" cy="31" r="2"/><circle cx="34" cy="31" r="2"/><path d="M10 22l2-6h24l2 6"/>',
+ gaming:'<path d="M14 16h20c6 0 9 9 10 17-1 4-5 4-8 0l-3-4H15l-3 4c-3 4-7 4-8 0 1-8 4-17 10-17z"/><path d="M16 21v6M13 24h6"/><circle cx="31" cy="22" r="1.5"/><circle cx="35" cy="26" r="1.5"/>',
+ electronics:'<path d="M10 12h28v20H10zM5 37h38l-3 4H8z"/>',
+ home:'<path d="M9 18h23v12a8 8 0 0 1-8 8h-7a8 8 0 0 1-8-8zM32 21h4a4 4 0 0 1 0 8h-4M15 8v5M21 8v5M27 8v5"/>',
+ stores:'<path d="M7 18l3-8h28l3 8M7 18h34v22H7zM7 18c0 4 6 4 8.5 0 2.5 4 6.5 4 8.5 0 2 4 6 4 8.5 0 2.5 4 8.5 4 8.5 0M20 40V28h8v12"/>',
+ services:'<path d="M31 7a8 8 0 0 0-8 11L7 34a4 4 0 0 0 7 7l16-16a8 8 0 0 0 11-8l-6 5-5-1-1-5z"/>'
+};
+const CATBG = {fashion:["#be185d","#6b21a8"],sports:["#047857","#1e3a8a"],beauty:["#db2777","#7c3aed"],auto:["#334155","#4c1d95"],gaming:["#4338ca","#6b21a8"],electronics:["#0e7490","#3b0764"],home:["#92400e","#4c1d95"],stores:["#6d28d9","#be185d"],services:["#0f766e","#4c1d95"]};
+const icon = c => `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${CATSVG[c] || ""}</svg>`;
+const bg = c => { const g = CATBG[c] || ["#4c1d95","#6b21a8"]; return ` style="background:linear-gradient(135deg,${g[0]},${g[1]})"`; };
 
 /* ============ Texts ============ */
 const TX = {
@@ -269,7 +307,8 @@ function shipGo() {
 
 /* ============ Rendering ============ */
 function visual(p) {
-  return p.img ? `<img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" decoding="async" data-img>` : "π";
+  const src = p.img || httpsUrl(CAT_PHOTO[p.cat]);
+  return src ? `<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy" decoding="async" data-img data-c="${esc(p.cat)}">` : icon(p.cat);
 }
 function render() {
   const q = $("q").value.trim().toLowerCase();
@@ -279,12 +318,12 @@ function render() {
     return !q || [p.title, p.desc, p.owner, catLabel(p.cat)].some(v => String(v).toLowerCase().includes(q));
   });
   $("cats").innerHTML = ["all", ...CATS, "mine"].map(c =>
-    `<button class="${c === cat ? "on" : ""}" data-cat="${c}">${esc(c === "all" ? t("all") : c === "mine" ? t("mine") : catLabel(c))}</button>`).join("");
+    `<button class="${c === cat ? "on" : ""}" data-cat="${c}">${CATSVG[c] ? icon(c) : ""}${esc(c === "all" ? t("all") : c === "mine" ? t("mine") : catLabel(c))}</button>`).join("");
   setStatus(loaded ? `${t("ready")} • ${list.length} ${t("count")}` : t("loading"));
   $("grid").innerHTML = !loaded ? "" : list.length === 0
     ? `<div class="empty"><h3>${esc(t("emptyT"))}</h3><p>${esc(t("emptyD"))}</p><button class="gold" data-act="add">${esc(t("add"))}</button></div>`
     : list.map(p => `<article class="card">
-        <div class="thumb" data-open="${esc(p.id)}">${visual(p)}</div>
+        <div class="thumb"${bg(p.cat)} data-open="${esc(p.id)}">${visual(p)}</div>
         <div class="cb">
           <div class="nm" data-open="${esc(p.id)}">${esc(p.title)}</div>
           <div class="ds">${esc(p.desc)}</div>
@@ -301,7 +340,7 @@ function showDetail(id, keepScroll) {
   $("home").hidden = true; $("detail").hidden = false;
   $("detail").innerHTML = `<div class="detail">
     <button class="back" data-act="closeDetail">${esc(t("back"))}</button>
-    <div class="hero">${visual(p)}</div>
+    <div class="hero"${bg(p.cat)}>${visual(p)}</div>
     <h2>${esc(p.title)}</h2>
     <p style="font-size:14px;color:#475569;margin-top:6px">${esc(p.desc)}</p>
     <div class="spec"><span>${esc(t("price"))}</span><strong>${p.amount} ${unit()}</strong></div>
@@ -485,7 +524,7 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("error", e => {
   const img = e.target;
-  if (img && img.tagName === "IMG" && img.hasAttribute("data-img")) img.replaceWith(document.createTextNode("π"));
+  if (img && img.tagName === "IMG" && img.hasAttribute("data-img")) { const c = img.dataset.c; img.insertAdjacentHTML("afterend", icon(c)); img.remove(); }
 }, true);
 $("q").addEventListener("input", render);
 $("lang").addEventListener("change", e => {
