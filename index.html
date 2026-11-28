@@ -50,6 +50,7 @@ main{max-width:960px;margin:0 auto;padding:16px}
 .back{background:#f1f5f9;color:var(--ink);padding:8px 14px;border-radius:11px;font-weight:800;font-size:13px}
 .spec{background:#f8fafc;border-radius:11px;padding:10px 12px;font-size:13px;display:flex;justify-content:space-between;margin-top:8px}
 .pay{background:var(--p2);color:#fff;border-radius:13px;padding:12px;font-weight:800;font-size:14px}
+.rep{background:none;color:var(--mut);font-weight:700;font-size:12.5px;width:100%;margin-top:12px;padding:8px;text-decoration:underline}
 .del{background:#fee2e2;color:#991b1b;border-radius:11px;padding:10px;font-weight:800;width:100%;margin-top:10px}
 .nav{position:fixed;inset:auto 0 0 0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);padding:8px 2px calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
 .nav button{background:none;display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:700;color:var(--mut)}
@@ -126,7 +127,7 @@ ar:{dir:"rtl",connect:"ربط حساب Pi",search:"بحث",ph:"ابحث عن م�
  cartEmpty:"السلة فارغة.",oneSeller:"السلة تقبل منتجات من تاجر واحد فقط. أتمم الدفع أو أفرغ السلة أولاً.",
  inCart:"✓ أُضيف للسلة",total:"المجموع",myItems:"منتجاتي",privacy:"سياسة الخصوصية",tos:"شروط الاستخدام",
  netNote:"PiPrime • Pi Testnet",ready:"جاهز",paid:"✓ اكتملت الدفعة",cancelled:"أُلغيت الدفعة",pendingDone:"✓ اكتملت الدفعة المعلّقة",pendingCancel:"أُلغيت الدفعة المعلّقة",
- fill:"أكمل الحقول المطلوبة وسعراً أكبر من صفر.",saving:"جارٍ النشر..."},
+ fill:"أكمل الحقول المطلوبة وسعراً أكبر من صفر.",saving:"جارٍ النشر...",report:"🚩 إبلاغ عن هذا المنتج",repT:"إبلاغ عن منتج",repWhy:"سبب البلاغ",repNote:"تفاصيل إضافية (اختياري)",repSend:"إرسال البلاغ",repDone:"✓ وصلنا بلاغك وسنراجعه. شكراً لك.",r_prohibited:"منتج ممنوع (أسلحة، مخدرات...)",r_fake:"مقلّد أو مزيّف",r_scam:"احتيال أو نصب",r_adult:"محتوى للبالغين",r_other:"سبب آخر",repOwn:"لا يمكنك الإبلاغ عن منتجك."},
 en:{dir:"ltr",connect:"Connect Pi",search:"Search",ph:"Search products or services...",all:"All",mine:"My products",
  fashion:"Fashion",sports:"Sports",beauty:"Women's beauty",auto:"Auto accessories",gaming:"Gaming",electronics:"Electronics",home:"Home & coffee",stores:"Stores",services:"Services",
  add:"+ Add product",home_:"Home",cart:"Cart",acc:"Account",open:"Open",addCart:"+ Cart",addCartFull:"Add to cart",payPi:"Pay with Pi",
@@ -138,7 +139,7 @@ en:{dir:"ltr",connect:"Connect Pi",search:"Search",ph:"Search products or servic
  cartEmpty:"Your cart is empty.",oneSeller:"A cart can hold items from one seller only. Pay or empty the cart first.",
  inCart:"✓ Added to cart",total:"Total",myItems:"My products",privacy:"Privacy Policy",tos:"Terms of Service",
  netNote:"PiPrime • Pi Testnet",ready:"Ready",paid:"✓ Payment completed",cancelled:"Payment cancelled",pendingDone:"✓ Pending payment completed",pendingCancel:"Pending payment cancelled",
- fill:"Fill the required fields and set a price above zero.",saving:"Publishing..."}
+ fill:"Fill the required fields and set a price above zero.",saving:"Publishing...",report:"🚩 Report this product",repT:"Report product",repWhy:"Reason",repNote:"Extra details (optional)",repSend:"Send report",repDone:"✓ Report received. We will review it. Thank you.",r_prohibited:"Prohibited item (weapons, drugs...)",r_fake:"Counterfeit or fake",r_scam:"Scam or fraud",r_adult:"Adult content",r_other:"Other",repOwn:"You cannot report your own product."}
 };
 
 /* ============ State ============ */
@@ -273,7 +274,7 @@ function showDetail(id, keepScroll) {
     <div class="spec"><span>${esc(t("cat"))}</span><strong>${esc(catLabel(p.cat))}</strong></div>
     <div class="spec"><span>${esc(t("seller"))}</span><strong>${esc(p.owner)}</strong></div>
     <div class="row" style="margin-top:14px"><button class="pay" data-pay="${esc(p.id)}">${esc(t("payPi"))}</button><button class="gold" data-cart="${esc(p.id)}">${esc(t("addCartFull"))}</button></div>
-    ${isMine(p) ? `<button class="del" data-del="${esc(p.id)}">${esc(t("del"))}</button>` : ""}
+    ${isMine(p) ? `<button class="del" data-del="${esc(p.id)}">${esc(t("del"))}</button>` : `<button class="rep" data-report="${esc(p.id)}">${esc(t("report"))}</button>`}
   </div>`;
   if (!keepScroll) window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -335,6 +336,30 @@ async function delProduct(id) {
   } catch (e) { setStatus("Delete error: " + e.message); }
 }
 
+/* ============ Report ============ */
+const REASONS = ["prohibited","fake","scam","adult","other"];
+let reportId = null, reporting = false;
+async function openReport(id) {
+  const p = products.find(x => x.id === id); if (!p) return;
+  if (isMine(p)) { modal(t("repT"), `<p>${esc(t("repOwn"))}</p>`); return; }
+  if (!(await connect())) return;
+  reportId = id;
+  modal(t("repT"), `<p style="margin-bottom:10px;font-weight:800">${esc(p.title)}</p>
+    <div class="fg"><label>${esc(t("repWhy"))}</label><select id="rWhy">${REASONS.map(r => `<option value="${r}">${esc(t("r_" + r))}</option>`).join("")}</select></div>
+    <div class="fg"><label>${esc(t("repNote"))}</label><textarea id="rNote" rows="3" maxlength="500"></textarea></div>
+    <div class="err" id="rErr"></div>
+    <button class="full" data-act="sendReport">${esc(t("repSend"))}</button>`);
+}
+async function sendReport() {
+  if (reporting || !reportId) return;
+  reporting = true;
+  try {
+    await api("/api/report", { productId: reportId, reason: $("rWhy").value, note: $("rNote").value.trim().slice(0, 500) }, true);
+    $("mBody").innerHTML = `<p>${esc(t("repDone"))}</p>`; reportId = null;
+  } catch (e) { $("rErr").textContent = "Error: " + e.message; }
+  reporting = false;
+}
+
 /* ============ Account, modal, language ============ */
 function openAccount() {
   const mine = products.filter(isMine);
@@ -362,10 +387,10 @@ const ACTS = {
   connect: () => { closeModal(); connect(); }, render, add: openAdd, save: saveProduct, close: closeModal,
   home: () => { closeDetail(); cat = "all"; setNav("nHome"); render(); },
   cart: () => { setNav("nCart"); openCart(); }, account: () => { setNav("nAcc"); openAccount(); },
-  closeDetail, payCart
+  closeDetail, payCart, sendReport
 };
 document.addEventListener("click", e => {
-  const el = e.target.closest("[data-act],[data-cat],[data-open],[data-cart],[data-pay],[data-del],[data-rm]");
+  const el = e.target.closest("[data-act],[data-cat],[data-open],[data-cart],[data-pay],[data-del],[data-rm],[data-report]");
   if (e.target.id === "modal") return closeModal();
   if (!el) return;
   const d = el.dataset;
@@ -375,6 +400,7 @@ document.addEventListener("click", e => {
   else if (d.cart) addToCart(d.cart);
   else if (d.pay) { const p = products.find(x => x.id === d.pay); if (p) pay(p.amount, "PiPrime: " + p.title, { itemIds: [p.id], seller: p.owner }); }
   else if (d.del) delProduct(d.del);
+  else if (d.report) openReport(d.report);
   else if (d.rm !== undefined) { cart.splice(Number(d.rm), 1); saveCart(); renderCartLabel(); openCart(); }
 });
 document.addEventListener("error", e => {
@@ -390,26 +416,5 @@ $("lang").addEventListener("change", e => {
 
 applyLang(); render(); loadProducts();
 </script>
-  if (url.pathname === "/api/report" && request.method === "POST") {
-  const user = await verifyPiUser(request, env); // يستدعي api.minepi.com/v2/me
-  if (!user) return json({ ok: false, error: "unauthorized" }, 401);
-
-  const { productId, reason, note } = await request.json();
-  const reasons = ["prohibited", "fake", "scam", "adult", "other"];
-  if (!productId || !reasons.includes(reason))
-    return json({ ok: false, error: "invalid" }, 400);
-
-  // منع تكرار نفس البلاغ من نفس المستخدم
-  const key = `report:${productId}:${user.username}`;
-  if (await env.DB.get(key)) return json({ ok: true });
-
-  await env.DB.put(key, JSON.stringify({
-    productId, reason,
-    note: String(note || "").slice(0, 500),
-    reporter: user.username,
-    at: new Date().toISOString()
-  }));
-  return json({ ok: true });
-}
 </body>
 </html>
