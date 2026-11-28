@@ -185,6 +185,9 @@ en:{dir:"ltr",connect:"Connect Pi",search:"Search",ph:"Search products or servic
  shipT:"Delivery address",sName:"Full name *",sPhone:"Phone number *",sCity:"City *",sAddr:"Street address *",sNote:"Note to seller (optional)",sGo:"Continue to payment",sNeed:"Fill in name, phone, city and address.",sTo:"Deliver to",payOk:"✓ Payout sent to seller",payFail:"Payout failed, will retry",payWait:"Payout pending"}
 };
 
+Object.assign(TX.ar, {dispute:"⚠️ في مشكلة بالطلب",disputed:"الطلب قيد المراجعة والمبلغ معلّق",autoB:"سيُحوَّل المبلغ للتاجر تلقائياً بعد {n} يوم إن لم تؤكد الاستلام",autoS:"سيُحوَّل لك المبلغ تلقائياً بعد {n} يوم إن لم يُفتح نزاع",d_not_received:"لم أستلم الطلب",d_not_as_described:"الطلب مختلف عن الوصف",d_other:"سبب آخر",dNotice:"سيتم تعليق تحويل المبلغ للتاجر لحين مراجعة المشكلة.",dSend:"إرسال",dDone:"✓ وصلنا بلاغك وعلّقنا تحويل المبلغ. سنتواصل معك."});
+Object.assign(TX.en, {dispute:"⚠️ Problem with this order",disputed:"Order under review, payment on hold",autoB:"Payment goes to the seller automatically in {n} day(s) unless you confirm receipt",autoS:"You will be paid automatically in {n} day(s) unless a dispute is opened",d_not_received:"I did not receive it",d_not_as_described:"Not as described",d_other:"Other",dNotice:"Payment to the seller will be held until we review the problem.",dSend:"Send",dDone:"✓ Report received and payment put on hold. We will contact you."});
+
 /* ============ State ============ */
 let lang = localStorage.getItem(LANG_KEY) || "ar";
 if (!TX[lang]) lang = "ar";
@@ -453,13 +456,16 @@ async function openOrders() {
     $("mBody").innerHTML = !d.orders.length ? `<p>${esc(t("noOrders"))}</p>` : d.orders.map(o => {
       const isBuyer = String(o.buyer).toLowerCase() === mine;
       const isSeller = String(o.seller).toLowerCase() === mine;
-      const act = isSeller && o.status === "paid" ? ["shipped", t("markShipped")]
+      const act = o.disputed ? null : isSeller && o.status === "paid" ? ["shipped", t("markShipped")]
         : isBuyer && o.status === "shipped" ? ["received", t("markReceived")] : null;
       const names = (o.items || []).map(i => i.title).join("، ");
       const role = isBuyer && isSeller ? t("asBuyer") + " + " + t("asSeller") : t(isBuyer ? "asBuyer" : "asSeller");
       const other = isBuyer ? o.seller : o.buyer;
       const sh = parseShip(o.ship);
       const shipHtml = sh ? `<div class="shipbox"><b>${esc(t("sTo"))}:</b> ${esc(sh.name)} • <a href="tel:${esc(sh.phone)}">${esc(sh.phone)}</a><br>${esc(sh.city)}، ${esc(sh.addr)}${sh.note ? `<br><span class="own">${esc(sh.note)}</span>` : ""}</div>` : "";
+      const left = o.status === "shipped" && o.shipped_at ? Math.max(0, Math.ceil(7 - (Date.now() - new Date(o.shipped_at)) / 864e5)) : null;
+      const info = o.disputed ? "⚠️ " + t("disputed") : left !== null ? t(isBuyer ? "autoB" : "autoS").replace("{n}", left) : "";
+      const canDispute = isBuyer && !o.disputed && (o.status === "paid" || o.status === "shipped");
       const payNote = isSeller && o.status === "received"
         ? (o.payout_status === "paid" ? t("payOk") : o.payout_status === "failed" ? t("payFail") : t("payWait")) : "";
       return `<div class="ord">
@@ -468,9 +474,30 @@ async function openOrders() {
         <div style="font-weight:800;color:var(--p2)">${esc(t("st_" + o.status))}</div>
         ${shipHtml}
         ${payNote ? `<div class="own" style="margin-top:4px">${esc(payNote)}</div>` : ""}
-        ${act ? `<button class="gold s" style="margin-top:8px;width:100%" data-ost="${o.id}:${act[0]}">${esc(act[1])}</button>` : ""}</div>`;
+        ${info ? `<div class="own" style="margin-top:4px">${esc(info)}</div>` : ""}
+        ${act ? `<button class="gold s" style="margin-top:8px;width:100%" data-ost="${o.id}:${act[0]}">${esc(act[1])}</button>` : ""}
+        ${canDispute ? `<button class="soft" style="margin-top:8px;width:100%" data-dispute="${o.id}">${esc(t("dispute"))}</button>` : ""}</div>`;
     }).join("");
   } catch (e) { $("mBody").innerHTML = `<p>Error: ${esc(e.message)}</p>`; }
+}
+let disputeId = null, disputing = false;
+const DREASONS = ["not_received", "not_as_described", "other"];
+function openDispute(id) {
+  disputeId = id;
+  modal(t("dispute"), `<div class="fg"><label>${esc(t("repWhy"))}</label><select id="dWhy">${DREASONS.map(r => `<option value="${r}">${esc(t("d_" + r))}</option>`).join("")}</select></div>
+    <div class="fg"><label>${esc(t("repNote"))}</label><textarea id="dNote" rows="3" maxlength="300"></textarea></div>
+    <p class="own" style="margin-bottom:8px">${esc(t("dNotice"))}</p>
+    <div class="err" id="dErr"></div>
+    <button class="full" data-act="sendDispute">${esc(t("dSend"))}</button>`);
+}
+async function sendDispute() {
+  if (disputing || !disputeId) return;
+  disputing = true;
+  try {
+    await api("/api/orders/dispute", { id: disputeId, reason: $("dWhy").value, note: $("dNote").value.trim().slice(0, 300) }, true);
+    $("mBody").innerHTML = `<p>${esc(t("dDone"))}</p>`; disputeId = null;
+  } catch (e) { $("dErr").textContent = "Error: " + e.message; }
+  disputing = false;
 }
 async function setOrder(id, status) {
   try { await api("/api/orders/status", { id, status }, true); openOrders(); }
@@ -505,10 +532,10 @@ const ACTS = {
   home: () => { closeDetail(); cat = "all"; setNav("nHome"); render(); },
   orders: () => { setNav("nOrd"); openOrders(); },
   cart: () => { setNav("nCart"); openCart(); }, account: () => { setNav("nAcc"); openAccount(); },
-  closeDetail, payCart, sendReport, shipGo
+  closeDetail, payCart, sendReport, shipGo, sendDispute
 };
 document.addEventListener("click", e => {
-  const el = e.target.closest("[data-act],[data-cat],[data-open],[data-cart],[data-pay],[data-del],[data-rm],[data-report],[data-ost]");
+  const el = e.target.closest("[data-act],[data-cat],[data-open],[data-cart],[data-pay],[data-del],[data-rm],[data-report],[data-ost],[data-dispute]");
   if (e.target.id === "modal") return closeModal();
   if (!el) return;
   const d = el.dataset;
@@ -519,6 +546,7 @@ document.addEventListener("click", e => {
   else if (d.pay) payOne(d.pay);
   else if (d.del) delProduct(d.del);
   else if (d.report) openReport(d.report);
+  else if (d.dispute) openDispute(d.dispute);
   else if (d.ost) { const [oid, st] = d.ost.split(":"); setOrder(oid, st); }
   else if (d.rm !== undefined) { cart.splice(Number(d.rm), 1); saveCart(); renderCartLabel(); openCart(); }
 });
