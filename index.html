@@ -1534,5 +1534,21 @@ window.openAccountModal = function () {
     '<button class="btn-submit-modal" onclick="closeModal();connectPi()">' + escapeHtml(t("connectPi")) + "</button>");
 };
 </script>
+  <script>
+(function () {
+  var st = document.createElement("style");
+  st.textContent = ".modal-card{padding-bottom:90px}";
+  document.head.appendChild(st);
+  var o = window.openAccountModal;
+  window.openAccountModal = function () {
+    o.apply(this, arguments);
+    if (window.currentUser) {
+      document.querySelectorAll("#modalContent .btn-submit-modal").forEach(function (b) {
+        if ((b.getAttribute("onclick") || "").indexOf("connectPi") > -1) b.style.display = "none";
+      });
+    }
+  };
+})();
+  </script>
 </body>
 </html>
