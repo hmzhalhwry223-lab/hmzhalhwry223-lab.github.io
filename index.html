@@ -1563,5 +1563,20 @@ window.openAccountModal = function () {
   new MutationObserver(hideConnect).observe(box, { childList: true, subtree: true });
 })();
   </script>
+  <script>
+(function () {
+  function hide() {
+    var a = document.getElementById("authBtn");
+    if (!a || !a.classList.contains("connected")) return;
+    document.querySelectorAll("#modalContent button").forEach(function (b) {
+      if ((b.textContent || "").trim() === t("connectPi")) b.style.display = "none";
+    });
+  }
+  document.addEventListener("click", function () {
+    setTimeout(hide, 50);
+    setTimeout(hide, 300);
+  }, true);
+})();
+  </script>
 </body>
 </html>
