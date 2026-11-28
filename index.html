@@ -68,6 +68,8 @@ main{max-width:960px;margin:0 auto;padding:16px}
 .err{color:#b91c1c;font-size:12px;margin-bottom:8px;min-height:16px}
 .full{width:100%;background:var(--p2);color:#fff;padding:11px;border-radius:12px;font-weight:800;font-size:14.5px}
 .li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.ord{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.shipbox{background:#faf5ff;border-radius:10px;padding:8px 10px;margin-top:6px;font-size:12.5px}
 footer{text-align:center;font-size:12px;color:var(--mut);margin-top:26px}
 footer a{color:var(--p3);font-weight:700;text-decoration:none;margin:0 8px}
 :focus-visible{outline:2px solid var(--p3);outline-offset:2px}
@@ -112,7 +114,7 @@ footer a{color:var(--p3);font-weight:700;text-decoration:none;margin:0 8px}
 /* ============ Config ============ */
 const API = "https://piprime-api.alhwryh311.workers.dev";
 const SANDBOX = true;               // غيّرها إلى false عند الانتقال إلى Mainnet
-const CART_KEY = "piprime_cart_v2", LANG_KEY = "piprime_lang_v1";
+const CART_KEY = "piprime_cart_v2", LANG_KEY = "piprime_lang_v1", SHIP_KEY = "piprime_ship_v1";
 const CATS = ["fashion","sports","beauty","auto","gaming","electronics","home","stores","services"];
 
 /* ============ Texts ============ */
@@ -128,7 +130,8 @@ ar:{dir:"rtl",connect:"ربط حساب Pi",search:"بحث",ph:"ابحث عن م�
  cartEmpty:"السلة فارغة.",oneSeller:"السلة تقبل منتجات من تاجر واحد فقط. أتمم الدفع أو أفرغ السلة أولاً.",
  inCart:"✓ أُضيف للسلة",total:"المجموع",myItems:"منتجاتي",privacy:"سياسة الخصوصية",tos:"شروط الاستخدام",
  netNote:"PiPrime • Pi Testnet",ready:"جاهز",paid:"✓ اكتملت الدفعة",cancelled:"أُلغيت الدفعة",pendingDone:"✓ اكتملت الدفعة المعلّقة",pendingCancel:"أُلغيت الدفعة المعلّقة",
- fill:"أكمل الحقول المطلوبة وسعراً أكبر من صفر.",saving:"جارٍ النشر...",orders:"طلباتي",noOrders:"لا توجد طلبات بعد.",st_paid:"مدفوع",st_shipped:"تم الشحن",st_received:"تم الاستلام",markShipped:"تم الشحن",markReceived:"تأكيد الاستلام",asBuyer:"شراء",asSeller:"بيع",report:"🚩 إبلاغ عن هذا المنتج",repT:"إبلاغ عن منتج",repWhy:"سبب البلاغ",repNote:"تفاصيل إضافية (اختياري)",repSend:"إرسال البلاغ",repDone:"✓ وصلنا بلاغك وسنراجعه. شكراً لك.",r_prohibited:"منتج ممنوع (أسلحة، مخدرات...)",r_fake:"مقلّد أو مزيّف",r_scam:"احتيال أو نصب",r_adult:"محتوى للبالغين",r_other:"سبب آخر",repOwn:"لا يمكنك الإبلاغ عن منتجك."},
+ fill:"أكمل الحقول المطلوبة وسعراً أكبر من صفر.",saving:"جارٍ النشر...",orders:"طلباتي",noOrders:"لا توجد طلبات بعد.",st_paid:"مدفوع",st_shipped:"تم الشحن",st_received:"تم الاستلام",markShipped:"تم الشحن",markReceived:"تأكيد الاستلام",asBuyer:"شراء",asSeller:"بيع",report:"🚩 إبلاغ عن هذا المنتج",repT:"إبلاغ عن منتج",repWhy:"سبب البلاغ",repNote:"تفاصيل إضافية (اختياري)",repSend:"إرسال البلاغ",repDone:"✓ وصلنا بلاغك وسنراجعه. شكراً لك.",r_prohibited:"منتج ممنوع (أسلحة، مخدرات...)",r_fake:"مقلّد أو مزيّف",r_scam:"احتيال أو نصب",r_adult:"محتوى للبالغين",r_other:"سبب آخر",repOwn:"لا يمكنك الإبلاغ عن منتجك.",
+ shipT:"عنوان التوصيل",sName:"الاسم الكامل *",sPhone:"رقم الهاتف *",sCity:"المدينة *",sAddr:"العنوان التفصيلي *",sNote:"ملاحظات للتاجر (اختياري)",sGo:"متابعة إلى الدفع",sNeed:"أكمل الاسم والهاتف والمدينة والعنوان.",sTo:"التوصيل إلى",payOk:"✓ تم تحويل المبلغ للتاجر",payFail:"تعذّر التحويل، سيُعاد تلقائياً",payWait:"بانتظار التحويل للتاجر"},
 en:{dir:"ltr",connect:"Connect Pi",search:"Search",ph:"Search products or services...",all:"All",mine:"My products",
  fashion:"Fashion",sports:"Sports",beauty:"Women's beauty",auto:"Auto accessories",gaming:"Gaming",electronics:"Electronics",home:"Home & coffee",stores:"Stores",services:"Services",
  add:"+ Add product",home_:"Home",cart:"Cart",acc:"Account",open:"Open",addCart:"+ Cart",addCartFull:"Add to cart",payPi:"Pay with Pi",
@@ -140,7 +143,8 @@ en:{dir:"ltr",connect:"Connect Pi",search:"Search",ph:"Search products or servic
  cartEmpty:"Your cart is empty.",oneSeller:"A cart can hold items from one seller only. Pay or empty the cart first.",
  inCart:"✓ Added to cart",total:"Total",myItems:"My products",privacy:"Privacy Policy",tos:"Terms of Service",
  netNote:"PiPrime • Pi Testnet",ready:"Ready",paid:"✓ Payment completed",cancelled:"Payment cancelled",pendingDone:"✓ Pending payment completed",pendingCancel:"Pending payment cancelled",
- fill:"Fill the required fields and set a price above zero.",saving:"Publishing...",orders:"Orders",noOrders:"No orders yet.",st_paid:"Paid",st_shipped:"Shipped",st_received:"Received",markShipped:"Mark as shipped",markReceived:"Confirm received",asBuyer:"Purchase",asSeller:"Sale",report:"🚩 Report this product",repT:"Report product",repWhy:"Reason",repNote:"Extra details (optional)",repSend:"Send report",repDone:"✓ Report received. We will review it. Thank you.",r_prohibited:"Prohibited item (weapons, drugs...)",r_fake:"Counterfeit or fake",r_scam:"Scam or fraud",r_adult:"Adult content",r_other:"Other",repOwn:"You cannot report your own product."}
+ fill:"Fill the required fields and set a price above zero.",saving:"Publishing...",orders:"Orders",noOrders:"No orders yet.",st_paid:"Paid",st_shipped:"Shipped",st_received:"Received",markShipped:"Mark as shipped",markReceived:"Confirm received",asBuyer:"Purchase",asSeller:"Sale",report:"🚩 Report this product",repT:"Report product",repWhy:"Reason",repNote:"Extra details (optional)",repSend:"Send report",repDone:"✓ Report received. We will review it. Thank you.",r_prohibited:"Prohibited item (weapons, drugs...)",r_fake:"Counterfeit or fake",r_scam:"Scam or fraud",r_adult:"Adult content",r_other:"Other",repOwn:"You cannot report your own product.",
+ shipT:"Delivery address",sName:"Full name *",sPhone:"Phone number *",sCity:"City *",sAddr:"Street address *",sNote:"Note to seller (optional)",sGo:"Continue to payment",sNeed:"Fill in name, phone, city and address.",sTo:"Deliver to",payOk:"✓ Payout sent to seller",payFail:"Payout failed, will retry",payWait:"Payout pending"}
 };
 
 /* ============ State ============ */
@@ -198,7 +202,7 @@ async function connect() {
   if (!hasPi()) { modal(t("connect"), `<p>${esc(t("needPi"))}</p>`); return false; }
   $("authBtn").textContent = "...";
   try {
-    const a = await Pi.authenticate(["username", "payments"], onIncomplete);
+    const a = await Pi.authenticate(["username", "payments", "wallet_address"], onIncomplete);
     user = a.user; token = a.accessToken;
     $("authBtn").classList.add("on");
     $("authBtn").textContent = "✓ @" + user.username;
@@ -219,12 +223,12 @@ async function pay(amount, memo, metadata) {
     await Pi.createPayment(
       { amount: n, memo, metadata: Object.assign({}, metadata, { buyer: user.username }) },
       {
-        onReadyForServerApproval: async id => { try { await api("/api/pi/approve", { paymentId: id }); } catch (e) { setStatus("Approve error: " + e.message); } },
+        onReadyForServerApproval: async id => { try { await api("/api/pi/approve", { paymentId: id }, true); } catch (e) { setStatus("Approve error: " + e.message); } },
         onReadyForServerCompletion: async (id, txid) => {
           try {
             await api("/api/pi/complete", { paymentId: id, txid }, true);
             setStatus(t("paid") + " " + txid);
-            if (metadata.itemIds) { cart = []; saveCart(); renderCartLabel(); }
+            if (metadata.itemIds) { cart = cart.filter(i => !metadata.itemIds.includes(i.id)); saveCart(); renderCartLabel(); }
           } catch (e) { setStatus("Complete error: " + e.message); }
         },
         onCancel: () => setStatus(t("cancelled")),
@@ -234,8 +238,32 @@ async function pay(amount, memo, metadata) {
   } catch (e) { setStatus("Error: " + (e && e.message ? e.message : e)); }
 }
 
+/* ============ Delivery address (يُطلب قبل كل دفعة) ============ */
+let shipCb = null;
+const loadShip = () => { try { return JSON.parse(localStorage.getItem(SHIP_KEY) || "{}"); } catch (e) { return {}; } };
+async function askShip(cb) {
+  if (!(await connect())) return;
+  shipCb = cb;
+  const s = loadShip();
+  const f = (id, label, val, tag) => `<div class="fg"><label>${esc(t(label))}</label>` +
+    (tag === "ta" ? `<textarea id="${id}" rows="2" maxlength="200">${esc(val)}</textarea>` : `<input id="${id}" maxlength="80" value="${esc(val)}"${tag || ""}>`) + `</div>`;
+  modal(t("shipT"),
+    f("sName", "sName", s.name || "", ' autocomplete="name"') + f("sPhone", "sPhone", s.phone || "", ' type="tel" autocomplete="tel"') +
+    f("sCity", "sCity", s.city || "", ' autocomplete="address-level2"') + f("sAddr", "sAddr", s.addr || "", "ta") +
+    f("sNote", "sNote", "", "ta") +
+    `<div class="err" id="sErr"></div><button class="full" data-act="shipGo">${esc(t("sGo"))}</button>`);
+}
+function shipGo() {
+  const v = id => $(id).value.trim();
+  const ship = { name: v("sName"), phone: v("sPhone"), city: v("sCity"), addr: v("sAddr"), note: v("sNote") };
+  if (!ship.name || !ship.phone || !ship.city || !ship.addr) { $("sErr").textContent = t("sNeed"); return; }
+  try { localStorage.setItem(SHIP_KEY, JSON.stringify({ name: ship.name, phone: ship.phone, city: ship.city, addr: ship.addr })); } catch (e) {}
+  closeModal();
+  if (shipCb) shipCb(ship);
+}
+
 /* ============ Rendering ============ */
-function visual(p, big) {
+function visual(p) {
   return p.img ? `<img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" decoding="async" data-img>` : "π";
 }
 function render() {
@@ -299,7 +327,12 @@ function openCart() {
 function payCart() {
   if (!cart.length) return;
   closeModal();
-  pay(cart.reduce((s, i) => s + i.amount, 0), `PiPrime (${cart.length})`, { itemIds: cart.map(i => i.id), seller: cart[0].owner });
+  const items = cart.slice(), total = Number(items.reduce((s, i) => s + i.amount, 0).toFixed(4));
+  askShip(ship => pay(total, `PiPrime (${items.length})`, { itemIds: items.map(i => i.id), seller: items[0].owner, ship }));
+}
+function payOne(id) {
+  const p = products.find(x => x.id === id); if (!p) return;
+  askShip(ship => pay(p.amount, "PiPrime: " + p.title, { itemIds: [p.id], seller: p.owner, ship }));
 }
 
 /* ============ Products ============ */
@@ -362,6 +395,11 @@ async function sendReport() {
 }
 
 /* ============ Orders ============ */
+function parseShip(s) {
+  if (!s) return null;
+  if (typeof s === "string") { try { s = JSON.parse(s); } catch (e) { return null; } }
+  return s && typeof s === "object" ? s : null;
+}
 async function openOrders() {
   if (!(await connect())) return;
   modal(t("orders"), `<p>${esc(t("loading"))}</p>`);
@@ -369,14 +407,23 @@ async function openOrders() {
     const d = await api("/api/orders", undefined, true);
     const mine = me().toLowerCase();
     $("mBody").innerHTML = !d.orders.length ? `<p>${esc(t("noOrders"))}</p>` : d.orders.map(o => {
-      const buyer = String(o.buyer).toLowerCase() === mine;
-      const act = !buyer && o.status === "paid" ? ["shipped", t("markShipped")]
-        : buyer && o.status === "shipped" ? ["received", t("markReceived")] : null;
+      const isBuyer = String(o.buyer).toLowerCase() === mine;
+      const isSeller = String(o.seller).toLowerCase() === mine;
+      const act = isSeller && o.status === "paid" ? ["shipped", t("markShipped")]
+        : isBuyer && o.status === "shipped" ? ["received", t("markReceived")] : null;
       const names = (o.items || []).map(i => i.title).join("، ");
-      return `<div style="border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px">
-        <div style="display:flex;justify-content:space-between;gap:8px"><strong>${esc(names)}</strong><span class="own">${esc(t(buyer ? "asBuyer" : "asSeller"))}</span></div>
-        <div class="own" style="margin:4px 0">${esc(buyer ? o.seller : o.buyer)} • ${Number(o.amount)} ${unit()} • ${esc(new Date(o.created_at).toLocaleDateString(lang))}</div>
+      const role = isBuyer && isSeller ? t("asBuyer") + " + " + t("asSeller") : t(isBuyer ? "asBuyer" : "asSeller");
+      const other = isBuyer ? o.seller : o.buyer;
+      const sh = parseShip(o.ship);
+      const shipHtml = sh ? `<div class="shipbox"><b>${esc(t("sTo"))}:</b> ${esc(sh.name)} • <a href="tel:${esc(sh.phone)}">${esc(sh.phone)}</a><br>${esc(sh.city)}، ${esc(sh.addr)}${sh.note ? `<br><span class="own">${esc(sh.note)}</span>` : ""}</div>` : "";
+      const payNote = isSeller && o.status === "received"
+        ? (o.payout_status === "paid" ? t("payOk") : o.payout_status === "failed" ? t("payFail") : t("payWait")) : "";
+      return `<div class="ord">
+        <div style="display:flex;justify-content:space-between;gap:8px"><strong>${esc(names)}</strong><span class="own">${esc(role)}</span></div>
+        <div class="own" style="margin:4px 0">${esc(other)} • ${Number(o.amount)} ${unit()} • ${esc(new Date(o.created_at).toLocaleDateString(lang))}</div>
         <div style="font-weight:800;color:var(--p2)">${esc(t("st_" + o.status))}</div>
+        ${shipHtml}
+        ${payNote ? `<div class="own" style="margin-top:4px">${esc(payNote)}</div>` : ""}
         ${act ? `<button class="gold s" style="margin-top:8px;width:100%" data-ost="${o.id}:${act[0]}">${esc(act[1])}</button>` : ""}</div>`;
     }).join("");
   } catch (e) { $("mBody").innerHTML = `<p>Error: ${esc(e.message)}</p>`; }
@@ -414,7 +461,7 @@ const ACTS = {
   home: () => { closeDetail(); cat = "all"; setNav("nHome"); render(); },
   orders: () => { setNav("nOrd"); openOrders(); },
   cart: () => { setNav("nCart"); openCart(); }, account: () => { setNav("nAcc"); openAccount(); },
-  closeDetail, payCart, sendReport
+  closeDetail, payCart, sendReport, shipGo
 };
 document.addEventListener("click", e => {
   const el = e.target.closest("[data-act],[data-cat],[data-open],[data-cart],[data-pay],[data-del],[data-rm],[data-report],[data-ost]");
@@ -425,7 +472,7 @@ document.addEventListener("click", e => {
   else if (d.cat) { closeDetail(); cat = d.cat; render(); }
   else if (d.open) { closeModal(); showDetail(d.open); }
   else if (d.cart) addToCart(d.cart);
-  else if (d.pay) { const p = products.find(x => x.id === d.pay); if (p) pay(p.amount, "PiPrime: " + p.title, { itemIds: [p.id], seller: p.owner }); }
+  else if (d.pay) payOne(d.pay);
   else if (d.del) delProduct(d.del);
   else if (d.report) openReport(d.report);
   else if (d.ost) { const [oid, st] = d.ost.split(":"); setOrder(oid, st); }
@@ -444,59 +491,5 @@ $("lang").addEventListener("change", e => {
 
 applyLang(); render(); loadProducts();
 </script>
-  <script>
-/* PiPrime: طلباتي - زر الشحن للتاجر وزر الاستلام للمشتري، حتى لو نفس الحساب */
-async function openOrders() {
-  if (!(await connect())) return;
-  modal(t("orders"), `<p>${esc(t("loading"))}</p>`);
-  try {
-    const d = await api("/api/orders", undefined, true);
-    const mine = me().toLowerCase();
-    const ar = lang === "ar";
-    $("mBody").innerHTML = !d.orders.length ? `<p>${esc(t("noOrders"))}</p>` : d.orders.map(o => {
-      const isBuyer = String(o.buyer).toLowerCase() === mine;
-      const isSeller = String(o.seller).toLowerCase() === mine;
-      const act = isSeller && o.status === "paid" ? ["shipped", t("markShipped")]
-        : isBuyer && o.status === "shipped" ? ["received", t("markReceived")] : null;
-      const names = (o.items || []).map(i => i.title).join("، ");
-      const role = isBuyer && isSeller ? t("asBuyer") + " + " + t("asSeller") : t(isBuyer ? "asBuyer" : "asSeller");
-      const other = isBuyer ? o.seller : o.buyer;
-      let payNote = "";
-      if (isSeller && o.status === "received") {
-        payNote = o.payout_status === "paid" ? (ar ? "✓ تم تحويل المبلغ للتاجر" : "✓ Payout sent to seller")
-          : o.payout_status === "failed" ? (ar ? "تعذّر التحويل، سيُعاد تلقائياً" : "Payout failed, will retry")
-          : (ar ? "بانتظار التحويل للتاجر" : "Payout pending");
-      }
-      return `<div style="border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px">
-        <div style="display:flex;justify-content:space-between;gap:8px"><strong>${esc(names)}</strong><span class="own">${esc(role)}</span></div>
-        <div class="own" style="margin:4px 0">${esc(other)} • ${Number(o.amount)} ${unit()} • ${esc(new Date(o.created_at).toLocaleDateString(lang))}</div>
-        <div style="font-weight:800;color:var(--p2)">${esc(t("st_" + o.status))}</div>
-        ${payNote ? `<div class="own" style="margin-top:4px">${esc(payNote)}</div>` : ""}
-        ${act ? `<button class="gold s" style="margin-top:8px;width:100%" data-ost="${o.id}:${act[0]}">${esc(act[1])}</button>` : ""}</div>`;
-    }).join("");
-  } catch (e) { $("mBody").innerHTML = `<p>Error: ${esc(e.message)}</p>`; }
-}
-</script>
-<script>
-/* PiPrime: تسجيل الدخول مع صلاحية wallet_address (مطلوبة لتحويل المبلغ للتاجر) */
-async function connect() {
-  if (user) return true;
-  if (!hasPi()) { modal(t("connect"), `<p>${esc(t("needPi"))}</p>`); return false; }
-  $("authBtn").textContent = "...";
-  try {
-    const a = await Pi.authenticate(["username", "payments", "wallet_address"], onIncomplete);
-    user = a.user; token = a.accessToken;
-    $("authBtn").classList.add("on");
-    $("authBtn").textContent = "✓ @" + user.username;
-    render();
-    return true;
-  } catch (e) {
-    setStatus("AUTH: " + (e && e.message ? e.message : "failed"));
-    $("authBtn").textContent = t("connect");
-    return false;
-  }
-}
-</script>
-
 </body>
 </html>
