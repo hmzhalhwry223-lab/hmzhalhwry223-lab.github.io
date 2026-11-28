@@ -477,6 +477,26 @@ async function openOrders() {
   } catch (e) { $("mBody").innerHTML = `<p>Error: ${esc(e.message)}</p>`; }
 }
 </script>
+<script>
+/* PiPrime: تسجيل الدخول مع صلاحية wallet_address (مطلوبة لتحويل المبلغ للتاجر) */
+async function connect() {
+  if (user) return true;
+  if (!hasPi()) { modal(t("connect"), `<p>${esc(t("needPi"))}</p>`); return false; }
+  $("authBtn").textContent = "...";
+  try {
+    const a = await Pi.authenticate(["username", "payments", "wallet_address"], onIncomplete);
+    user = a.user; token = a.accessToken;
+    $("authBtn").classList.add("on");
+    $("authBtn").textContent = "✓ @" + user.username;
+    render();
+    return true;
+  } catch (e) {
+    setStatus("AUTH: " + (e && e.message ? e.message : "failed"));
+    $("authBtn").textContent = t("connect");
+    return false;
+  }
+}
+</script>
 
 </body>
 </html>
