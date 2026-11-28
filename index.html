@@ -1578,5 +1578,53 @@ window.openAccountModal = function () {
   }, true);
 })();
   </script>
+  <script>
+(function () {
+  async function delProduct(id) {
+    if (!confirm("حذف هذا المنتج نهائياً؟")) return;
+    try {
+      var auth = await Pi.authenticate(["username", "payments"], function () {});
+      var r = await fetch(PIPRIME_API_URL + "/api/products/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + auth.accessToken
+        },
+        body: JSON.stringify({ id: id })
+      });
+      var d = await r.json();
+      if (d.ok) {
+        updateStatus("✓ تم حذف المنتج");
+        setTimeout(function () { location.reload(); }, 600);
+      } else {
+        updateStatus("Delete Error: " + (d.error || r.status));
+      }
+    } catch (e) {
+      updateStatus("Delete Error: " + (e && e.message ? e.message : e));
+    }
+  }
+
+  window.deleteMyProduct = delProduct;
+
+  var prev = window.openProductSlot;
+  window.openProductSlot = function (id) {
+    prev.apply(this, arguments);
+    try {
+      if (typeof currentUser === "undefined" || !currentUser) return;
+      var item = getAllCatalog().find(function (x) { return x.id === id; });
+      if (!item || !/^mp-/.test(item.id)) return;
+      if (String(item.owner).toLowerCase() !== ("@" + currentUser.username).toLowerCase()) return;
+      var slot = document.getElementById("productSlotView");
+      if (!slot || slot.querySelector(".piprime-del")) return;
+      var b = document.createElement("button");
+      b.className = "piprime-del";
+      b.textContent = "🗑️ حذف هذا المنتج";
+      b.style.cssText = "margin-top:10px;width:100%;background:#fee2e2;color:#991b1b;border:none;padding:11px;border-radius:11px;font-family:'Tajawal',sans-serif;font-weight:800;cursor:pointer";
+      b.onclick = function () { delProduct(item.id); };
+      slot.appendChild(b);
+    } catch (e) {}
+  };
+})();
+      </script>
 </body>
 </html>
