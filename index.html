@@ -1,1630 +1,394 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>PiPrime | سوقك الموثوق في عالم Pi</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{--purple-dark:#3b0764;--purple-mid:#581c87;--purple-btn:#6b21a8;--gold:#f5b942;--gold-bright:#fbbf24;--bg-page:#f4f3f8;--card-bg:#ffffff;--text-dark:#1e1b4b;--text-muted:#64748b;--border-soft:#e2e8f0}
-    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    body{font-family:'Tajawal',sans-serif;background-color:var(--bg-page);color:var(--text-dark);min-height:100vh;padding-bottom:86px;line-height:1.55}
-    .top-header{background:linear-gradient(160deg,#4c1d95 0%,#3b0764 65%,#2e1065 100%);color:#fff;padding:16px 16px 24px;border-bottom-left-radius:26px;border-bottom-right-radius:26px;box-shadow:0 10px 25px rgba(59,7,100,.22)}
-    .header-inner{max-width:960px;margin:0 auto}
-    .top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-    .top-controls{display:flex;align-items:center;gap:8px}
-    .lang-select{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;padding:6px 10px;border-radius:999px;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:700;cursor:pointer;outline:none}
-    .lang-select option{background:#2e1065;color:#fff}
-    .account-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;padding:7px 12px;border-radius:999px;font-family:'Tajawal',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer}
-    .account-chip.connected{background:rgba(16,185,129,.22);border-color:rgba(110,231,183,.5);color:#a7f3d0}
-    .brand-box{display:flex;align-items:center;gap:10px}
-    .brand-name{font-size:20px;font-weight:800;line-height:1.1}
-    .brand-sub{font-size:11.5px;color:#e9d5ff}
-    .logo-square{width:42px;height:42px;border-radius:13px;background:var(--gold-bright);color:#2e1065;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(251,191,36,.35)}
-    .hero-title{font-size:22px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-    .dot-accent{width:11px;height:11px;border-radius:50%;background:#c084fc;display:inline-block}
-    .hero-desc{font-size:13.5px;color:#e9d5ff;margin-bottom:16px}
-    .search-bar{background:#fff;border-radius:16px;padding:6px 12px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(0,0,0,.14)}
-    .btn-search{background:var(--gold-bright);color:#1e1b4b;border:none;padding:10px 18px;border-radius:12px;font-family:'Tajawal',sans-serif;font-weight:800;font-size:14px;cursor:pointer}
-    .search-input{flex:1;border:none;outline:none;font-family:'Tajawal',sans-serif;font-size:14px;color:var(--text-dark);background:transparent}
-    .main-wrap{max-width:960px;margin:0 auto;padding:16px}
-    .tx-strip{background:#fff;border:1px solid #ddd6fe;border-inline-start:4px solid #7c3aed;border-radius:14px;padding:10px 14px;font-size:12.5px;color:#3b0764;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-    .btn-mini-gold{background:var(--gold-bright);color:#1e1b4b;border:none;padding:6px 12px;border-radius:9px;font-family:'Tajawal',sans-serif;font-weight:800;font-size:12px;cursor:pointer}
-    .promo-banner{background:linear-gradient(120deg,#5b21b6,#4c1d95);color:#fff;border-radius:20px;padding:18px 20px;margin-bottom:18px;box-shadow:0 8px 20px rgba(76,29,149,.2)}
-    .promo-banner h2{font-size:19px;font-weight:800;margin-bottom:4px}
-    .promo-banner p{font-size:13px;color:#ede9fe;margin-bottom:12px}
-    .btn-promo{background:var(--gold-bright);color:#1e1b4b;border:none;padding:9px 16px;border-radius:11px;font-family:'Tajawal',sans-serif;font-weight:800;font-size:13px;cursor:pointer}
-    .section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-    .section-title{font-size:17px;font-weight:800;color:var(--text-dark)}
-    .link-all{background:none;border:none;color:#6b21a8;font-family:'Tajawal',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
-    .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:18px}
-    @media (max-width:520px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
-    .cat-card{background:#fff;border:1.5px solid transparent;border-radius:15px;padding:11px 6px;text-align:center;cursor:pointer;box-shadow:0 3px 10px rgba(15,23,42,.05);transition:all .18s ease}
-    .cat-card.active{border-color:#6b21a8;background:#faf5ff}
-    .cat-icon{font-size:21px;margin-bottom:3px}
-    .cat-label{font-size:12px;font-weight:800;color:var(--text-dark)}
-    .filter-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
-    .filter-tabs::-webkit-scrollbar{display:none}
-    .f-tab{background:#fff;border:1px solid var(--border-soft);color:var(--text-muted);padding:8px 14px;border-radius:11px;font-family:'Tajawal',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
-    .f-tab.active{background:#4c1d95;color:#fff;border-color:#4c1d95}
-    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-    .empty-market-box{grid-column:1/-1;background:#ffffff;border:1.5px dashed #c4b5fd;border-radius:20px;padding:32px 20px;text-align:center}
-    .empty-market-icon{width:54px;height:54px;margin:0 auto 12px;border-radius:16px;background:#f3e8ff;color:#5b21b6;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center}
-    .product-box{background:#fff;border:1px solid var(--border-soft);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 14px rgba(15,23,42,.05);contain:layout style}
-    .prod-visual-area{height:135px;position:relative;background:linear-gradient(135deg,#4c1d95 0%,#6b21a8 100%);cursor:pointer;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .prod-visual-area img{width:100%;height:100%;object-fit:cover;display:block}
-    .prod-pi-placeholder{width:52px;height:52px;border-radius:16px;background:rgba(251,191,36,.18);border:1.5px solid rgba(251,191,36,.65);color:#fbbf24;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center}
-    .prod-badge{position:absolute;top:8px;inset-inline-start:8px;background:rgba(255,255,255,.94);color:#4c1d95;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:8px}
-    .prod-body{padding:13px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
-    .prod-name{font-size:15px;font-weight:800;color:var(--text-dark);margin-bottom:4px;cursor:pointer}
-    .prod-desc-mini{font-size:12px;color:#475569;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .prod-meta{font-size:11.5px;color:var(--text-muted);margin-bottom:10px;display:flex;justify-content:space-between}
-    .prod-price{font-size:15px;font-weight:800;color:#5b21b6;margin-bottom:10px}
-    .prod-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-    .btn-open-slot{background:#f3e8ff;color:#4c1d95;border:1px solid #d8b4fe;padding:8px 6px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:800;cursor:pointer}
-    .btn-cart-add{background:var(--gold-bright);color:#1e1b4b;border:none;padding:8px 6px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:800;cursor:pointer}
-    .product-slot-view,.chats-page-view{display:none;background:#fff;border-radius:22px;border:1px solid var(--border-soft);padding:18px;box-shadow:0 10px 28px rgba(15,23,42,.08)}
-    .product-slot-view.active,.chats-page-view.active{display:block}
-    .slot-top-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-soft)}
-    .btn-back{background:#f1f5f9;color:var(--text-dark);border:none;padding:8px 14px;border-radius:11px;font-family:'Tajawal',sans-serif;font-weight:800;font-size:13px;cursor:pointer}
-    .slot-hero-banner{width:100%;height:180px;border-radius:16px;margin-bottom:14px;background:linear-gradient(135deg,#3b0764 0%,#6b21a8 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .slot-hero-banner img{width:100%;height:100%;object-fit:cover}
-    .slot-title{font-size:21px;font-weight:800;color:var(--text-dark);margin-bottom:6px}
-    .slot-price-box{background:#faf5ff;border:1px solid #e9d5ff;border-radius:14px;padding:12px 14px;margin:12px 0 16px;display:flex;justify-content:space-between;align-items:center}
-    .slot-specs{display:grid;gap:8px;margin-bottom:18px}
-    .slot-spec-row{background:#f8fafc;border-radius:11px;padding:10px 12px;font-size:13px;display:flex;justify-content:space-between}
-    .slot-actions{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:stretch}
-    .btn-slot-pay{background:#4c1d95;color:#fff;border:none;padding:12px;border-radius:13px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;cursor:pointer}
-    .btn-slot-cart{background:var(--gold-bright);color:#1e1b4b;border:none;padding:12px;border-radius:13px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:800;cursor:pointer}
-    .btn-slot-chat{background:#faf5ff;color:#4c1d95;border:1.5px solid #c084fc;padding:10px 14px;border-radius:13px;font-family:'Tajawal',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
-    .btn-slot-chat:hover{background:#f3e8ff;border-color:var(--gold-bright)}
-    .conv-list{display:grid;gap:10px;margin-top:12px}
-    .conv-card{background:#faf5ff;border:1px solid #e9d5ff;border-radius:16px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:all .15s ease}
-    .conv-card:hover{border-color:#6b21a8;background:#f3e8ff}
-    .conv-avatar{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#4c1d95,#6b21a8);color:var(--gold-bright);font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;border:1.5px solid var(--gold-bright)}
-    .conv-avatar img{width:100%;height:100%;object-fit:cover}
-    .conv-main{flex:1;min-width:0}
-    .conv-top-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:2px}
-    .conv-seller{font-size:14.5px;font-weight:800;color:var(--text-dark)}
-    .conv-time{font-size:11px;color:var(--text-muted);white-space:nowrap}
-    .conv-product-tag{font-size:11px;color:#6b21a8;font-weight:700;margin-bottom:3px}
-    .conv-last-msg{font-size:12.5px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .unread-badge{background:var(--gold-bright);color:#1e1b4b;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;margin-inline-start:6px}
-    .chat-thread-box{margin-top:12px;border:1px solid #e9d5ff;border-radius:18px;background:#f9f7fd;overflow:hidden;display:flex;flex-direction:column;min-height:360px;max-height:62vh}
-    .chat-thread-header{background:linear-gradient(135deg,#4c1d95,#3b0764);color:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .chat-messages-area{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-    .msg-bubble{max-width:80%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.45;word-break:break-word}
-    .msg-buyer{align-self:flex-start;background:linear-gradient(135deg,#4c1d95,#6b21a8);color:#fff;border-bottom-start-radius:4px}
-    .msg-seller{align-self:flex-end;background:#fff;color:var(--text-dark);border:1.5px solid var(--gold);border-bottom-end-radius:4px}
-    .msg-meta{font-size:10.5px;margin-top:4px;opacity:.8;display:flex;justify-content:space-between;gap:8px}
-    .chat-input-bar{background:#fff;border-top:1px solid var(--border-soft);padding:10px;display:flex;gap:8px;align-items:center}
-    .chat-input{flex:1;border:1px solid #cbd5e1;border-radius:12px;padding:9px 12px;font-family:'Tajawal',sans-serif;font-size:13.5px;outline:none}
-    .chat-input:focus{border-color:#6b21a8}
-    .btn-send-msg{background:var(--gold-bright);color:#1e1b4b;border:none;padding:9px 16px;border-radius:12px;font-family:'Tajawal',sans-serif;font-weight:800;font-size:13.5px;cursor:pointer}
-    .chat-toast{position:fixed;top:16px;inset-inline-end:16px;background:#2e1065;color:#fff;border:1.5px solid var(--gold-bright);border-radius:14px;padding:10px 14px;font-size:12.5px;font-weight:700;z-index:120;box-shadow:0 10px 24px rgba(46,16,101,.35);display:none;cursor:pointer}
-    .chat-toast.show{display:block}
-    .bottom-nav{position:fixed;bottom:0;right:0;left:0;background:#ffffff;border-top:1px solid var(--border-soft);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 2px 10px;z-index:60;box-shadow:0 -6px 20px rgba(15,23,42,.06)}
-    .nav-item{background:none;border:none;font-family:'Tajawal',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-muted);font-size:11px;font-weight:700;cursor:pointer;position:relative}
-    .nav-item.active{color:#4c1d95;font-weight:800}
-    .nav-ico{font-size:18px}
-    .nav-dot-badge{position:absolute;top:-2px;inset-inline-end:18%;background:var(--gold-bright);color:#1e1b4b;font-size:10px;font-weight:800;min-width:16px;height:16px;border-radius:999px;display:none;align-items:center;justify-content:center;padding:0 4px}
-    .nav-dot-badge.visible{display:inline-flex}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.65);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:14px}
-    .modal-backdrop.open{display:flex}
-    .modal-card{background:#fff;border-radius:22px;width:100%;max-width:520px;max-height:86vh;overflow-y:auto;padding:20px}
-    .form-group{margin-bottom:11px}
-    .form-label{display:block;font-size:12.5px;font-weight:800;color:#4c1d95;margin-bottom:4px}
-    .form-control{width:100%;border:1px solid #cbd5e1;border-radius:11px;padding:9px 12px;font-family:'Tajawal',sans-serif;font-size:13.5px;outline:none}
-    .btn-submit-modal{width:100%;background:#4c1d95;color:#fff;border:none;padding:11px;border-radius:12px;font-family:'Tajawal',sans-serif;font-size:14.5px;font-weight:800;cursor:pointer}
-    .footer-note{margin-top:26px;text-align:center;font-size:12px;color:var(--text-muted)}
-    .footer-note a{color:#5b21b6;font-weight:700;text-decoration:none;margin:0 8px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PiPrime</title>
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--p1:#3b0764;--p2:#4c1d95;--p3:#6b21a8;--gold:#fbbf24;--bg:#f4f3f8;--ink:#1e1b4b;--mut:#64748b;--line:#e2e8f0}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-bottom:84px;line-height:1.55}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer;border:0}
+.hdr{background:linear-gradient(160deg,var(--p2),var(--p1));color:#fff;padding:16px 16px 22px;border-radius:0 0 26px 26px}
+.wrap{max-width:960px;margin:0 auto}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--gold);color:var(--p1);display:flex;align-items:center;justify-content:center;font-size:22px}
+.ctl{display:flex;gap:8px}
+.chip{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:7px 12px;border-radius:999px;font-weight:700;font-size:12.5px}
+.chip.on{background:rgba(16,185,129,.25);color:#a7f3d0}
+.chip option{color:#000}
+.search{background:#fff;border-radius:16px;padding:6px 12px;display:flex;gap:8px;margin-top:6px}
+.search input{flex:1;border:0;outline:0;font-size:14px;background:none;color:var(--ink)}
+.gold{background:var(--gold);color:var(--ink);font-weight:800;border-radius:11px;padding:9px 16px;font-size:13px}
+main{max-width:960px;margin:0 auto;padding:16px}
+.status{background:#fff;border:1px solid #ddd6fe;border-inline-start:4px solid #7c3aed;border-radius:14px;padding:10px 14px;font-size:12.5px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none}
+.cats button{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px;font-weight:700;font-size:12.5px;white-space:nowrap;color:var(--mut)}
+.cats button.on{background:var(--p2);color:#fff;border-color:var(--p2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.thumb{height:130px;background:linear-gradient(135deg,var(--p2),var(--p3));display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:30px;font-weight:800;cursor:pointer}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.cb{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.nm{font-weight:800;font-size:15px;cursor:pointer}
+.ds{font-size:12px;color:#475569;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.own{font-size:11.5px;color:var(--mut)}
+.pr{font-weight:800;color:var(--p3);margin-top:auto}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.soft{background:#f3e8ff;color:var(--p2);border:1px solid #d8b4fe;border-radius:10px;padding:8px;font-weight:800;font-size:12px}
+.gold.s{padding:8px;border-radius:10px;font-size:12px}
+.empty{grid-column:1/-1;background:#fff;border:1.5px dashed #c4b5fd;border-radius:20px;padding:34px 18px;text-align:center}
+.empty h3{color:var(--p1);margin-bottom:6px}
+.empty p{color:var(--mut);font-size:13px;margin-bottom:14px}
+.detail{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px}
+.detail .hero{height:190px;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,var(--p1),var(--p3));display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:48px;margin:12px 0}
+.detail .hero img{width:100%;height:100%;object-fit:cover}
+.back{background:#f1f5f9;color:var(--ink);padding:8px 14px;border-radius:11px;font-weight:800;font-size:13px}
+.spec{background:#f8fafc;border-radius:11px;padding:10px 12px;font-size:13px;display:flex;justify-content:space-between;margin-top:8px}
+.pay{background:var(--p2);color:#fff;border-radius:13px;padding:12px;font-weight:800;font-size:14px}
+.del{background:#fee2e2;color:#991b1b;border-radius:11px;padding:10px;font-weight:800;width:100%;margin-top:10px}
+.nav{position:fixed;inset:auto 0 0 0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);padding:8px 2px calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
+.nav button{background:none;display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:700;color:var(--mut)}
+.nav button.on{color:var(--p2);font-weight:800}
+.nav span{font-size:18px}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.65);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:14px}
+.modal.open{display:flex}
+.mc{background:#fff;border-radius:22px;width:100%;max-width:520px;max-height:86vh;overflow-y:auto;padding:20px 20px 40px}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.mh h3{color:var(--p1);font-size:17px}
+.x{background:#f1f5f9;width:30px;height:30px;border-radius:9px;font-size:18px}
+.fg{margin-bottom:11px}
+.fg label{display:block;font-size:12.5px;font-weight:800;color:var(--p2);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;border:1px solid #cbd5e1;border-radius:11px;padding:9px 12px;font-size:13.5px;outline:0}
+.err{color:#b91c1c;font-size:12px;margin-bottom:8px;min-height:16px}
+.full{width:100%;background:var(--p2);color:#fff;padding:11px;border-radius:12px;font-weight:800;font-size:14.5px}
+.li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9}
+footer{text-align:center;font-size:12px;color:var(--mut);margin-top:26px}
+footer a{color:var(--p3);font-weight:700;text-decoration:none;margin:0 8px}
+:focus-visible{outline:2px solid var(--p3);outline-offset:2px}
+</style>
 </head>
 <body>
-
-  <div id="chatToast" class="chat-toast" onclick="handleToastClick()"></div>
-
-  <header class="top-header">
-    <div class="header-inner">
-      <div class="top-bar">
-        <div class="top-controls">
-          <button id="authBtn" class="account-chip" onclick="connectPi()" data-i18n="connectPi">ربط حساب Pi</button>
-          <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Language">
-            <option value="ar">العربية</option>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="pt">Português</option>
-            <option value="vi">Tiếng Việt</option>
-          </select>
-        </div>
-        <div class="brand-box">
-          <div>
-            <div class="brand-name">PiPrime</div>
-            <div class="brand-sub" data-i18n="brandSub">سوقك الموثوق في عالم Pi</div>
-          </div>
-          <div class="logo-square">π</div>
-        </div>
-      </div>
-
-      <h1 class="hero-title"><span data-i18n="welcomeTitle">أهلاً بك في PiPrime</span> <span class="dot-accent"></span></h1>
-      <p class="hero-desc" data-i18n="welcomeDesc">تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.</p>
-
-      <div class="search-bar">
-        <button class="btn-search" onclick="renderProducts()" data-i18n="searchBtn">بحث</button>
-        <input
-          type="text"
-          id="searchInput"
-          class="search-input"
-          placeholder="ابحث عن ملابس، قيمنغ، تجميل، رياضة، سيارات..."
-          oninput="renderProducts()"
-        />
-      </div>
+<header class="hdr"><div class="wrap">
+  <div class="bar">
+    <div class="ctl">
+      <button id="authBtn" class="chip" data-act="connect"></button>
+      <select id="lang" class="chip"><option value="ar">العربية</option><option value="en">English</option></select>
     </div>
-  </header>
-
-  <main class="main-wrap">
-    <div class="tx-strip">
-      <span id="statusText">حالة المنصة: جاهز • 27 منتجاً وخدمة متاحة في الأقسام.</span>
-      <button class="btn-mini-gold" onclick="openAddProductModal()" data-i18n="addProductShort">+ أضف منتجك</button>
-    </div>
-
-    <section id="productSlotView" class="product-slot-view"></section>
-    <section id="myChatsView" class="chats-page-view"></section>
-
-    <div id="catalogHomeView">
-      <section class="promo-banner">
-        <h2 data-i18n="promoTitle">تسوّق بثقة داخل منظومة Pi</h2>
-        <p data-i18n="promoDesc">أقسام متكاملة للرواد والتجار — انشر منتجك في القسم المناسب الآن.</p>
-        <button class="btn-promo" onclick="openAddProductModal()" data-i18n="promoBtn">انضم كتاجر وأضف منتجاً ←</button>
-      </section>
-
-      <div class="section-head">
-        <h2 class="section-title" data-i18n="shopByCat">تسوّق حسب القسم</h2>
-        <button class="link-all" onclick="selectCategory('all')" data-i18n="viewAll">عرض الكل</button>
-      </div>
-
-      <div class="cat-grid">
-        <div class="cat-card active" id="cat-all" onclick="selectCategory('all')">
-          <div class="cat-icon">🛍️</div>
-          <div class="cat-label" data-i18n="cat_all">الكل</div>
-        </div>
-        <div class="cat-card" id="cat-fashion" onclick="selectCategory('fashion')">
-          <div class="cat-icon">👗</div>
-          <div class="cat-label" data-i18n="cat_fashion">ملابس</div>
-        </div>
-        <div class="cat-card" id="cat-sports" onclick="selectCategory('sports')">
-          <div class="cat-icon">🏋️</div>
-          <div class="cat-label" data-i18n="cat_sports">أدوات رياضية</div>
-        </div>
-        <div class="cat-card" id="cat-beauty" onclick="selectCategory('beauty')">
-          <div class="cat-icon">💄</div>
-          <div class="cat-label" data-i18n="cat_beauty">تجميل النساء</div>
-        </div>
-        <div class="cat-card" id="cat-auto" onclick="selectCategory('auto')">
-          <div class="cat-icon">🚗</div>
-          <div class="cat-label" data-i18n="cat_auto">إكسسوارات سيارات</div>
-        </div>
-        <div class="cat-card" id="cat-gaming" onclick="selectCategory('gaming')">
-          <div class="cat-icon">🎮</div>
-          <div class="cat-label" data-i18n="cat_gaming">قيمنغ</div>
-        </div>
-        <div class="cat-card" id="cat-electronics" onclick="selectCategory('electronics')">
-          <div class="cat-icon">📱</div>
-          <div class="cat-label" data-i18n="cat_electronics">إلكترونيات</div>
-        </div>
-        <div class="cat-card" id="cat-home" onclick="selectCategory('home')">
-          <div class="cat-icon">🏠</div>
-          <div class="cat-label" data-i18n="cat_home">منزل وقهوة</div>
-        </div>
-        <div class="cat-card" id="cat-stores" onclick="selectCategory('stores')">
-          <div class="cat-icon">🏪</div>
-          <div class="cat-label" data-i18n="cat_stores">المتاجر</div>
-        </div>
-        <div class="cat-card" id="cat-services" onclick="selectCategory('services')">
-          <div class="cat-icon">✨</div>
-          <div class="cat-label" data-i18n="cat_services">خدمات</div>
-        </div>
-      </div>
-
-      <div class="filter-tabs">
-        <button class="f-tab active" id="ftab-all" onclick="setFilterTab('all')" data-i18n="tab_all">جميع العناصر</button>
-        <button class="f-tab" id="ftab-products" onclick="setFilterTab('products')" data-i18n="tab_products">المنتجات</button>
-        <button class="f-tab" id="ftab-stores" onclick="setFilterTab('stores')" data-i18n="tab_stores">المتاجر المعتمدة</button>
-        <button class="f-tab" id="ftab-services" onclick="setFilterTab('services')" data-i18n="tab_services">الخدمات</button>
-        <button class="f-tab" id="ftab-mine" onclick="setFilterTab('mine')" data-i18n="tab_mine">منتجاتي</button>
-      </div>
-
-      <div class="section-head">
-        <h2 class="section-title" id="gridHeading">المنتجات والمتاجر</h2>
-        <span id="countLabel" style="font-size:12.5px; color:var(--text-muted);"></span>
-      </div>
-
-      <section id="productsGrid" class="products-grid"></section>
-    </div>
-
-    <footer class="footer-note">
-      <div>
-        <a href="#privacy" onclick="openLegalModal('privacy'); return false;" data-i18n="privacyLink">سياسة الخصوصية</a>
-        <a href="#tos" onclick="openLegalModal('tos'); return false;" data-i18n="tosLink">شروط الاستخدام</a>
-      </div>
-      <div style="margin-top:6px;">PiPrime Marketplace • Pi Testnet</div>
-    </footer>
-  </main>
-
-  <nav class="bottom-nav">
-    <button class="nav-item active" id="nav-home" onclick="goHomeTab()">
-      <span class="nav-ico">🏠</span>
-      <span data-i18n="nav_home">الرئيسية</span>
-    </button>
-    <button class="nav-item" id="nav-stores" onclick="selectCategory('stores')">
-      <span class="nav-ico">🏪</span>
-      <span data-i18n="nav_stores">المتاجر</span>
-    </button>
-    <button class="nav-item" id="nav-chats" onclick="openMyChatsPage()">
-      <span id="unreadNavBadge" class="nav-dot-badge">0</span>
-      <span class="nav-ico">💬</span>
-      <span data-i18n="nav_chats">محادثاتي</span>
-    </button>
-    <button class="nav-item" id="nav-cart" onclick="openCartModal()">
-      <span class="nav-ico">🛒</span>
-      <span id="cartNavLabel">السلة (0)</span>
-    </button>
-    <button class="nav-item" id="nav-account" onclick="openAccountModal()">
-      <span class="nav-ico">👤</span>
-      <span data-i18n="nav_account">حسابي</span>
-    </button>
-  </nav>
-
-  <div id="modalBackdrop" class="modal-backdrop" onclick="closeModalBackdrop(event)">
-    <div class="modal-card" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h3 id="modalTitle" style="font-size:17px; color:#3b0764;"></h3>
-        <button onclick="closeModal()" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:9px; font-size:18px; cursor:pointer;">×</button>
-      </div>
-      <div id="modalContent" style="font-size:13.5px; color:#334155;"></div>
-    </div>
+    <div class="brand">PiPrime <div class="logo">π</div></div>
   </div>
-
-  <script>
-    const Pi = window.Pi;
-    if (Pi) Pi.init({ version: "2.0", sandbox: true });
-
-    const CHAT_DB_CONFIG = { supabaseUrl: "", supabaseAnonKey: "", pollIntervalMs: 3000 };
-    const USER_ITEMS_KEY = "piprime_custom_products_v1";
-    const LANG_KEY = "piprime_lang_v1";
-    const ALL_CATS = ["all", "fashion", "sports", "beauty", "auto", "gaming", "electronics", "home", "stores", "services"];
-    const LOCALE_MAP = { ar: "ar-SA", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR", vi: "vi-VN" };
-
-    const DEFAULT_CATALOG_ITEMS = [
-      { id: "seed-fashion-1", type: "products", cat: "fashion", title: "هودي قطني فاخر للجنسين", desc: "هودي مريح بقماش قطني ثقيل مناسب للإطلالات اليومية والشتوية.", trust: "98%", rating: "4.9 ★", amount: 0.05, owner: "@PiStyleHub", isMine: false, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-fashion-2", type: "products", cat: "fashion", title: "حذاء رياضي عصري للمشي", desc: "حذاء خفيف بنعل مرن لراحة القدم طوال اليوم.", trust: "97%", rating: "4.8 ★", amount: 0.08, owner: "@UrbanSolePi", isMine: false, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-fashion-3", type: "products", cat: "fashion", title: "جاكيت كاجوال أنيق", desc: "تصميم عصري وخياطة متينة يلائم الخروجات اليومية والسفر.", trust: "99%", rating: "5.0 ★", amount: 0.09, owner: "@PiStyleHub", isMine: false, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-sports-1", type: "products", cat: "sports", title: "طقم دمبلز للتمارين المنزلية", desc: "مناسب لبناء القوة واللياقة البدنية في المنزل أو النادي.", trust: "98%", rating: "4.9 ★", amount: 0.07, owner: "@FitPioneerPi", isMine: false, img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-sports-2", type: "products", cat: "sports", title: "سجادة يوجا مانعة للانزلاق", desc: "بطانة مريحة لليوجا والإطالة وتمارين الأرضية.", trust: "96%", rating: "4.8 ★", amount: 0.03, owner: "@ZenMovePi", isMine: false, img: "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-sports-3", type: "products", cat: "sports", title: "مطارة رياضية حرارية", desc: "تحفظ برودة الماء أثناء الجري والتمارين المكثفة.", trust: "98%", rating: "4.9 ★", amount: 0.025, owner: "@FitPioneerPi", isMine: false, img: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-beauty-1", type: "products", cat: "beauty", title: "مجموعة عناية وترطيب البشرة", desc: "تركيبة مرطبة تمنح البشرة نضارة وإشراقة يومية.", trust: "99%", rating: "5.0 ★", amount: 0.06, owner: "@GlowPiShop", isMine: false, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-beauty-2", type: "products", cat: "beauty", title: "عطر نسائي بعبير زهور فاخر", desc: "ثبات يدوم طويلاً بمزيج ناعم من الزهور والفانيليا.", trust: "98%", rating: "4.9 ★", amount: 0.085, owner: "@AuraScentPi", isMine: false, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-beauty-3", type: "products", cat: "beauty", title: "مجموعة أحمر شفاه ومكياج يومي", desc: "ألوان متناسقة بلمسة مخملية سهلة الاستخدام.", trust: "97%", rating: "4.8 ★", amount: 0.045, owner: "@GlowPiShop", isMine: false, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-auto-1", type: "products", cat: "auto", title: "كاميرا داش كام للسيارة عالية الوضوح", desc: "توثيق واضح للطريق نهاراً وليلاً لزيادة الأمان أثناء القيادة.", trust: "98%", rating: "4.9 ★", amount: 0.09, owner: "@AutoGearPi", isMine: false, img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-auto-2", type: "products", cat: "auto", title: "حامل جوال وشاحن لاسلكي للسيارة", desc: "تثبيت آمن للهاتف مع شحن سريع أثناء التنقل.", trust: "97%", rating: "4.8 ★", amount: 0.035, owner: "@AutoGearPi", isMine: false, img: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-auto-3", type: "products", cat: "auto", title: "غطاء مقود جلدي مريح للقيادة", desc: "قبضة مريحة وحماية لمقود السيارة من التآكل والحرارة.", trust: "96%", rating: "4.7 ★", amount: 0.025, owner: "@DriveCarePi", isMine: false, img: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-gaming-1", type: "products", cat: "gaming", title: "ذراع تحكم لاسلكي للألعاب", desc: "استجابة سريعة وأزرار مريحة لجلسات اللعب الطويلة.", trust: "99%", rating: "5.0 ★", amount: 0.065, owner: "@ProGamerPi", isMine: false, img: "https://images.unsplash.com/photo-1592840496694-26d035ef52b3?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-gaming-2", type: "products", cat: "gaming", title: "سماعة قيمنغ محيطية مع ميكروفون", desc: "صوت واضح وعزل مريح للتواصل مع الفريق أثناء اللعب.", trust: "98%", rating: "4.9 ★", amount: 0.055, owner: "@ProGamerPi", isMine: false, img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-gaming-3", type: "products", cat: "gaming", title: "لوحة مفاتيح ميكانيكية بإضاءة", desc: "مفاتيح دقيقة واستجابة عالية للألعاب والكتابة السريعة.", trust: "98%", rating: "4.9 ★", amount: 0.075, owner: "@KeyVaultPi", isMine: false, img: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-electronics-1", type: "products", cat: "electronics", title: "ساعة ذكية لمتابعة النشاط والإشعارات", desc: "شاشة واضحة وبطارية عملية للاستخدام اليومي.", trust: "98%", rating: "4.9 ★", amount: 0.08, owner: "@TechHubPi", isMine: false, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-electronics-2", type: "products", cat: "electronics", title: "سماعات أذن لاسلكية بتصميم مدمج", desc: "اقتران سريع وصوت نقي للمكالمات والموسيقى.", trust: "97%", rating: "4.8 ★", amount: 0.045, owner: "@TechHubPi", isMine: false, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-electronics-3", type: "products", cat: "electronics", title: "كاميرا رقمية مدمجة للتصوير اليومي", desc: "مناسبة لالتقاط اللحظات وصناعة المحتوى بجودة عالية.", trust: "98%", rating: "4.9 ★", amount: 0.1, owner: "@LensCraftPi", isMine: false, img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-home-1", type: "products", cat: "home", title: "ماكينة تحضير الإسبريسو والقهوة", desc: "تحضير قهوة غنية في المنزل بلمسة واحدة.", trust: "99%", rating: "5.0 ★", amount: 0.095, owner: "@BaristaHomePi", isMine: false, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-home-2", type: "products", cat: "home", title: "أكواب سيراميك للقهوة الصباحية", desc: "تصميم أنيق يحافظ على حرارة المشروب لفترة أطول.", trust: "97%", rating: "4.8 ★", amount: 0.025, owner: "@BaristaHomePi", isMine: false, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-home-3", type: "products", cat: "home", title: "إضاءة مكتبية ومنزلية دافئة", desc: "تمنح الغرفة والمكتب أجواء مريحة للقراءة والعمل.", trust: "98%", rating: "4.9 ★", amount: 0.04, owner: "@CozySpacePi", isMine: false, img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-stores-1", type: "stores", cat: "stores", title: "متجر PiStyle للأزياء الحديثة", desc: "متجر معتمد لتشكيلات الملابس والأحذية للرواد.", trust: "99%", rating: "5.0 ★", amount: 0.05, owner: "@PiStyleHub", isMine: false, img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-stores-2", type: "stores", cat: "stores", title: "متجر TechVault للإلكترونيات والقيمنغ", desc: "متجر متخصص في الأجهزة الذكية ومعدات الألعاب.", trust: "98%", rating: "4.9 ★", amount: 0.07, owner: "@TechHubPi", isMine: false, img: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-stores-3", type: "stores", cat: "stores", title: "متجر AuraHome للجمال والمنزل", desc: "منتجات مختارة للعناية الشخصية وديكور المنزل العصري.", trust: "98%", rating: "4.9 ★", amount: 0.05, owner: "@GlowPiShop", isMine: false, img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-services-1", type: "services", cat: "services", title: "خدمة تصميم الهوية والواجهات الرقمية", desc: "تصميم شعارات وواجهات عصرية للمتاجر والمشاريع.", trust: "99%", rating: "5.0 ★", amount: 0.06, owner: "@StudioPiPro", isMine: false, img: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-services-2", type: "services", cat: "services", title: "خدمة إدارة ونشر المتاجر الإلكترونية", desc: "إعداد المنتجات وتنظيم الأقسام وتحسين عرض المتجر.", trust: "98%", rating: "4.9 ★", amount: 0.05, owner: "@StoreCarePi", isMine: false, img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=480&q=72" },
-      { id: "seed-services-3", type: "services", cat: "services", title: "خدمة التصوير وتحرير صور المنتجات", desc: "تحسين وإخراج صور المنتجات بشكل واضح وجذاب للمشترين.", trust: "98%", rating: "4.9 ★", amount: 0.04, owner: "@LensCraftPi", isMine: false, img: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=480&q=72" }
-    ];
-
-    let currentLang = localStorage.getItem(LANG_KEY) || "ar";
-    let currentUser = null;
-    let activeCategory = "all";
-    let activeFilterTab = "all";
-    let cartItems = [];
-    let openedSlotId = null;
-    let statusTouched = false;
-    let conversations = [];
-    let messagesByConv = {};
-    let activeConversationId = null;
-    let unreadCounts = {};
-    let pollTimer = null;
-    let toastTimer = null;
-    let pendingToastConvId = null;
-
-    function escapeHtml(str) {
-      return String(str ?? "").replace(/[&<>"']/g, ch => (
-        { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]
-      ));
-    }
-
-    function sanitizeHttpsUrl(url) {
-      try {
-        const parsed = new URL(String(url || "").trim());
-        return parsed.protocol === "https:" ? parsed.href : "";
-      } catch (e) {
-        return "";
-      }
-    }
-
-    function getCurrentActorUsername() {
-      return currentUser && currentUser.username
-        ? "@" + String(currentUser.username).replace(/^@+/, "")
-        : "";
-    }
-
-    function normalizeHandle(handle) {
-      const clean = String(handle || "").trim().replace(/^@+/, "");
-      return clean ? "@" + clean : "@PioneerMerchant";
-    }
-
-    function formatMsgTime(isoString) {
-      if (!isoString) return "";
-      const date = new Date(isoString);
-      if (Number.isNaN(date.getTime())) return "";
-      return date.toLocaleTimeString(LOCALE_MAP[currentLang] || "ar-SA", { hour: "2-digit", minute: "2-digit" });
-    }
-
-    const i18n = {
-      ar: { dir:"rtl",connectPi:"ربط حساب Pi",brandSub:"سوقك الموثوق في عالم Pi",welcomeTitle:"أهلاً بك في PiPrime",welcomeDesc:"تسوّق في الملابس، الرياضة، تجميل النساء، السيارات، القيمنغ، والمتاجر المعتمدة.",searchBtn:"بحث",searchPlaceholder:"ابحث عن ملابس، قيمنغ، تجميل، رياضة، سيارات...",statusReady:"حالة المنصة: جاهز • 27 منتجاً وخدمة متاحة في الأقسام.",addProductShort:"+ أضف منتجك",promoTitle:"تسوّق بثقة داخل منظومة Pi",promoDesc:"أقسام متكاملة للرواد والتجار — انشر منتجك في القسم المناسب الآن.",promoBtn:"انضم كتاجر وأضف منتجاً ←",shopByCat:"تسوّق حسب القسم",viewAll:"عرض الكل",cat_all:"الكل",cat_fashion:"ملابس",cat_sports:"أدوات رياضية",cat_beauty:"تجميل النساء",cat_auto:"إكسسوارات سيارات",cat_gaming:"قيمنغ",cat_electronics:"إلكترونيات",cat_home:"منزل وقهوة",cat_stores:"المتاجر",cat_services:"خدمات",tab_all:"جميع العناصر",tab_products:"المنتجات",tab_stores:"المتاجر المعتمدة",tab_services:"الخدمات",tab_mine:"منتجاتي",gridAllTitle:"المنتجات والمتاجر",sectionPrefix:"قسم: ",itemCount:"عنصر",openSlot:"فتح الخانة",addToCart:"+ السلة",backToMarket:"← العودة إلى السوق",slotBadge:"خانة المنتج الخاصة",testPrice:"سعر الاختبار",verified:"✓ موثّق",specCategory:"القسم",specSeller:"التاجر / المزود",specTrust:"مؤشر الوثوقية",payWithPi:"دفع بـ Pi",addCartFull:"إضافة للسلة",chatWithSeller:"دردشة مع البائع",deleteProduct:"حذف هذا المنتج",nav_home:"الرئيسية",nav_stores:"المتاجر",nav_chats:"محادثاتي",nav_cart:"السلة",nav_account:"حسابي",privacyLink:"سياسة الخصوصية",tosLink:"شروط الاستخدام",privacyText:"يستخدم تطبيق PiPrime اسم المستخدم العام الخاص بك على شبكة Pi فقط لعرض هويتك داخل المنصة، ولا يطلب أي عبارات سرية لمحفظتك.",tosText:"يعمل التطبيق على شبكة الاختبار (Pi Testnet) لاستعراض وإضافة المنتجات وتجربة المنصة.",modalAddTitle:"إضافة منتج كتاجر",lblName:"اسم المنتج *",lblCat:"القسم",lblPrice:"السعر (Test-Pi)",lblOwner:"حساب التاجر",lblImg:"رابط صورة (اختياري)",lblDesc:"وصف المنتج *",btnPublish:"نشر المنتج وإنشاء خانته",emptyTitle:"لا توجد منتجات مطابقة حالياً",emptyDesc:"جرّب قسماً آخر أو كن أول تاجر ينشر منتجه هنا.",myChatsTitle:"محادثاتي",backToConvs:"← جميع المحادثات",noConvsTitle:"لا توجد محادثات بعد",noConvsDesc:"افتح أي منتج واضغط على أيقونة الدردشة للتواصل مع البائع.",noMessagesYet:"لا توجد رسائل بعد. ابدأ المحادثة مع البائع.",msgPlaceholder:"اكتب رسالتك هنا...",sendBtn:"إرسال",youLabel:"أنت (المشتري)",sellerLabel:"البائع",productRef:"المنتج: ",newMsgNotif:"رسالة جديدة من ",dbNotConfigured:"يرجى ضبط إعدادات Supabase (supabaseUrl و supabaseAnonKey) في CHAT_DB_CONFIG لتفعيل قاعدة البيانات الحية.",loginRequiredChat:"يرجى ربط حساب Pi أولاً للوصول إلى محادثاتك الخاصة وإرسال الرسائل." },
-      en: { dir:"ltr",connectPi:"Connect Pi",brandSub:"Your Trusted Pi Marketplace",welcomeTitle:"Welcome to PiPrime",welcomeDesc:"Shop fashion, sports, women's beauty, auto accessories, gaming, and verified stores.",searchBtn:"Search",searchPlaceholder:"Search fashion, gaming, beauty, sports, auto...",statusReady:"Platform ready • 27 products & services available across categories.",addProductShort:"+ Add Product",promoTitle:"Shop with Trust in Pi Ecosystem",promoDesc:"Complete categories for Pioneers and merchants — publish your product now.",promoBtn:"Become a Merchant & Add Product →",shopByCat:"Shop by Category",viewAll:"View All",cat_all:"All",cat_fashion:"Fashion",cat_sports:"Sports Gear",cat_beauty:"Women's Beauty",cat_auto:"Auto Accessories",cat_gaming:"Gaming",cat_electronics:"Electronics",cat_home:"Home & Coffee",cat_stores:"Stores",cat_services:"Services",tab_all:"All Items",tab_products:"Products",tab_stores:"Verified Stores",tab_services:"Services",tab_mine:"My Products",gridAllTitle:"Products & Stores",sectionPrefix:"Category: ",itemCount:"items",openSlot:"Open Slot",addToCart:"+ Cart",backToMarket:"← Back to Market",slotBadge:"Dedicated Product Slot",testPrice:"Testnet Price",verified:"✓ Verified",specCategory:"Category",specSeller:"Merchant / Provider",specTrust:"Trust Score",payWithPi:"Pay with Pi",addCartFull:"Add to Cart",chatWithSeller:"Chat with Seller",deleteProduct:"Delete This Product",nav_home:"Home",nav_stores:"Stores",nav_chats:"My Chats",nav_cart:"Cart",nav_account:"Account",privacyLink:"Privacy Policy",tosLink:"Terms of Service",privacyText:"PiPrime only uses your public Pi username to display your identity on the platform and never asks for wallet passphrases.",tosText:"This application operates on Pi Testnet for browsing, listing products, and testing marketplace flows.",modalAddTitle:"Add Product as Merchant",lblName:"Product Name *",lblCat:"Category",lblPrice:"Price (Test-Pi)",lblOwner:"Merchant Username",lblImg:"Image URL (Optional)",lblDesc:"Product Description *",btnPublish:"Publish Product & Create Slot",emptyTitle:"No matching products found",emptyDesc:"Try another category or be the first merchant to publish here.",myChatsTitle:"My Chats",backToConvs:"← All Conversations",noConvsTitle:"No conversations yet",noConvsDesc:"Open any product and click the chat button to message the seller.",noMessagesYet:"No messages yet. Start chatting with the seller.",msgPlaceholder:"Type your message...",sendBtn:"Send",youLabel:"You (Buyer)",sellerLabel:"Seller",productRef:"Product: ",newMsgNotif:"New message from ",dbNotConfigured:"Configure Supabase (supabaseUrl & supabaseAnonKey) in CHAT_DB_CONFIG to enable live database storage.",loginRequiredChat:"Please connect your Pi account first to access your private chats and send messages." },
-      es: { dir:"ltr",connectPi:"Conectar Pi",brandSub:"Tu mercado confiable en Pi",welcomeTitle:"Bienvenido a PiPrime",welcomeDesc:"Compra moda, deportes, belleza femenina, accesorios de auto, gaming y tiendas verificadas.",searchBtn:"Buscar",searchPlaceholder:"Buscar moda, gaming, belleza, deportes, autos...",statusReady:"Plataforma lista • 27 productos y servicios disponibles.",addProductShort:"+ Añadir producto",promoTitle:"Compra con confianza en Pi",promoDesc:"Categorías completas para Pioneros y comerciantes — publica tu producto ahora.",promoBtn:"Sé comerciante y añade producto →",shopByCat:"Comprar por categoría",viewAll:"Ver todo",cat_all:"Todo",cat_fashion:"Moda",cat_sports:"Deportes",cat_beauty:"Belleza Mujer",cat_auto:"Accesorios Auto",cat_gaming:"Gaming",cat_electronics:"Electrónica",cat_home:"Hogar y Café",cat_stores:"Tiendas",cat_services:"Servicios",tab_all:"Todos",tab_products:"Productos",tab_stores:"Tiendas Verificadas",tab_services:"Servicios",tab_mine:"Mis Productos",gridAllTitle:"Productos y Tiendas",sectionPrefix:"Categoría: ",itemCount:"artículos",openSlot:"Ver Ficha",addToCart:"+ Carrito",backToMarket:"← Volver al mercado",slotBadge:"Ficha Exclusiva del Producto",testPrice:"Precio Testnet",verified:"✓ Verificado",specCategory:"Categoría",specSeller:"Comerciante",specTrust:"Índice de Confianza",payWithPi:"Pagar con Pi",addCartFull:"Añadir al Carrito",chatWithSeller:"Chat con el Vendedor",deleteProduct:"Eliminar Producto",nav_home:"Inicio",nav_stores:"Tiendas",nav_chats:"Mis Chats",nav_cart:"Carrito",nav_account:"Cuenta",privacyLink:"Política de Privacidad",tosLink:"Términos de Uso",privacyText:"PiPrime solo utiliza tu nombre de usuario público de Pi para mostrar tu identidad y nunca solicita contraseñas de billetera.",tosText:"Esta aplicación funciona en Pi Testnet para explorar y publicar productos de prueba.",modalAddTitle:"Añadir Producto como Comerciante",lblName:"Nombre del Producto *",lblCat:"Categoría",lblPrice:"Precio (Test-Pi)",lblOwner:"Usuario Comerciante",lblImg:"URL de Imagen (Opcional)",lblDesc:"Descripción *",btnPublish:"Publicar y Crear Ficha",emptyTitle:"No hay productos coincidentes",emptyDesc:"Prueba otra categoría o publica un producto aquí.",myChatsTitle:"Mis Chats",backToConvs:"← Todas las Conversaciones",noConvsTitle:"Aún no hay chats",noConvsDesc:"Abre un producto y toca el botón de chat para escribir al vendedor.",noMessagesYet:"Aún no hay mensajes. Inicia la conversación.",msgPlaceholder:"Escribe tu mensaje...",sendBtn:"Enviar",youLabel:"Tú (Comprador)",sellerLabel:"Vendedor",productRef:"Producto: ",newMsgNotif:"Nuevo mensaje de ",dbNotConfigured:"Configura Supabase (supabaseUrl y supabaseAnonKey) en CHAT_DB_CONFIG para activar la base de datos.",loginRequiredChat:"Conecta tu cuenta de Pi primero para acceder a tus chats privados." },
-      fr: { dir:"ltr",connectPi:"Connecter Pi",brandSub:"Votre marché de confiance Pi",welcomeTitle:"Bienvenue sur PiPrime",welcomeDesc:"Mode, sport, beauté femme, accessoires auto, gaming et boutiques vérifiées.",searchBtn:"Chercher",searchPlaceholder:"Rechercher mode, gaming, beauté, sport, auto...",statusReady:"Plateforme prête • 27 produits et services disponibles.",addProductShort:"+ Ajouter produit",promoTitle:"Achetez en confiance sur Pi",promoDesc:"Catégories complètes pour Pionniers et marchands — publiez votre produit.",promoBtn:"Devenir marchand et publier →",shopByCat:"Acheter par catégorie",viewAll:"Voir tout",cat_all:"Tout",cat_fashion:"Mode",cat_sports:"Sport",cat_beauty:"Beauté Femme",cat_auto:"Accessoires Auto",cat_gaming:"Gaming",cat_electronics:"Électronique",cat_home:"Maison & Café",cat_stores:"Boutiques",cat_services:"Services",tab_all:"Tous",tab_products:"Produits",tab_stores:"Boutiques Vérifiées",tab_services:"Services",tab_mine:"Mes Produits",gridAllTitle:"Produits et Boutiques",sectionPrefix:"Catégorie : ",itemCount:"articles",openSlot:"Ouvrir Fiche",addToCart:"+ Panier",backToMarket:"← Retour au marché",slotBadge:"Fiche Produit Dédiée",testPrice:"Prix Testnet",verified:"✓ Vérifié",specCategory:"Catégorie",specSeller:"Marchand",specTrust:"Score de Confiance",payWithPi:"Payer avec Pi",addCartFull:"Ajouter au Panier",chatWithSeller:"Discuter avec le Vendeur",deleteProduct:"Supprimer ce Produit",nav_home:"Accueil",nav_stores:"Boutiques",nav_chats:"Mes Chats",nav_cart:"Panier",nav_account:"Compte",privacyLink:"Confidentialité",tosLink:"Conditions d'utilisation",privacyText:"PiPrime utilise uniquement votre nom d'utilisateur public Pi et ne demande jamais votre phrase secrète.",tosText:"Cette application fonctionne sur Pi Testnet pour tester et publier des produits.",modalAddTitle:"Ajouter un Produit",lblName:"Nom du Produit *",lblCat:"Catégorie",lblPrice:"Prix (Test-Pi)",lblOwner:"Nom du Marchand",lblImg:"Lien Image (Optionnel)",lblDesc:"Description *",btnPublish:"Publier le Produit",emptyTitle:"Aucun produit correspondant",emptyDesc:"Essayez une autre catégorie ou publiez votre produit.",myChatsTitle:"Mes Chats",backToConvs:"← Toutes les Discussions",noConvsTitle:"Aucune discussion",noConvsDesc:"Ouvrez un produit et cliquez sur le bouton chat pour contacter le vendeur.",noMessagesYet:"Aucun message pour le moment.",msgPlaceholder:"Écrivez votre message...",sendBtn:"Envoyer",youLabel:"Vous (Acheteur)",sellerLabel:"Vendeur",productRef:"Produit : ",newMsgNotif:"Nouveau message de ",dbNotConfigured:"Configurez Supabase (supabaseUrl et supabaseAnonKey) dans CHAT_DB_CONFIG pour la base de données.",loginRequiredChat:"Connectez votre compte Pi pour accéder à vos discussions privées." },
-      pt: { dir:"ltr",connectPi:"Conectar Pi",brandSub:"Seu mercado confiável no mundo Pi",welcomeTitle:"Bem-vindo ao PiPrime",welcomeDesc:"Moda, esportes, beleza feminina, acessórios automotivos, gaming e lojas verificadas.",searchBtn:"Buscar",searchPlaceholder:"Buscar moda, gaming, beleza, esportes, carros...",statusReady:"Plataforma pronta • 27 produtos e serviços disponíveis.",addProductShort:"+ Adicionar",promoTitle:"Compre com confiança no Pi",promoDesc:"Categorias completas para Pioneiros e comerciantes — publique seu produto agora.",promoBtn:"Seja comerciante e publique →",shopByCat:"Comprar por Categoria",viewAll:"Ver Tudo",cat_all:"Todos",cat_fashion:"Moda",cat_sports:"Esportes",cat_beauty:"Beleza Feminina",cat_auto:"Acessórios Auto",cat_gaming:"Gaming",cat_electronics:"Eletrônicos",cat_home:"Casa e Café",cat_stores:"Lojas",cat_services:"Serviços",tab_all:"Todos os Itens",tab_products:"Produtos",tab_stores:"Lojas Verificadas",tab_services:"Serviços",tab_mine:"Meus Produtos",gridAllTitle:"Produtos e Lojas",sectionPrefix:"Categoria: ",itemCount:"itens",openSlot:"Abrir Página",addToCart:"+ Carrinho",backToMarket:"← Voltar ao mercado",slotBadge:"Página Dedicada do Produto",testPrice:"Preço Testnet",verified:"✓ Verificado",specCategory:"Categoria",specSeller:"Comerciante",specTrust:"Índice de Confiança",payWithPi:"Pagar com Pi",addCartFull:"Adicionar ao Carrinho",chatWithSeller:"Chat com Vendedor",deleteProduct:"Excluir Produto",nav_home:"Início",nav_stores:"Lojas",nav_chats:"Meus Chats",nav_cart:"Carrinho",nav_account:"Conta",privacyLink:"Privacidade",tosLink:"Termos de Uso",privacyText:"O PiPrime usa apenas seu nome de usuário público Pi e nunca solicita frases-chave da carteira.",tosText:"Este aplicativo opera na Pi Testnet para explorar e publicar produtos de teste.",modalAddTitle:"Adicionar Produto como Comerciante",lblName:"Nome do Produto *",lblCat:"Categoria",lblPrice:"Preço (Test-Pi)",lblOwner:"Usuário Comerciante",lblImg:"URL da Imagem (Opcional)",lblDesc:"Descrição *",btnPublish:"Publicar Produto",emptyTitle:"Nenhum produto correspondente",emptyDesc:"Tente outra categoria ou publique um produto aqui.",myChatsTitle:"Meus Chats",backToConvs:"← Todas as Conversas",noConvsTitle:"Nenhuma conversa ainda",noConvsDesc:"Abra um produto e clique no botão de chat para falar com o vendedor.",noMessagesYet:"Nenhuma mensagem ainda.",msgPlaceholder:"Digite sua mensagem...",sendBtn:"Enviar",youLabel:"Você (Comprador)",sellerLabel:"Vendedor",productRef:"Produto: ",newMsgNotif:"Nova mensagem de ",dbNotConfigured:"Configure o Supabase (supabaseUrl e supabaseAnonKey) em CHAT_DB_CONFIG para o banco de dados.",loginRequiredChat:"Conecte sua conta Pi primeiro para acessar seus chats privados." },
-      vi: { dir:"ltr",connectPi:"Kết nối Pi",brandSub:"Chợ đáng tin cậy trong hệ sinh thái Pi",welcomeTitle:"Chào mừng đến với PiPrime",welcomeDesc:"Mua sắm thời trang, thể thao, làm đẹp nữ, phụ kiện ô tô, gaming và cửa hàng uy tín.",searchBtn:"Tìm kiếm",searchPlaceholder:"Tìm thời trang, gaming, làm đẹp, thể thao, ô tô...",statusReady:"Sẵn sàng • 27 sản phẩm & dịch vụ trong các danh mục.",addProductShort:"+ Đăng sản phẩm",promoTitle:"Mua sắm an toàn cùng Pi Network",promoDesc:"Đầy đủ danh mục cho Pioneer và người bán — đăng sản phẩm của bạn ngay.",promoBtn:"Trở thành người bán & đăng ngay →",shopByCat:"Mua theo danh mục",viewAll:"Xem tất cả",cat_all:"Tất cả",cat_fashion:"Thời trang",cat_sports:"Thể thao",cat_beauty:"Làm đẹp Nữ",cat_auto:"Phụ kiện Ô tô",cat_gaming:"Gaming",cat_electronics:"Điện tử",cat_home:"Nhà cửa & Cà phê",cat_stores:"Cửa hàng",cat_services:"Dịch vụ",tab_all:"Tất cả mục",tab_products:"Sản phẩm",tab_stores:"Cửa hàng uy tín",tab_services:"Dịch vụ",tab_mine:"Sản phẩm của tôi",gridAllTitle:"Sản phẩm & Cửa hàng",sectionPrefix:"Danh mục: ",itemCount:"sản phẩm",openSlot:"Mở trang SP",addToCart:"+ Giỏ hàng",backToMarket:"← Quay lại chợ",slotBadge:"Trang riêng của sản phẩm",testPrice:"Giá Testnet",verified:"✓ Đã xác minh",specCategory:"Danh mục",specSeller:"Người bán",specTrust:"Điểm uy tín",payWithPi:"Thanh toán Pi",addCartFull:"Thêm vào giỏ",chatWithSeller:"Chat người bán",deleteProduct:"Xóa sản phẩm này",nav_home:"Trang chủ",nav_stores:"Cửa hàng",nav_chats:"Trò chuyện",nav_cart:"Giỏ hàng",nav_account:"Tài khoản",privacyLink:"Chính sách bảo mật",tosLink:"Điều khoản sử dụng",privacyText:"PiPrime chỉ sử dụng tên người dùng Pi công khai của bạn để hiển thị danh tính và không bao giờ yêu cầu cụm mật khẩu ví.",tosText:"Ứng dụng hoạt động trên mạng thử nghiệm Pi Testnet để trải nghiệm và đăng sản phẩm.",modalAddTitle:"Đăng sản phẩm mới",lblName:"Tên sản phẩm *",lblCat:"Danh mục",lblPrice:"Giá (Test-Pi)",lblOwner:"Tài khoản người bán",lblImg:"Link hình ảnh (Tùy chọn)",lblDesc:"Mô tả sản phẩm *",btnPublish:"Đăng sản phẩm ngay",emptyTitle:"Không có sản phẩm phù hợp",emptyDesc:"Thử danh mục khác hoặc đăng sản phẩm đầu tiên của bạn.",myChatsTitle:"Trò chuyện của tôi",backToConvs:"← Tất cả hội thoại",noConvsTitle:"Chưa có cuộc trò chuyện",noConvsDesc:"Mở sản phẩm bất kỳ và nhấn nút chat để nhắn cho người bán.",noMessagesYet:"Chưa có tin nhắn nào.",msgPlaceholder:"Nhập tin nhắn...",sendBtn:"Gửi",youLabel:"Bạn (Người mua)",sellerLabel:"Người bán",productRef:"Sản phẩm: ",newMsgNotif:"Tin nhắn mới từ ",dbNotConfigured:"Hãy cấu hình Supabase (supabaseUrl & supabaseAnonKey) trong CHAT_DB_CONFIG để dùng cơ sở dữ liệu.",loginRequiredChat:"Vui lòng kết nối tài khoản Pi để truy cập hội thoại riêng tư." }
-    };
-
-    function t(key) {
-      return (i18n[currentLang] && i18n[currentLang][key]) || i18n.ar[key] || key;
-    }
-
-    function applyStaticTranslations() {
-      const dict = i18n[currentLang] || i18n.ar;
-      document.documentElement.lang = currentLang;
-      document.documentElement.dir = dict.dir;
-      document.getElementById("langSelect").value = currentLang;
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if (key === "connectPi" && currentUser) return;
-        if (dict[key]) el.textContent = dict[key];
-      });
-      document.getElementById("searchInput").placeholder = dict.searchPlaceholder;
-      if (!statusTouched) document.getElementById("statusText").textContent = dict.statusReady;
-      updateCartLabel();
-      updateUnreadBadge();
-    }
-
-    function changeLanguage(lang) {
-      currentLang = i18n[lang] ? lang : "ar";
-      localStorage.setItem(LANG_KEY, currentLang);
-      applyStaticTranslations();
-      renderProducts();
-      if (openedSlotId) openProductSlot(openedSlotId);
-      if (document.getElementById("myChatsView").classList.contains("active")) renderMyChatsView();
-    }
-
-    function getCatLabel(cat) {
-      return t("cat_" + cat) || cat;
-    }
-
-    function getUserProducts() {
-      try {
-        const raw = localStorage.getItem(USER_ITEMS_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveUserProducts(list) {
-      try {
-        localStorage.setItem(USER_ITEMS_KEY, JSON.stringify(list));
-      } catch (e) {}
-    }
-
-    function getAllCatalog() {
-      const customItems = getUserProducts().map(u => ({ ...u, typeLabel: getCatLabel(u.cat) }));
-      const seededItems = DEFAULT_CATALOG_ITEMS.map(d => ({ ...d, typeLabel: getCatLabel(d.cat) }));
-      return [...customItems, ...seededItems];
-    }
-
-    function updateStatus(msg) {
-      statusTouched = true;
-      document.getElementById("statusText").textContent = msg;
-    }
-
-    function updateCartLabel() {
-      document.getElementById("cartNavLabel").textContent = `${t("nav_cart")} (${cartItems.length})`;
-    }
-
-    function addToCart(id) {
-      const item = getAllCatalog().find(x => x.id === id);
-      if (!item) return;
-      cartItems.push(item);
-      updateCartLabel();
-      updateStatus(`✓ ${item.title}`);
-    }
-
-    async function connectPi() {
-      const btn = document.getElementById("authBtn");
-      if (!Pi) {
-        openModal("Pi Browser", "<p>Open inside Pi Browser to connect your Pi account.</p>");
-        return;
-      }
-      btn.textContent = "...";
-      try {
-        const auth = await Pi.authenticate(["username", "payments"], function(incompletePayment) {
-          updateStatus("Incomplete payment: " + incompletePayment.identifier);
-        });
-        currentUser = auth.user;
-        btn.classList.add("connected");
-        btn.textContent = "✓ @" + currentUser.username;
-        updateStatus("✓ @" + currentUser.username);
-        await syncConversationsFromDb();
-      } catch (e) {
-        btn.textContent = t("connectPi");
-      }
-    }
-
-    async function payAmount(amount, memoText, metadataObj) {
-      if (!Pi) {
-        openModal("Pi Browser", "<p>Pi payments work inside Pi Browser.</p>");
-        return;
-      }
-      if (!currentUser) {
-        await connectPi();
-        if (!currentUser) return;
-      }
-      const normalizedAmount = Number(amount);
-      if (isNaN(normalizedAmount) || normalizedAmount <= 0) return;
-
-      updateStatus(`${memoText} (${normalizedAmount} Test-Pi)...`);
-      try {
-        await Pi.createPayment(
-          { amount: normalizedAmount, memo: memoText, metadata: { ...metadataObj, buyer: currentUser.username } },
-          {
-            onReadyForServerApproval: function(paymentId) { updateStatus("Payment ID: " + paymentId); },
-            onReadyForServerCompletion: function(paymentId, txid) { updateStatus("Completed TXID: " + txid); },
-            onCancel: function(paymentId) { updateStatus("Cancelled: " + paymentId); },
-            onError: function(error) { updateStatus("Error: " + (error && error.message ? error.message : error)); }
-          }
-        );
-      } catch (err) {
-        updateStatus("Error: " + (err && err.message ? err.message : err));
-      }
-    }
-
-    async function payItem(id) {
-      const item = getAllCatalog().find(x => x.id === id);
-      if (!item) return;
-      await payAmount(item.amount, "PiPrime Testnet: " + item.title, { itemId: item.id, owner: item.owner });
-    }
-
-    async function payCart() {
-      if (cartItems.length === 0) return;
-      const total = Number(cartItems.reduce((sum, i) => sum + Number(i.amount || 0), 0).toFixed(4));
-      await payAmount(total, `PiPrime Cart (${cartItems.length} items)`, { itemIds: cartItems.map(i => i.id) });
-    }
-
-    function isSupabaseReady() {
-      return Boolean(CHAT_DB_CONFIG.supabaseUrl && CHAT_DB_CONFIG.supabaseAnonKey);
-    }
-
-    async function supabaseRequest(path, options = {}) {
-      const baseUrl = CHAT_DB_CONFIG.supabaseUrl.replace(/\/+$/, "");
-      const res = await fetch(`${baseUrl}/rest/v1/${path}`, {
-        ...options,
-        headers: {
-          "apikey": CHAT_DB_CONFIG.supabaseAnonKey,
-          "Authorization": `Bearer ${CHAT_DB_CONFIG.supabaseAnonKey}`,
-          "Content-Type": "application/json",
-          ...(options.headers || {})
-        }
-      });
-      if (!res.ok) throw new Error((await res.text()) || `HTTP ${res.status}`);
-      if (res.status === 204) return null;
-      return res.json();
-    }
-
-    function buildConversationId(productId, buyerHandle, sellerHandle) {
-      const p = String(productId || "general").replace(/[^a-zA-Z0-9_-]/g, "");
-      const b = String(buyerHandle || "").replace(/^@+/, "").toLowerCase();
-      const s = String(sellerHandle || "").replace(/^@+/, "").toLowerCase();
-      return `conv_${p}_${b}_${s}`;
-    }
-
-    function canUserAccessConversation(conv) {
-      const me = getCurrentActorUsername().toLowerCase();
-      if (!me || !conv) return false;
-      return me === String(conv.buyer_username || "").toLowerCase() || me === String(conv.seller_username || "").toLowerCase();
-    }
-
-    function showIncomingNotification(convId, sender, bodyText) {
-      const toast = document.getElementById("chatToast");
-      pendingToastConvId = convId;
-      toast.innerHTML = `💬 <strong>${escapeHtml(t("newMsgNotif"))}${escapeHtml(sender)}</strong><div style="font-size:11.5px; opacity:0.9; margin-top:2px;">${escapeHtml(bodyText)}</div>`;
-      toast.classList.add("show");
-      if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 4500);
-    }
-
-    function handleToastClick() {
-      document.getElementById("chatToast").classList.remove("show");
-      if (pendingToastConvId) openMyChatsPage(pendingToastConvId);
-    }
-
-    function updateUnreadBadge() {
-      const badge = document.getElementById("unreadNavBadge");
-      const totalUnread = Object.values(unreadCounts).reduce((a, b) => a + (Number(b) || 0), 0);
-      badge.textContent = totalUnread > 0 ? String(totalUnread) : "0";
-      badge.classList.toggle("visible", totalUnread > 0);
-    }
-
-    async function syncConversationsFromDb() {
-      const me = getCurrentActorUsername();
-      if (!me) {
-        conversations = [];
-        updateUnreadBadge();
-        return;
-      }
-      if (!isSupabaseReady()) {
-        updateUnreadBadge();
-        return;
-      }
-
-      try {
-        const encodedMe = encodeURIComponent(me);
-        const rows = await supabaseRequest(`piprime_conversations?or=(buyer_username.eq.${encodedMe},seller_username.eq.${encodedMe})&order=last_message_at.desc`);
-        const authorized = (Array.isArray(rows) ? rows : []).filter(canUserAccessConversation);
-
-        for (const conv of authorized) {
-          const prevConv = conversations.find(c => c.id === conv.id);
-          if (prevConv && prevConv.last_message_at !== conv.last_message_at && prevConv.last_message !== conv.last_message && activeConversationId !== conv.id) {
-            unreadCounts[conv.id] = (unreadCounts[conv.id] || 0) + 1;
-            showIncomingNotification(conv.id, conv.seller_username === me ? conv.buyer_username : conv.seller_username, conv.last_message);
-          }
-        }
-
-        conversations = authorized;
-        updateUnreadBadge();
-        if (activeConversationId) await syncMessagesForConversation(activeConversationId);
-        if (document.getElementById("myChatsView").classList.contains("active")) renderMyChatsView();
-      } catch (err) {
-        updateStatus("Chat DB Sync Error: " + err.message);
-      }
-    }
-
-    async function syncMessagesForConversation(convId) {
-      const conv = conversations.find(c => c.id === convId);
-      if (!conv || !canUserAccessConversation(conv) || !isSupabaseReady()) return;
-
-      try {
-        const rows = await supabaseRequest(`piprime_messages?conversation_id=eq.${encodeURIComponent(convId)}&order=created_at.asc`);
-        const prevMsgs = messagesByConv[convId] || [];
-        const nextMsgs = Array.isArray(rows) ? rows : [];
-
-        if (nextMsgs.length > prevMsgs.length && prevMsgs.length > 0) {
-          const newest = nextMsgs[nextMsgs.length - 1];
-          const me = getCurrentActorUsername().toLowerCase();
-          if (String(newest.sender_username || "").toLowerCase() !== me && activeConversationId !== convId) {
-            unreadCounts[convId] = (unreadCounts[convId] || 0) + 1;
-            updateUnreadBadge();
-            showIncomingNotification(convId, newest.sender_username, newest.body);
-          }
-        }
-
-        messagesByConv[convId] = nextMsgs;
-        if (activeConversationId === convId && document.getElementById("myChatsView").classList.contains("active")) {
-          renderChatThreadMessages(convId);
-        }
-      } catch (err) {
-        updateStatus("Messages Sync Error: " + err.message);
-      }
-    }
-
-    async function openChatWithSeller(productId) {
-      const item = getAllCatalog().find(x => x.id === productId);
-      if (!item) return;
-
-      if (!getCurrentActorUsername()) {
-        if (Pi) await connectPi();
-        if (!getCurrentActorUsername()) {
-          openModal(t("nav_chats"), `<p>${escapeHtml(t("loginRequiredChat"))}</p><button class="btn-submit-modal" style="margin-top:12px;" onclick="closeModal(); connectPi();">${escapeHtml(t("connectPi"))}</button>`);
-          return;
-        }
-      }
-
-      if (!isSupabaseReady()) {
-        openModal(t("nav_chats"), `<p>${escapeHtml(t("dbNotConfigured"))}</p>`);
-        return;
-      }
-
-      const buyerHandle = getCurrentActorUsername();
-      const sellerHandle = normalizeHandle(item.owner);
-      const convId = buildConversationId(item.id, buyerHandle, sellerHandle);
-
-      try {
-        await supabaseRequest("piprime_conversations?on_conflict=id", {
-          method: "POST",
-          headers: { "Prefer": "resolution=merge-duplicates,return=representation" },
-          body: JSON.stringify({
-            id: convId,
-            product_id: String(item.id),
-            product_title: String(item.title),
-            buyer_username: buyerHandle,
-            seller_username: sellerHandle,
-            seller_avatar: sanitizeHttpsUrl(item.img),
-            last_message: "",
-            last_message_at: new Date().toISOString()
-          })
-        });
-        await syncConversationsFromDb();
-        openMyChatsPage(convId);
-      } catch (err) {
-        openModal(t("nav_chats"), `<p>${escapeHtml(err.message)}</p>`);
-      }
-    }
-
-    function openMyChatsPage(targetConvId = null) {
-      closeProductSlot();
-      document.getElementById("catalogHomeView").style.display = "none";
-      const chatsView = document.getElementById("myChatsView");
-      chatsView.classList.add("active");
-      setActiveNav("nav-chats");
-
-      if (!getCurrentActorUsername() || !isSupabaseReady()) {
-        const isLoggedIn = Boolean(getCurrentActorUsername());
-        chatsView.innerHTML = `
-          <div class="slot-top-nav">
-            <button class="btn-back" onclick="goHomeTab()">${escapeHtml(t("backToMarket"))}</button>
-            <span style="font-size:13px; font-weight:800; color:#4c1d95;">${escapeHtml(t("myChatsTitle"))}</span>
-          </div>
-          <div class="empty-market-box">
-            <div class="empty-market-icon">${isLoggedIn ? "⚙️" : "💬"}</div>
-            ${isLoggedIn
-              ? `<p style="font-size:13.5px; color:#475569;">${escapeHtml(t("dbNotConfigured"))}</p>`
-              : `<h3 style="font-size:16px; color:#3b0764; margin-bottom:8px;">${escapeHtml(t("loginRequiredChat"))}</h3><button class="btn-promo" onclick="connectPi()">${escapeHtml(t("connectPi"))}</button>`}
-          </div>
-        `;
-        return;
-      }
-
-      if (targetConvId) {
-        const targetConv = conversations.find(c => c.id === targetConvId);
-        if (targetConv && canUserAccessConversation(targetConv)) {
-          activeConversationId = targetConvId;
-          unreadCounts[targetConvId] = 0;
-          updateUnreadBadge();
-        }
-      }
-
-      renderMyChatsView();
-      syncConversationsFromDb();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function backToConversationsList() {
-      activeConversationId = null;
-      renderMyChatsView();
-    }
-
-    function getOtherParty(conv, me) {
-      return String(conv.seller_username).toLowerCase() === me.toLowerCase() ? conv.buyer_username : conv.seller_username;
-    }
-
-    function renderAvatarHtml(avatarUrl, label, sizeClass) {
-      const safeAvatar = sanitizeHttpsUrl(avatarUrl);
-      const initial = escapeHtml(String(label || "P").replace(/^@/, "").charAt(0).toUpperCase() || "π");
-      const styleAttr = sizeClass ? ` style="${sizeClass}"` : "";
-      return `<div class="conv-avatar"${styleAttr}>${safeAvatar ? `<img src="${escapeHtml(safeAvatar)}" alt="${escapeHtml(label)}" decoding="async" onerror="this.remove()" />` : initial}</div>`;
-    }
-
-    function renderMyChatsView() {
-      const chatsView = document.getElementById("myChatsView");
-      if (!chatsView.classList.contains("active")) return;
-
-      const me = getCurrentActorUsername();
-      const accessibleConvs = conversations.filter(canUserAccessConversation);
-
-      if (activeConversationId) {
-        const conv = accessibleConvs.find(c => c.id === activeConversationId);
-        if (!conv) {
-          activeConversationId = null;
-        } else {
-          const otherParty = getOtherParty(conv, me);
-          chatsView.innerHTML = `
-            <div class="slot-top-nav">
-              <button class="btn-back" onclick="backToConversationsList()">${escapeHtml(t("backToConvs"))}</button>
-              <span style="font-size:12px; font-weight:800; color:#5b21b6;">${escapeHtml(t("productRef"))}${escapeHtml(conv.product_title)}</span>
-            </div>
-            <div class="chat-thread-box">
-              <div class="chat-thread-header">
-                <div style="display:flex; align-items:center; gap:10px;">
-                  ${renderAvatarHtml(conv.seller_avatar, otherParty, "width:36px;height:36px;font-size:14px;")}
-                  <div>
-                    <div style="font-size:14.5px; font-weight:800;">${escapeHtml(otherParty)}</div>
-                    <div style="font-size:11px; color:#e9d5ff;">${escapeHtml(conv.product_title)}</div>
-                  </div>
-                </div>
-              </div>
-              <div id="chatMessagesArea" class="chat-messages-area"></div>
-              <form class="chat-input-bar" onsubmit="handleSendMessage(event, '${escapeHtml(conv.id)}')">
-                <input type="text" id="chatMessageInput" class="chat-input" placeholder="${escapeHtml(t("msgPlaceholder"))}" autocomplete="off" />
-                <button type="submit" class="btn-send-msg">${escapeHtml(t("sendBtn"))}</button>
-              </form>
-            </div>
-          `;
-          renderChatThreadMessages(conv.id);
-          syncMessagesForConversation(conv.id);
-          return;
-        }
-      }
-
-      const listHtml = accessibleConvs.length === 0
-        ? `<div class="empty-market-box"><div class="empty-market-icon">💬</div><h3 style="font-size:16px; color:#3b0764; margin-bottom:6px;">${escapeHtml(t("noConvsTitle"))}</h3><p style="font-size:13px; color:#64748b;">${escapeHtml(t("noConvsDesc"))}</p></div>`
-        : `<div class="conv-list">${accessibleConvs.map(conv => {
-            const otherParty = getOtherParty(conv, me);
-            const unread = Number(unreadCounts[conv.id] || 0);
-            return `
-              <div class="conv-card" onclick="openMyChatsPage('${escapeHtml(conv.id)}')">
-                ${renderAvatarHtml(conv.seller_avatar, otherParty, "")}
-                <div class="conv-main">
-                  <div class="conv-top-row">
-                    <span class="conv-seller">${escapeHtml(otherParty)}${unread > 0 ? `<span class="unread-badge">${unread}</span>` : ""}</span>
-                    <span class="conv-time">${escapeHtml(formatMsgTime(conv.last_message_at))}</span>
-                  </div>
-                  <div class="conv-product-tag">${escapeHtml(t("productRef"))}${escapeHtml(conv.product_title)}</div>
-                  <div class="conv-last-msg">${escapeHtml(conv.last_message || t("noMessagesYet"))}</div>
-                </div>
-              </div>
-            `;
-          }).join("")}</div>`;
-
-      chatsView.innerHTML = `
-        <div class="slot-top-nav">
-          <button class="btn-back" onclick="goHomeTab()">${escapeHtml(t("backToMarket"))}</button>
-          <span style="font-size:15px; font-weight:800; color:#3b0764;">${escapeHtml(t("myChatsTitle"))}</span>
-        </div>
-        ${listHtml}
-      `;
-    }
-
-    function renderChatThreadMessages(convId) {
-      const area = document.getElementById("chatMessagesArea");
-      if (!area) return;
-      const msgs = messagesByConv[convId] || [];
-      const me = getCurrentActorUsername().toLowerCase();
-
-      if (msgs.length === 0) {
-        area.innerHTML = `<div style="text-align:center; color:#64748b; font-size:13px; margin:auto;">${escapeHtml(t("noMessagesYet"))}</div>`;
-        return;
-      }
-
-      area.innerHTML = msgs.map(m => {
-        const isBuyer = String(m.sender_username || "").toLowerCase() === me;
-        const senderRole = isBuyer ? t("youLabel") : `${t("sellerLabel")} (${m.sender_username})`;
-        return `
-          <div class="msg-bubble ${isBuyer ? "msg-buyer" : "msg-seller"}">
-            <div>${escapeHtml(m.body)}</div>
-            <div class="msg-meta"><span>${escapeHtml(senderRole)}</span><span>${escapeHtml(formatMsgTime(m.created_at))}</span></div>
-          </div>
-        `;
-      }).join("");
-      area.scrollTop = area.scrollHeight;
-    }
-
-    async function handleSendMessage(event, convId) {
-      event.preventDefault();
-      const input = document.getElementById("chatMessageInput");
-      if (!input) return;
-      const bodyText = input.value.trim();
-      const conv = conversations.find(c => c.id === convId);
-      const me = getCurrentActorUsername();
-      if (!bodyText || !conv || !canUserAccessConversation(conv) || !me || !isSupabaseReady()) return;
-
-      input.value = "";
-      const nowIso = new Date().toISOString();
-
-      try {
-        await supabaseRequest("piprime_messages", {
-          method: "POST",
-          headers: { "Prefer": "return=representation" },
-          body: JSON.stringify({ conversation_id: convId, sender_username: me, body: bodyText, created_at: nowIso })
-        });
-        await supabaseRequest(`piprime_conversations?id=eq.${encodeURIComponent(convId)}`, {
-          method: "PATCH",
-          body: JSON.stringify({ last_message: bodyText, last_message_at: nowIso })
-        });
-        await syncMessagesForConversation(convId);
-        await syncConversationsFromDb();
-      } catch (err) {
-        updateStatus("Send Error: " + err.message);
-      }
-    }
-
-    function openProductSlot(id) {
-      const item = getAllCatalog().find(x => x.id === id);
-      if (!item) return;
-      openedSlotId = id;
-
-      const chatsEl = document.getElementById("myChatsView");
-      chatsEl.classList.remove("active");
-      chatsEl.innerHTML = "";
-
-      const safeImg = sanitizeHttpsUrl(item.img);
-      const safeTitle = escapeHtml(item.title);
-      const safeId = escapeHtml(item.id);
-      const safeAmount = Number(item.amount) || 0;
-
-      const visualHtml = safeImg
-        ? `<img src="${escapeHtml(safeImg)}" alt="${safeTitle}" decoding="async" onerror="this.remove()" />`
-        : `<div class="prod-pi-placeholder" style="width:68px;height:68px;font-size:34px;">π</div>`;
-
-      const deleteBtnHtml = item.isMine
-        ? `<button onclick="deleteMyProduct('${safeId}')" style="margin-top:10px; width:100%; background:#fee2e2; color:#991b1b; border:none; padding:9px; border-radius:11px; font-family:'Tajawal',sans-serif; font-weight:800; cursor:pointer;">${escapeHtml(t("deleteProduct"))}</button>`
-        : "";
-
-      document.getElementById("catalogHomeView").style.display = "none";
-      const slot = document.getElementById("productSlotView");
-      slot.classList.add("active");
-      slot.innerHTML = `
-        <div class="slot-top-nav">
-          <button class="btn-back" onclick="closeProductSlot()">${escapeHtml(t("backToMarket"))}</button>
-          <span style="font-size:12px; font-weight:800; color:#5b21b6;">${escapeHtml(t("slotBadge"))}</span>
-        </div>
-        <div class="slot-hero-banner">${visualHtml}</div>
-        <div class="slot-title">${safeTitle}</div>
-        <p style="font-size:14px; color:#475569;">${escapeHtml(item.desc)}</p>
-        <div class="slot-price-box">
-          <div>
-            <div style="font-size:11.5px; color:#64748b;">${escapeHtml(t("testPrice"))}</div>
-            <div style="font-size:18px; font-weight:800; color:#4c1d95;">${safeAmount} Test-Pi</div>
-          </div>
-          <span style="background:#d1fae5; color:#065f46; padding:5px 10px; border-radius:9px; font-size:12px; font-weight:800;">${escapeHtml(t("verified"))}</span>
-        </div>
-        <div class="slot-specs">
-          <div class="slot-spec-row"><span>${escapeHtml(t("specCategory"))}</span><strong>${escapeHtml(item.typeLabel)}</strong></div>
-          <div class="slot-spec-row"><span>${escapeHtml(t("specSeller"))}</span><strong>${escapeHtml(item.owner)}</strong></div>
-          <div class="slot-spec-row"><span>${escapeHtml(t("specTrust"))}</span><strong>${escapeHtml(item.trust)} (${escapeHtml(item.rating)})</strong></div>
-        </div>
-        <div class="slot-actions">
-          <button class="btn-slot-pay" onclick="payItem('${safeId}')">${escapeHtml(t("payWithPi"))}</button>
-          <button class="btn-slot-cart" onclick="addToCart('${safeId}')">${escapeHtml(t("addCartFull"))}</button>
-          <button class="btn-slot-chat" onclick="openChatWithSeller('${safeId}')">💬 <span>${escapeHtml(t("chatWithSeller"))}</span></button>
-        </div>
-        ${deleteBtnHtml}
-      `;
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function closeProductSlot() {
-      openedSlotId = null;
-      const slot = document.getElementById("productSlotView");
-      slot.classList.remove("active");
-      slot.innerHTML = "";
-      document.getElementById("catalogHomeView").style.display = "block";
-    }
-
-    function resetViewsToCatalog() {
-      closeProductSlot();
-      activeConversationId = null;
-      const chatsEl = document.getElementById("myChatsView");
-      chatsEl.classList.remove("active");
-      chatsEl.innerHTML = "";
-      document.getElementById("catalogHomeView").style.display = "block";
-    }
-
-    function goHomeTab() {
-      resetViewsToCatalog();
-      activeCategory = "all";
-      activeFilterTab = "all";
-      syncFilterAndCatUI();
-      setActiveNav("nav-home");
-      renderProducts();
-    }
-
-    function selectCategory(cat) {
-      resetViewsToCatalog();
-      activeCategory = cat;
-      if (cat === "stores") {
-        activeFilterTab = "stores";
-        setActiveNav("nav-stores");
-      } else if (cat === "services") {
-        activeFilterTab = "services";
-        setActiveNav("nav-home");
-      } else {
-        activeFilterTab = "all";
-        setActiveNav("nav-home");
-      }
-      syncFilterAndCatUI();
-      renderProducts();
-    }
-
-    function setFilterTab(tab) {
-      closeProductSlot();
-      activeFilterTab = tab;
-      if (tab !== "stores") activeCategory = "all";
-      syncFilterAndCatUI();
-      renderProducts();
-    }
-
-    function syncFilterAndCatUI() {
-      ALL_CATS.forEach(c => {
-        const el = document.getElementById("cat-" + c);
-        if (el) el.classList.toggle("active", c === activeCategory);
-      });
-      ["all", "products", "stores", "services", "mine"].forEach(tKey => {
-        const el = document.getElementById("ftab-" + tKey);
-        if (el) el.classList.toggle("active", tKey === activeFilterTab);
-      });
-    }
-
-    function setActiveNav(id) {
-      ["nav-home", "nav-stores", "nav-chats", "nav-cart", "nav-account"].forEach(n => {
-        const el = document.getElementById(n);
-        if (el) el.classList.toggle("active", n === id);
-      });
-    }
-
-    function buildProductCardHtml(item) {
-      const safeImg = sanitizeHttpsUrl(item.img);
-      const safeTitle = escapeHtml(item.title);
-      const safeId = escapeHtml(item.id);
-      const safeAmount = Number(item.amount) || 0;
-      const visualHtml = safeImg
-        ? `<img src="${escapeHtml(safeImg)}" alt="${safeTitle}" loading="lazy" decoding="async" onerror="this.remove()" />`
-        : `<div class="prod-pi-placeholder">π</div>`;
-
-      return `
-        <article class="product-box">
-          <div class="prod-visual-area" onclick="openProductSlot('${safeId}')">
-            ${visualHtml}
-            <span class="prod-badge">${escapeHtml(item.typeLabel)}</span>
-          </div>
-          <div class="prod-body">
-            <div>
-              <div class="prod-name" onclick="openProductSlot('${safeId}')">${safeTitle}</div>
-              <div class="prod-desc-mini">${escapeHtml(item.desc)}</div>
-              <div class="prod-meta"><span>${escapeHtml(item.owner)}</span><span>${escapeHtml(item.rating)}</span></div>
-            </div>
-            <div>
-              <div class="prod-price">${safeAmount} Test-Pi</div>
-              <div class="prod-btns">
-                <button class="btn-open-slot" onclick="openProductSlot('${safeId}')">${escapeHtml(t("openSlot"))}</button>
-                <button class="btn-cart-add" onclick="addToCart('${safeId}')">${escapeHtml(t("addToCart"))}</button>
-              </div>
-            </div>
-          </div>
-        </article>
-      `;
-    }
-
-    function renderProducts() {
-      const grid = document.getElementById("productsGrid");
-      const countEl = document.getElementById("countLabel");
-      const headingEl = document.getElementById("gridHeading");
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
-
-      headingEl.textContent = activeCategory === "all" ? t("gridAllTitle") : t("sectionPrefix") + getCatLabel(activeCategory);
-
-      const filtered = getAllCatalog().filter(item => {
-        const matchFilter = activeFilterTab === "all" || (activeFilterTab === "mine" ? item.isMine : item.type === activeFilterTab);
-        const matchCat = activeCategory === "all" || item.cat === activeCategory;
-        const matchQuery = !query ||
-          String(item.title || "").toLowerCase().includes(query) ||
-          String(item.desc || "").toLowerCase().includes(query) ||
-          String(item.typeLabel || "").toLowerCase().includes(query) ||
-          String(item.owner || "").toLowerCase().includes(query);
-        return matchFilter && matchCat && matchQuery;
-      });
-
-      countEl.textContent = `${filtered.length} ${t("itemCount")}`;
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="empty-market-box"><div class="empty-market-icon">π</div><h3 style="font-size:16px; color:#3b0764; margin-bottom:6px;">${escapeHtml(t("emptyTitle"))}</h3><p style="font-size:13px; color:#64748b; margin-bottom:14px;">${escapeHtml(t("emptyDesc"))}</p><button class="btn-promo" onclick="openAddProductModal()">${escapeHtml(t("addProductShort"))}</button></div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(buildProductCardHtml).join("");
-    }
-
-    function openAddProductModal() {
-      const defaultOwner = currentUser ? "@" + currentUser.username : "@PioneerMerchant";
-      const defaultCat = activeCategory !== "all" ? activeCategory : "fashion";
-      const catOptions = ALL_CATS.filter(c => c !== "all")
-        .map(c => `<option value="${c}" ${defaultCat === c ? "selected" : ""}>${escapeHtml(t("cat_" + c))}</option>`)
-        .join("");
-
-      openModal(t("modalAddTitle"), `
-        <div class="form-group"><label class="form-label">${escapeHtml(t("lblName"))}</label><input type="text" id="pTitle" class="form-control" /></div>
-        <div class="form-group"><label class="form-label">${escapeHtml(t("lblCat"))}</label><select id="pCat" class="form-control">${catOptions}</select></div>
-        <div class="form-group"><label class="form-label">${escapeHtml(t("lblPrice"))}</label><input type="number" step="0.005" min="0.005" id="pAmount" class="form-control" value="0.02" /></div>
-        <div class="form-group"><label class="form-label">${escapeHtml(t("lblOwner"))}</label><input type="text" id="pOwner" class="form-control" value="${escapeHtml(defaultOwner)}" /></div>
-        <div class="form-group"><label class="form-label">${escapeHtml(t("lblImg"))}</label><input type="url" id="pImg" class="form-control" placeholder="https://..." /></div>
-        <div class="form-group"><label class="form-label">${escapeHtml(t("lblDesc"))}</label><textarea id="pDesc" rows="2" class="form-control"></textarea></div>
-        <div id="pErr" style="color:#b91c1c; font-size:12px; margin-bottom:8px;"></div>
-        <button class="btn-submit-modal" onclick="saveNewProduct()">${escapeHtml(t("btnPublish"))}</button>
-      `);
-    }
-
-    function saveNewProduct() {
-      const title = document.getElementById("pTitle").value.trim();
-      const cat = document.getElementById("pCat").value;
-      const amount = parseFloat(document.getElementById("pAmount").value);
-      let owner = document.getElementById("pOwner").value.trim();
-      const imgInput = document.getElementById("pImg").value.trim();
-      const desc = document.getElementById("pDesc").value.trim();
-      const err = document.getElementById("pErr");
-
-      if (!title || !desc || isNaN(amount) || amount <= 0) {
-        err.textContent = "*";
-        return;
-      }
-
-      if (!owner) owner = currentUser ? "@" + currentUser.username : "@PioneerMerchant";
-      else if (!owner.startsWith("@")) owner = "@" + owner;
-
-      const itemType = cat === "stores" ? "stores" : (cat === "services" ? "services" : "products");
-      const newItem = {
-        id: "my-" + Date.now(),
-        type: itemType,
-        cat,
-        typeLabel: getCatLabel(cat),
-        title,
-        desc,
-        trust: "98%",
-        rating: "5.0 ★",
-        amount,
-        owner,
-        isMine: true,
-        img: sanitizeHttpsUrl(imgInput)
-      };
-
-      const list = getUserProducts();
-      list.unshift(newItem);
-      saveUserProducts(list);
-
-      closeModal();
-      goHomeTab();
-      openProductSlot(newItem.id);
-    }
-
-    function deleteMyProduct(id) {
-      saveUserProducts(getUserProducts().filter(x => x.id !== id));
-      closeProductSlot();
-      renderProducts();
-    }
-
-    function openCartModal() {
-      setActiveNav("nav-cart");
-      if (cartItems.length === 0) {
-        openModal(t("nav_cart"), "<p>0</p>");
-        return;
-      }
-      const total = cartItems.reduce((sum, i) => sum + Number(i.amount || 0), 0).toFixed(3);
-      const listHtml = cartItems.map((it, idx) => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f1f5f9;">
-          <div><strong>${escapeHtml(it.title)}</strong><div style="font-size:11.5px; color:#64748b;">${Number(it.amount || 0)} Test-Pi</div></div>
-          <button onclick="removeCartIdx(${idx})" style="background:#fee2e2; color:#991b1b; border:none; padding:4px 9px; border-radius:8px; cursor:pointer;">×</button>
-        </div>
-      `).join("");
-
-      openModal(t("nav_cart"), `${listHtml}<div style="margin-top:12px; font-weight:800; color:#4c1d95;">${escapeHtml(total)} Test-Pi</div><button class="btn-submit-modal" style="margin-top:12px;" onclick="payCart()">${escapeHtml(t("payWithPi"))}</button>`);
-    }
-
-    function removeCartIdx(idx) {
-      cartItems.splice(idx, 1);
-      updateCartLabel();
-      openCartModal();
-    }
-
-    function openAccountModal() {
-      setActiveNav("nav-account");
-      const userInfo = currentUser ? `<strong>@${escapeHtml(currentUser.username)}</strong>` : "-";
-      openModal(t("nav_account"), `<p style="margin-bottom:10px;">Pi: ${userInfo}</p><p style="margin-bottom:14px;">${escapeHtml(t("tab_mine"))}: <strong>${getUserProducts().length}</strong></p><button class="btn-submit-modal" onclick="closeModal(); connectPi();">${escapeHtml(t("connectPi"))}</button>`);
-    }
-
-    function openLegalModal(type) {
-      openModal(type === "privacy" ? t("privacyLink") : t("tosLink"), `<p>${escapeHtml(type === "privacy" ? t("privacyText") : t("tosText"))}</p>`);
-    }
-
-    function openModal(title, html) {
-      document.getElementById("modalTitle").textContent = title;
-      document.getElementById("modalContent").innerHTML = html;
-      document.getElementById("modalBackdrop").classList.add("open");
-    }
-
-    function closeModal() {
-      document.getElementById("modalBackdrop").classList.remove("open");
-    }
-
-    function closeModalBackdrop(e) {
-      if (e.target.id === "modalBackdrop") closeModal();
-    }
-
-    window.addEventListener("load", () => {
-      applyStaticTranslations();
-      renderProducts();
-      if (window.location.hash === "#privacy") openLegalModal("privacy");
-      if (window.location.hash === "#tos") openLegalModal("tos");
-
-      if (pollTimer) clearInterval(pollTimer);
-      pollTimer = setInterval(() => {
-        if (getCurrentActorUsername() && isSupabaseReady()) syncConversationsFromDb();
-      }, CHAT_DB_CONFIG.pollIntervalMs);
-    });
-
-    const PIPRIME_API_URL = "https://piprime-api.alhwryh311.workers.dev";
-    window.PIPRIME_API_URL = PIPRIME_API_URL;
-
-    window.piPrimeApi = {
-      async getProducts() {
-        return (await fetch(`${PIPRIME_API_URL}/api/products`)).json();
-      },
-      async createProduct(productData) {
-        return (await fetch(`${PIPRIME_API_URL}/api/products`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(productData),
-        })).json();
-      },
-      async approvePayment(paymentId) {
-        return (await fetch(`${PIPRIME_API_URL}/api/pi/approve`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ paymentId }),
-        })).json();
-      },
-      async completePayment(paymentId, txid) {
-        return (await fetch(`${PIPRIME_API_URL}/api/pi/complete`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ paymentId, txid }),
-        })).json();
-      },
-    };
-  </script>
-  <script>
-(function () {
-  "use strict";
-
-  var st = document.createElement("style");
-  st.textContent = ".msg-buyer{border-end-start-radius:4px}.msg-seller{border-end-end-radius:4px}";
-  document.head.appendChild(st);
-  var vp = document.querySelector('meta[name="viewport"]');
-  if (vp) vp.setAttribute("content", "width=device-width, initial-scale=1.0");
-
-  window.connectPi = async function () {
-    var btn = document.getElementById("authBtn");
-    if (!Pi) {
-      openModal("Pi Browser", "<p>Open inside Pi Browser to connect your Pi account.</p>");
-      return;
-    }
-    btn.textContent = "...";
-    try {
-      var auth = await Pi.authenticate(["username", "payments"], async function (p) {
-        try {
-          if (p && p.transaction && p.transaction.txid) {
-            await piPrimeApi.completePayment(p.identifier, p.transaction.txid);
-          }
-        } catch (e) {}
-      });
-      currentUser = auth.user;
-      btn.classList.add("connected");
-      btn.textContent = "✓ @" + currentUser.username;
-      updateStatus("✓ @" + currentUser.username);
-      await syncConversationsFromDb();
-    } catch (e) {
-      btn.textContent = t("connectPi");
-    }
-  };
-
-  window.payAmount = async function (amount, memoText, metadataObj) {
-    if (!Pi) {
-      openModal("Pi Browser", "<p>Pi payments work inside Pi Browser.</p>");
-      return;
-    }
-    if (!currentUser) {
-      await connectPi();
-      if (!currentUser) return;
-    }
-    var n = Number(amount);
-    if (isNaN(n) || n <= 0) return;
-    updateStatus(memoText + " (" + n + " Test-Pi)...");
-    try {
-      await Pi.createPayment(
-        { amount: n, memo: memoText, metadata: Object.assign({}, metadataObj, { buyer: currentUser.username }) },
-        {
-          onReadyForServerApproval: async function (paymentId) {
-            try { await piPrimeApi.approvePayment(paymentId); }
-            catch (e) { updateStatus("Approve Error: " + e.message); }
-          },
-          onReadyForServerCompletion: async function (paymentId, txid) {
-            try {
-              await piPrimeApi.completePayment(paymentId, txid);
-              updateStatus("✓ " + txid);
-              if (metadataObj && metadataObj.itemIds) { cartItems = []; updateCartLabel(); }
-            } catch (e) { updateStatus("Complete Error: " + e.message); }
-          },
-          onCancel: function (paymentId) { updateStatus("Cancelled: " + paymentId); },
-          onError: function (error) { updateStatus("Error: " + (error && error.message ? error.message : error)); }
-        }
-      );
-    } catch (err) {
-      updateStatus("Error: " + (err && err.message ? err.message : err));
-    }
-  };
-
-  window.normalizeHandle = function (handle) {
-    var clean = String(handle || "").replace(/[^a-zA-Z0-9_]/g, "");
-    return clean ? "@" + clean : "@PioneerMerchant";
-  };
-  window.buildConversationId = function (productId, buyer, seller) {
-    var c = function (s) { return String(s || "").replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase(); };
-    return "conv_" + (c(productId) || "general") + "_" + c(buyer) + "_" + c(seller);
-  };
-
-  var origRenderChats = window.renderMyChatsView;
-  window.renderMyChatsView = function () {
-    if (activeConversationId &&
-        document.getElementById("chatMessageInput") &&
-        document.getElementById("chatMessagesArea")) {
-      renderChatThreadMessages(activeConversationId);
-      return;
-    }
-    origRenderChats();
-  };
-
-  var origOpenChat = window.openChatWithSeller;
-  window.openChatWithSeller = async function (productId) {
-    var item = getAllCatalog().find(function (x) { return x.id === productId; });
-    var me = getCurrentActorUsername().toLowerCase();
-    if (item && me && normalizeHandle(item.owner).toLowerCase() === me) return;
-    return origOpenChat(productId);
-  };
-
-  window.renderChatThreadMessages = function (convId) {
-    var area = document.getElementById("chatMessagesArea");
-    if (!area) return;
-    var msgs = messagesByConv[convId] || [];
-    var conv = conversations.find(function (c) { return c.id === convId; });
-    var me = getCurrentActorUsername().toLowerCase();
-    var iAmBuyer = conv && String(conv.buyer_username || "").toLowerCase() === me;
-    if (msgs.length === 0) {
-      area.innerHTML = '<div style="text-align:center;color:#64748b;font-size:13px;margin:auto;">' + escapeHtml(t("noMessagesYet")) + "</div>";
-      return;
-    }
-    area.innerHTML = msgs.map(function (m) {
-      var mine = String(m.sender_username || "").toLowerCase() === me;
-      var label = mine
-        ? (iAmBuyer ? t("youLabel") : t("sellerLabel"))
-        : (iAmBuyer ? t("sellerLabel") + " (" + m.sender_username + ")" : m.sender_username);
-      return '<div class="msg-bubble ' + (mine ? "msg-buyer" : "msg-seller") + '"><div>' + escapeHtml(m.body) +
-        '</div><div class="msg-meta"><span>' + escapeHtml(label) + "</span><span>" + escapeHtml(formatMsgTime(m.created_at)) + "</span></div></div>";
-    }).join("");
-    area.scrollTop = area.scrollHeight;
-  };
-
-  var origOpenAdd = window.openAddProductModal;
-  window.openAddProductModal = function () {
-    origOpenAdd();
-    var o = document.getElementById("pOwner");
-    if (o && currentUser) { o.value = "@" + currentUser.username; o.readOnly = true; }
-  };
-
-  var origSave = window.saveNewProduct;
-  window.saveNewProduct = function () {
-    if (!currentUser) { closeModal(); connectPi(); return; }
-    var o = document.getElementById("pOwner");
-    if (o) o.value = "@" + currentUser.username;
-    origSave();
-  };
-
-  var origGetUser = window.getUserProducts;
-  window.getUserProducts = function () {
-    return origGetUser().map(function (i) { return Object.assign({}, i, { trust: "—", rating: "جديد" }); });
-  };
-
-  var origOpenSlot = window.openProductSlot;
-  window.openProductSlot = function (id) {
-    origOpenSlot(id);
-    var item = getAllCatalog().find(function (x) { return x.id === id; });
-    var slot = document.getElementById("productSlotView");
-    if (!slot) return;
-    if (item && item.isMine) {
-      slot.querySelectorAll(".slot-price-box span").forEach(function (s) { s.style.display = "none"; });
-    }
-    if (!isSupabaseReady()) {
-      var b = slot.querySelector(".btn-slot-chat");
-      if (b) b.style.display = "none";
-    }
-  };
-
-  window.setFilterTab = function (tab) {
-    closeProductSlot();
-    activeFilterTab = tab;
-    activeCategory = "all";
-    syncFilterAndCatUI();
-    renderProducts();
-  };
-
-  document.addEventListener("error", function (e) {
-    var img = e.target;
-    if (!img || img.tagName !== "IMG") return;
-    var p = img.parentElement;
-        if (p && (p.classList.contains("prod-visual-area") || p.classList.contains("slot-hero-banner")) &&
-        !p.querySelector(".prod-pi-placeholder")) {
-      p.insertAdjacentHTML("afterbegin", '<div class="prod-pi-placeholder">π</div>');
-    }
-  }, true);
-    if (Pi) {
-    var _auth = Pi.authenticate.bind(Pi);
-    Pi.authenticate = function () {
-      return _auth.apply(null, arguments).catch(function (e) {
-        updateStatus("AUTH ERR: " + (e && e.message ? e.message : JSON.stringify(e)));
-        throw e;
-      });
-    };
- }
-      piPrimeApi.approvePayment = async function (id) {
-    var r = await fetch(PIPRIME_API_URL + "/api/pi/approve", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ paymentId: id })
-    });
-    if (!r.ok) throw new Error("Approve failed: " + r.status);
-    return r.json();
-  };
-    // ===== تنظيف المحتوى المزيف =====
-  var origGetAll = window.getAllCatalog;
-  window.getAllCatalog = function () {
-    return origGetAll().map(function (i) {
-      return Object.assign({}, i, { trust: "—", rating: "جديد" });
-    });
-  };
-
-  var prevOpenSlot = window.openProductSlot;
-  window.openProductSlot = function (id) {
-    prevOpenSlot(id);
-    var slot = document.getElementById("productSlotView");
-    if (!slot) return;
-    slot.querySelectorAll(".slot-price-box span").forEach(function (s) {
-      s.style.display = "none";
-    });
-    var rows = slot.querySelectorAll(".slot-spec-row");
-    if (rows.length) rows[rows.length - 1].style.display = "none";
-  };
-   
-})();
-</script>
-    <!-- <script src="piprime-payments.js"></script> -->
- <script>
-if (window.Pi) {
-  var prevAuth = Pi.authenticate;
-  Pi.authenticate = function (scopes) {
-    return prevAuth.call(Pi, scopes, async function (p) {
-      try {
-        if (!p || !p.identifier) return;
-        var txid = p.transaction && p.transaction.txid;
-        var body = { paymentId: p.identifier };
-        if (txid) body.txid = txid;
-        var r = await fetch(PIPRIME_API_URL + "/api/pi/" + (txid ? "complete" : "cancel"), {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        });
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        updateStatus(txid ? "✓ اكتملت الدفعة المعلّقة" : "أُلغيت الدفعة المعلّقة");
-      } catch (e) {
-        updateStatus("Pending payment error: " + e.message);
-      }
-    });
-  };
-}
- </script> 
-  <script>
-document.querySelectorAll(".footer-note a").forEach(function (a) {
-  a.href = a.getAttribute("href") === "#privacy" ? "privacy.html" : "terms.html";
-  a.onclick = null;
-});
-  </script>
-  <script>
-(function () {
-  var remote = [];
-
-  if (window.Pi) {
-    var authFn = Pi.authenticate;
-    Pi.authenticate = function () {
-      return authFn.apply(Pi, arguments).then(function (auth) {
-        window.piToken = auth.accessToken;
-        return auth;
-      });
-    };
-  }
-
-  var baseCatalog = window.getAllCatalog;
-  window.getAllCatalog = function () {
-    var me = getCurrentActorUsername().toLowerCase();
-    var mapped = remote.map(function (p) {
-      return {
-        id: p.id, type: p.type, cat: p.cat, typeLabel: getCatLabel(p.cat),
-        title: p.title, desc: p.description, amount: Number(p.amount),
-        owner: p.owner, img: p.img, trust: "—", rating: "جديد",
-        isMine: String(p.owner).toLowerCase() === me
-      };
-    });
-    return mapped.concat(baseCatalog().filter(function (i) {
-      return i.id.indexOf("my-") !== 0;
-    }));
-  };
-
-  async function loadProducts() {
-    try {
-      var r = await fetch(PIPRIME_API_URL + "/api/products");
-      var d = await r.json();
-      if (d.ok) { remote = d.products.reverse(); renderProducts(); }
-    } catch (e) {}
-  }
-
-  var baseSlot = window.openProductSlot;
-  window.openProductSlot = function (id) {
-    baseSlot(id);
-    if (id.indexOf("mp-") !== 0) return;
-    var del = document.querySelector('#productSlotView [onclick^="deleteMyProduct"]');
-    if (del) del.style.display = "none";
-  };
-
-  var saving = false;
-  window.saveNewProduct = async function () {
-    if (saving) return;
-    if (!currentUser || !window.piToken) { closeModal(); connectPi(); return; }
-    var val = function (id) { return document.getElementById(id).value.trim(); };
-    var err = document.getElementById("pErr");
-    saving = true;
-    err.textContent = "...";
-    try {
-      var r = await fetch(PIPRIME_API_URL + "/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: "Bearer " + window.piToken },
-        body: JSON.stringify({
-          title: val("pTitle"), cat: val("pCat"), amount: Number(val("pAmount")),
-          description: val("pDesc"), img: val("pImg")
-        })
-      });
-      var d = await r.json();
-      if (!d.ok) throw new Error(d.error);
-      remote.unshift(d.product);
-      closeModal();
-      goHomeTab();
-      openProductSlot(d.product.id);
-    } catch (e) {
-      err.textContent = "خطأ: " + e.message;
-    }
-    saving = false;
-  };
-
-  loadProducts();
-})();
-    </script>
-  <script>
-window.openAccountModal = function () {
-  setActiveNav("nav-account");
-  var mine = getAllCatalog().filter(function (i) { return i.isMine; });
-  var user = currentUser ? "@" + escapeHtml(currentUser.username) : "-";
-  var list = mine.map(function (i) {
-    return '<button class="btn-open-slot" style="width:100%;margin-bottom:6px" onclick="closeModal();goHomeTab();openProductSlot(\'' +
-      escapeHtml(i.id) + '\')">' + escapeHtml(i.title) + " • " + Number(i.amount) + " Test-Pi</button>";
-  }).join("");
-  openModal(t("nav_account"),
-    '<p style="margin-bottom:10px">Pi: <strong>' + user + "</strong></p>" +
-    '<p style="margin-bottom:10px">' + escapeHtml(t("tab_mine")) + ": <strong>" + mine.length + "</strong></p>" +
-    list +
-    '<button class="btn-submit-modal" onclick="closeModal();connectPi()">' + escapeHtml(t("connectPi")) + "</button>");
+  <div class="search"><input id="q" type="search" autocomplete="off"><button class="gold" data-act="render" id="searchBtn"></button></div>
+</div></header>
+
+<main>
+  <div class="status"><span id="status"></span><button class="gold s" data-act="add" id="addBtn"></button></div>
+  <section id="home">
+    <div class="cats" id="cats"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+  <section id="detail" hidden></section>
+  <footer><a href="privacy.html" id="fPriv"></a><a href="terms.html" id="fTos"></a><div style="margin-top:6px" id="net"></div></footer>
+</main>
+
+<nav class="nav">
+  <button id="nHome" class="on" data-act="home"><span>🏠</span><b id="tHome"></b></button>
+  <button id="nCart" data-act="cart"><span>🛒</span><b id="tCart"></b></button>
+  <button id="nAcc" data-act="account"><span>👤</span><b id="tAcc"></b></button>
+</nav>
+
+<div id="modal" class="modal"><div class="mc">
+  <div class="mh"><h3 id="mTitle"></h3><button class="x" data-act="close" aria-label="close">×</button></div>
+  <div id="mBody"></div>
+</div></div>
+
+<script>
+"use strict";
+/* ============ Config ============ */
+const API = "https://piprime-api.alhwryh311.workers.dev";
+const SANDBOX = true;               // غيّرها إلى false عند الانتقال إلى Mainnet
+const CART_KEY = "piprime_cart_v2", LANG_KEY = "piprime_lang_v1";
+const CATS = ["fashion","sports","beauty","auto","gaming","electronics","home","stores","services"];
+
+/* ============ Texts ============ */
+const TX = {
+ar:{dir:"rtl",connect:"ربط حساب Pi",search:"بحث",ph:"ابحث عن منتج أو خدمة...",all:"الكل",mine:"منتجاتي",
+ fashion:"ملابس",sports:"أدوات رياضية",beauty:"تجميل النساء",auto:"إكسسوارات سيارات",gaming:"قيمنغ",electronics:"إلكترونيات",home:"منزل وقهوة",stores:"المتاجر",services:"خدمات",
+ add:"+ أضف منتجك",home_:"الرئيسية",cart:"السلة",acc:"حسابي",open:"فتح",addCart:"+ السلة",addCartFull:"إضافة للسلة",payPi:"دفع بـ Pi",
+ back:"← رجوع",seller:"التاجر",cat:"القسم",price:"السعر",count:"عنصر",
+ emptyT:"لا توجد منتجات بعد",emptyD:"كن أول تاجر ينشر منتجه هنا.",loading:"جارٍ التحميل...",
+ newT:"إضافة منتج",name:"اسم المنتج *",desc:"الوصف *",img:"رابط صورة https (اختياري)",publish:"نشر المنتج",
+ del:"🗑️ حذف هذا المنتج",delQ:"حذف هذا المنتج نهائياً؟",deleted:"✓ تم حذف المنتج",
+ needPi:"افتح التطبيق داخل Pi Browser لتسجيل الدخول.",needLogin:"سجّل الدخول بحساب Pi أولاً.",
+ cartEmpty:"السلة فارغة.",oneSeller:"السلة تقبل منتجات من تاجر واحد فقط. أتمم الدفع أو أفرغ السلة أولاً.",
+ inCart:"✓ أُضيف للسلة",total:"المجموع",myItems:"منتجاتي",privacy:"سياسة الخصوصية",tos:"شروط الاستخدام",
+ netNote:"PiPrime • Pi Testnet",ready:"جاهز",paid:"✓ اكتملت الدفعة",cancelled:"أُلغيت الدفعة",pendingDone:"✓ اكتملت الدفعة المعلّقة",pendingCancel:"أُلغيت الدفعة المعلّقة",
+ fill:"أكمل الحقول المطلوبة وسعراً أكبر من صفر.",saving:"جارٍ النشر..."},
+en:{dir:"ltr",connect:"Connect Pi",search:"Search",ph:"Search products or services...",all:"All",mine:"My products",
+ fashion:"Fashion",sports:"Sports",beauty:"Women's beauty",auto:"Auto accessories",gaming:"Gaming",electronics:"Electronics",home:"Home & coffee",stores:"Stores",services:"Services",
+ add:"+ Add product",home_:"Home",cart:"Cart",acc:"Account",open:"Open",addCart:"+ Cart",addCartFull:"Add to cart",payPi:"Pay with Pi",
+ back:"← Back",seller:"Seller",cat:"Category",price:"Price",count:"items",
+ emptyT:"No products yet",emptyD:"Be the first merchant to list a product here.",loading:"Loading...",
+ newT:"Add product",name:"Product name *",desc:"Description *",img:"https image URL (optional)",publish:"Publish product",
+ del:"🗑️ Delete this product",delQ:"Delete this product permanently?",deleted:"✓ Product deleted",
+ needPi:"Open the app inside Pi Browser to sign in.",needLogin:"Sign in with Pi first.",
+ cartEmpty:"Your cart is empty.",oneSeller:"A cart can hold items from one seller only. Pay or empty the cart first.",
+ inCart:"✓ Added to cart",total:"Total",myItems:"My products",privacy:"Privacy Policy",tos:"Terms of Service",
+ netNote:"PiPrime • Pi Testnet",ready:"Ready",paid:"✓ Payment completed",cancelled:"Payment cancelled",pendingDone:"✓ Pending payment completed",pendingCancel:"Pending payment cancelled",
+ fill:"Fill the required fields and set a price above zero.",saving:"Publishing..."}
 };
-</script>
-  <script>
-(function () {
-  var st = document.createElement("style");
-  st.textContent = ".modal-card{padding-bottom:90px}";
-  document.head.appendChild(st);
-  var o = window.openAccountModal;
-  window.openAccountModal = function () {
-    o.apply(this, arguments);
-        if (typeof currentUser !== "undefined" && currentUser) {
-      document.querySelectorAll("#modalContent .btn-submit-modal").forEach(function (b) {
-        if ((b.getAttribute("onclick") || "").indexOf("connectPi") > -1) b.style.display = "none";
-      });
-    }
-  };
-})();
-  </script>
-  <script>
-(function () {
-  var box = document.getElementById("modalContent");
-  if (!box) return;
-  function hideConnect() {
-    if (typeof currentUser === "undefined" || !currentUser) return;
-    box.querySelectorAll("button").forEach(function (b) {
-      if ((b.getAttribute("onclick") || "").indexOf("connectPi") > -1) b.style.display = "none";
-    });
+
+/* ============ State ============ */
+let lang = localStorage.getItem(LANG_KEY) || "ar";
+if (!TX[lang]) lang = "ar";
+let user = null, token = "", products = [], loaded = false;
+let cat = "all", openId = null, cart = [];
+try { cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]"); } catch (e) { cart = []; }
+
+const $ = id => document.getElementById(id);
+const t = k => TX[lang][k] ?? TX.ar[k] ?? k;
+const unit = () => SANDBOX ? "Test-Pi" : "Pi";
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const httpsUrl = u => { try { const p = new URL(String(u || "").trim()); return p.protocol === "https:" ? p.href : ""; } catch (e) { return ""; } };
+const me = () => user ? "@" + user.username : "";
+const isMine = p => me() && String(p.owner).toLowerCase() === me().toLowerCase();
+const setStatus = m => { $("status").textContent = m; };
+const catLabel = c => t(c) || c;
+const saveCart = () => { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} };
+
+/* ============ API ============ */
+async function api(path, body, auth) {
+  const headers = { "Content-Type": "application/json" };
+  if (auth && token) headers.Authorization = "Bearer " + token;
+  const r = await fetch(API + path, body === undefined ? {} : { method: "POST", headers, body: JSON.stringify(body) });
+  let d = null; try { d = await r.json(); } catch (e) {}
+  if (!r.ok || (d && d.ok === false)) throw new Error((d && d.error) || "HTTP " + r.status);
+  return d;
+}
+async function loadProducts() {
+  try {
+    const d = await api("/api/products");
+    products = (d.products || []).slice().reverse().map(p => ({
+      id: String(p.id), title: p.title, desc: p.description || "", cat: p.cat,
+      amount: Number(p.amount) || 0, owner: p.owner || "", img: httpsUrl(p.img)
+    }));
+  } catch (e) { setStatus("Error: " + e.message); }
+  loaded = true; render();
+}
+
+/* ============ Pi auth & payments ============ */
+const hasPi = () => typeof window.Pi !== "undefined";
+if (hasPi()) { try { Pi.init({ version: "2.0", sandbox: SANDBOX }); } catch (e) {} }
+
+async function onIncomplete(p) {
+  try {
+    if (!p || !p.identifier) return;
+    const txid = p.transaction && p.transaction.txid;
+    await api("/api/pi/" + (txid ? "complete" : "cancel"), txid ? { paymentId: p.identifier, txid } : { paymentId: p.identifier });
+    setStatus(txid ? t("pendingDone") : t("pendingCancel"));
+  } catch (e) { setStatus("Pending payment error: " + e.message); }
+}
+async function connect() {
+  if (user) return true;
+  if (!hasPi()) { modal(t("connect"), `<p>${esc(t("needPi"))}</p>`); return false; }
+  $("authBtn").textContent = "...";
+  try {
+    const a = await Pi.authenticate(["username", "payments"], onIncomplete);
+    user = a.user; token = a.accessToken;
+    $("authBtn").classList.add("on");
+    $("authBtn").textContent = "✓ @" + user.username;
+    render();
+    return true;
+  } catch (e) {
+    setStatus("AUTH: " + (e && e.message ? e.message : "failed"));
+    $("authBtn").textContent = t("connect");
+    return false;
   }
-  new MutationObserver(hideConnect).observe(box, { childList: true, subtree: true });
-})();
-  </script>
-  <script>
-(function () {
-  function hide() {
-    var a = document.getElementById("authBtn");
-    if (!a || !a.classList.contains("connected")) return;
-    document.querySelectorAll("#modalContent button").forEach(function (b) {
-      if ((b.textContent || "").trim() === t("connectPi")) b.style.display = "none";
-    });
-  }
-  document.addEventListener("click", function () {
-    setTimeout(hide, 50);
-    setTimeout(hide, 300);
-  }, true);
-})();
-  </script>
-  <script>
-(function () {
-  async function delProduct(id) {
-    if (!confirm("حذف هذا المنتج نهائياً؟")) return;
-    try {
-      var auth = await Pi.authenticate(["username", "payments"], function () {});
-      var r = await fetch(PIPRIME_API_URL + "/api/products/delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + auth.accessToken
+}
+async function pay(amount, memo, metadata) {
+  if (!(await connect())) return;
+  const n = Number(amount);
+  if (!(n > 0)) return;
+  setStatus(memo + " (" + n + " " + unit() + ")...");
+  try {
+    await Pi.createPayment(
+      { amount: n, memo, metadata: Object.assign({}, metadata, { buyer: user.username }) },
+      {
+        onReadyForServerApproval: async id => { try { await api("/api/pi/approve", { paymentId: id }); } catch (e) { setStatus("Approve error: " + e.message); } },
+        onReadyForServerCompletion: async (id, txid) => {
+          try {
+            await api("/api/pi/complete", { paymentId: id, txid });
+            setStatus(t("paid") + " " + txid);
+            if (metadata.itemIds) { cart = []; saveCart(); renderCartLabel(); }
+          } catch (e) { setStatus("Complete error: " + e.message); }
         },
-        body: JSON.stringify({ id: id })
-      });
-      var d = await r.json();
-      if (d.ok) {
-        updateStatus("✓ تم حذف المنتج");
-        setTimeout(function () { location.reload(); }, 600);
-      } else {
-        updateStatus("Delete Error: " + (d.error || r.status));
+        onCancel: () => setStatus(t("cancelled")),
+        onError: e => setStatus("Error: " + (e && e.message ? e.message : e))
       }
-    } catch (e) {
-      updateStatus("Delete Error: " + (e && e.message ? e.message : e));
-    }
-  }
+    );
+  } catch (e) { setStatus("Error: " + (e && e.message ? e.message : e)); }
+}
 
-  window.deleteMyProduct = delProduct;
+/* ============ Rendering ============ */
+function visual(p, big) {
+  return p.img ? `<img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" decoding="async" data-img>` : "π";
+}
+function render() {
+  const q = $("q").value.trim().toLowerCase();
+  const list = products.filter(p => {
+    if (cat === "mine") return isMine(p);
+    if (cat !== "all" && p.cat !== cat) return false;
+    return !q || [p.title, p.desc, p.owner, catLabel(p.cat)].some(v => String(v).toLowerCase().includes(q));
+  });
+  $("cats").innerHTML = ["all", ...CATS, "mine"].map(c =>
+    `<button class="${c === cat ? "on" : ""}" data-cat="${c}">${esc(c === "all" ? t("all") : c === "mine" ? t("mine") : catLabel(c))}</button>`).join("");
+  setStatus(loaded ? `${t("ready")} • ${list.length} ${t("count")}` : t("loading"));
+  $("grid").innerHTML = !loaded ? "" : list.length === 0
+    ? `<div class="empty"><h3>${esc(t("emptyT"))}</h3><p>${esc(t("emptyD"))}</p><button class="gold" data-act="add">${esc(t("add"))}</button></div>`
+    : list.map(p => `<article class="card">
+        <div class="thumb" data-open="${esc(p.id)}">${visual(p)}</div>
+        <div class="cb">
+          <div class="nm" data-open="${esc(p.id)}">${esc(p.title)}</div>
+          <div class="ds">${esc(p.desc)}</div>
+          <div class="own">${esc(p.owner)} • ${esc(catLabel(p.cat))}</div>
+          <div class="pr">${p.amount} ${unit()}</div>
+          <div class="row"><button class="soft" data-open="${esc(p.id)}">${esc(t("open"))}</button><button class="gold s" data-cart="${esc(p.id)}">${esc(t("addCart"))}</button></div>
+        </div></article>`).join("");
+  if (openId) showDetail(openId, true);
+}
+function showDetail(id, keepScroll) {
+  const p = products.find(x => x.id === id);
+  if (!p) { closeDetail(); return; }
+  openId = id;
+  $("home").hidden = true; $("detail").hidden = false;
+  $("detail").innerHTML = `<div class="detail">
+    <button class="back" data-act="closeDetail">${esc(t("back"))}</button>
+    <div class="hero">${visual(p)}</div>
+    <h2>${esc(p.title)}</h2>
+    <p style="font-size:14px;color:#475569;margin-top:6px">${esc(p.desc)}</p>
+    <div class="spec"><span>${esc(t("price"))}</span><strong>${p.amount} ${unit()}</strong></div>
+    <div class="spec"><span>${esc(t("cat"))}</span><strong>${esc(catLabel(p.cat))}</strong></div>
+    <div class="spec"><span>${esc(t("seller"))}</span><strong>${esc(p.owner)}</strong></div>
+    <div class="row" style="margin-top:14px"><button class="pay" data-pay="${esc(p.id)}">${esc(t("payPi"))}</button><button class="gold" data-cart="${esc(p.id)}">${esc(t("addCartFull"))}</button></div>
+    ${isMine(p) ? `<button class="del" data-del="${esc(p.id)}">${esc(t("del"))}</button>` : ""}
+  </div>`;
+  if (!keepScroll) window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function closeDetail() { openId = null; $("detail").hidden = true; $("detail").innerHTML = ""; $("home").hidden = false; }
+function renderCartLabel() { $("tCart").textContent = `${t("cart")} (${cart.length})`; }
 
-  var prev = window.openProductSlot;
-  window.openProductSlot = function (id) {
-    prev.apply(this, arguments);
-    try {
-      if (typeof currentUser === "undefined" || !currentUser) return;
-      var item = getAllCatalog().find(function (x) { return x.id === id; });
-      if (!item || !/^mp-/.test(item.id)) return;
-      if (String(item.owner).toLowerCase() !== ("@" + currentUser.username).toLowerCase()) return;
-      var slot = document.getElementById("productSlotView");
-      if (!slot || slot.querySelector(".piprime-del")) return;
-      var b = document.createElement("button");
-      b.className = "piprime-del";
-      b.textContent = "🗑️ حذف هذا المنتج";
-      b.style.cssText = "margin-top:10px;width:100%;background:#fee2e2;color:#991b1b;border:none;padding:11px;border-radius:11px;font-family:'Tajawal',sans-serif;font-weight:800;cursor:pointer";
-      b.onclick = function () { delProduct(item.id); };
-      slot.appendChild(b);
-    } catch (e) {}
-  };
-})();
-      </script>
+/* ============ Cart ============ */
+function addToCart(id) {
+  const p = products.find(x => x.id === id); if (!p) return;
+  if (cart.some(i => i.id === id)) return;
+  if (cart.length && cart[0].owner.toLowerCase() !== p.owner.toLowerCase()) { modal(t("cart"), `<p>${esc(t("oneSeller"))}</p>`); return; }
+  cart.push({ id: p.id, title: p.title, amount: p.amount, owner: p.owner });
+  saveCart(); renderCartLabel(); setStatus(t("inCart") + ": " + p.title);
+}
+function openCart() {
+  if (!cart.length) { modal(t("cart"), `<p>${esc(t("cartEmpty"))}</p>`); return; }
+  const total = Number(cart.reduce((s, i) => s + i.amount, 0).toFixed(4));
+  modal(t("cart"), cart.map((i, k) => `<div class="li"><div><strong>${esc(i.title)}</strong><div class="own">${i.amount} ${unit()}</div></div><button class="x" data-rm="${k}">×</button></div>`).join("") +
+    `<p style="margin:12px 0;font-weight:800;color:var(--p2)">${esc(t("total"))}: ${total} ${unit()}</p><button class="full" data-act="payCart">${esc(t("payPi"))}</button>`);
+}
+function payCart() {
+  if (!cart.length) return;
+  closeModal();
+  pay(cart.reduce((s, i) => s + i.amount, 0), `PiPrime (${cart.length})`, { itemIds: cart.map(i => i.id), seller: cart[0].owner });
+}
+
+/* ============ Products ============ */
+function openAdd() {
+  if (!user) { connect().then(ok => ok && openAdd()); return; }
+  const opts = CATS.map(c => `<option value="${c}">${esc(catLabel(c))}</option>`).join("");
+  modal(t("newT"), `
+    <div class="fg"><label>${esc(t("name"))}</label><input id="pTitle" maxlength="80"></div>
+    <div class="fg"><label>${esc(t("cat"))}</label><select id="pCat">${opts}</select></div>
+    <div class="fg"><label>${esc(t("price"))} (${unit()})</label><input id="pAmount" type="number" step="0.005" min="0.005" value="0.02"></div>
+    <div class="fg"><label>${esc(t("img"))}</label><input id="pImg" type="url" placeholder="https://..."></div>
+    <div class="fg"><label>${esc(t("desc"))}</label><textarea id="pDesc" rows="3" maxlength="500"></textarea></div>
+    <div class="err" id="pErr"></div>
+    <button class="full" id="pSave" data-act="save">${esc(t("publish"))}</button>`);
+}
+let saving = false;
+async function saveProduct() {
+  if (saving) return;
+  const v = id => $(id).value.trim();
+  const amount = Number(v("pAmount"));
+  if (!v("pTitle") || !v("pDesc") || !(amount > 0)) { $("pErr").textContent = t("fill"); return; }
+  saving = true; $("pErr").textContent = t("saving");
+  try {
+    const d = await api("/api/products", { title: v("pTitle"), cat: v("pCat"), amount, description: v("pDesc"), img: httpsUrl(v("pImg")) }, true);
+    await loadProducts(); closeModal(); cat = "all"; showDetail(String(d.product.id));
+  } catch (e) { $("pErr").textContent = "Error: " + e.message; }
+  saving = false;
+}
+async function delProduct(id) {
+  if (!confirm(t("delQ"))) return;
+  try {
+    await api("/api/products/delete", { id }, true);
+    cart = cart.filter(i => i.id !== id); saveCart(); renderCartLabel();
+    closeDetail(); await loadProducts(); setStatus(t("deleted"));
+  } catch (e) { setStatus("Delete error: " + e.message); }
+}
+
+/* ============ Account, modal, language ============ */
+function openAccount() {
+  const mine = products.filter(isMine);
+  modal(t("acc"), `<p style="margin-bottom:10px">Pi: <strong>${user ? esc(me()) : "-"}</strong></p>` +
+    (user ? `<p style="margin-bottom:10px">${esc(t("myItems"))}: <strong>${mine.length}</strong></p>` +
+      mine.map(p => `<button class="soft" style="width:100%;margin-bottom:6px" data-open="${esc(p.id)}">${esc(p.title)} • ${p.amount} ${unit()}</button>`).join("")
+      : `<button class="full" data-act="connect">${esc(t("connect"))}</button>`));
+}
+function modal(title, html) { $("mTitle").textContent = title; $("mBody").innerHTML = html; $("modal").classList.add("open"); }
+function closeModal() { $("modal").classList.remove("open"); }
+function applyLang() {
+  const d = TX[lang];
+  document.documentElement.lang = lang; document.documentElement.dir = d.dir;
+  $("lang").value = lang;
+  $("q").placeholder = d.ph; $("searchBtn").textContent = d.search; $("addBtn").textContent = d.add;
+  if (!user) $("authBtn").textContent = d.connect;
+  $("tHome").textContent = d.home_; $("tAcc").textContent = d.acc;
+  $("fPriv").textContent = d.privacy; $("fTos").textContent = d.tos; $("net").textContent = d.netNote;
+  renderCartLabel();
+}
+function setNav(id) { ["nHome","nCart","nAcc"].forEach(n => $(n).classList.toggle("on", n === id)); }
+
+/* ============ Events (single delegated handler) ============ */
+const ACTS = {
+  connect: () => { closeModal(); connect(); }, render, add: openAdd, save: saveProduct, close: closeModal,
+  home: () => { closeDetail(); cat = "all"; setNav("nHome"); render(); },
+  cart: () => { setNav("nCart"); openCart(); }, account: () => { setNav("nAcc"); openAccount(); },
+  closeDetail, payCart
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act],[data-cat],[data-open],[data-cart],[data-pay],[data-del],[data-rm]");
+  if (e.target.id === "modal") return closeModal();
+  if (!el) return;
+  const d = el.dataset;
+  if (d.act && ACTS[d.act]) ACTS[d.act]();
+  else if (d.cat) { closeDetail(); cat = d.cat; render(); }
+  else if (d.open) { closeModal(); showDetail(d.open); }
+  else if (d.cart) addToCart(d.cart);
+  else if (d.pay) { const p = products.find(x => x.id === d.pay); if (p) pay(p.amount, "PiPrime: " + p.title, { itemIds: [p.id], seller: p.owner }); }
+  else if (d.del) delProduct(d.del);
+  else if (d.rm !== undefined) { cart.splice(Number(d.rm), 1); saveCart(); renderCartLabel(); openCart(); }
+});
+document.addEventListener("error", e => {
+  const img = e.target;
+  if (img && img.tagName === "IMG" && img.hasAttribute("data-img")) img.replaceWith(document.createTextNode("π"));
+}, true);
+$("q").addEventListener("input", render);
+$("lang").addEventListener("change", e => {
+  lang = TX[e.target.value] ? e.target.value : "ar";
+  try { localStorage.setItem(LANG_KEY, lang); } catch (x) {}
+  applyLang(); render();
+});
+
+applyLang(); render(); loadProducts();
+</script>
 </body>
 </html>
